@@ -1,4 +1,5 @@
-import React from 'preact'
+import React from 'react';
+
 
 export function App(){
     return (
