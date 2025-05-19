@@ -2,3 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+    :root {
+      --space: 8px;
+      --front-bg: #fffcf6;
+      --front-primary: #000000;
+      --front-secondary: #2b3131;
+      --front-tertiary: #9EF8EE;
+      --front-red: #F24B0F;
+      --front-black: #2E2C33;
+      --container: 92%;
+      --container-sm: var(--container);
+      @media (min-width: 768px) {
+        --container: 90%;
+      }
+      @media (min-width: 992px) {
+        --container: 90vw;
+      }
+      @media (min-width: 1300px) {
+        --container-sm: 75vw;
+      }
+      @media (min-width: 1800px) {
+        --container: 1640px;
+        --container-sm: 1364px;
+      }
+    }
+  }
+
+  @import "header.scss"
