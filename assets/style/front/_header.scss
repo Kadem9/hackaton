@@ -1,19 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
+
 .header__nav {
-    @apply bg-red-50 rounded
-}
-.header__title{
-    text-align: center;
-    justify-content: flex-end;
-}
-.nav {
-    list-style: none;
     display: flex;
-    gap: 1rem; 
-    padding: 0;
-    margin: 0;
+    align-items: center;
+    justify-content: space-between;
   }
-  
-  .nav-right {
-    justify-content: flex-end;
-  }
-  
+.header__title{
+    font-family: "Orbitron", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 40px;
+    text-align: center;
+}
+.header__nav_ul {
+    display: flex;
+    gap:1rem;
+}
