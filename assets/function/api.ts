@@ -1,7 +1,11 @@
 type FetchParams = Record<string, any>
 export async function jsonFetch (url: string, params:FetchParams = {}) {
   if (params.body instanceof FormData) {
-    params.body = Object.fromEntries(params.body)
+    const formDataObj: Record<string, any> = {};
+    params.body.forEach((value, key) => {
+      formDataObj[key] = value;
+    });
+    params.body = formDataObj;
   }
   if (params.body && typeof params.body === 'object') {
     params.body = JSON.stringify(params.body)

@@ -29,6 +29,14 @@ export default {
         'contrast-hover' : 'var(--contrast-hover)',
         'contrast-opacity' : 'var(--contrast-opacity)',
         'grey' : 'var(--grey)',
+        //front
+        'front-bg': 'var(--front-bg)',
+        'front-primary': 'var(--front-primary)',
+        'front-secondary': 'var(--front-secondary)',
+        'front-tertiary': 'var(--front-tertiary)',
+        'front-red': 'var(--front-red)',
+        'front-green': 'var(--front-green)',
+        'front-black': 'var(--front-black)',
       },
       gridTemplateColumns: {
         '260-1' : '260px 1fr',

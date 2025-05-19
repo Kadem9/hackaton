@@ -1,0 +1,56 @@
+.btn {
+  @apply inline-block text-[16px] font-semibold px-[33px] py-[12px] border-2 border-solid rounded-[50px] min-w-[200px] text-center whitespace-nowrap;
+  @media (min-width: 768px) {
+    @apply text-[21px];
+  }
+  &[data-btn="sm"] {
+    @apply min-w-[156px];
+  }
+  &[data-btn="xs"] {
+    @apply min-w-[156px] text-[16px] !important;
+  }
+  &[disabled] {
+    @apply bg-gray-500 border-gray-50 !important;
+  }
+}
+
+%buttonIcon {
+  @apply transition-colors duration-300 ease-out;
+}
+//.btn-text-bg
+.btn-black-white {
+  @extend .btn;
+  @apply bg-white text-front-black border-white;
+}
+.btn-b-black-white {
+  @extend .btn-black-white;
+  @apply border-front-black;
+}
+.btn-primary-white {
+  @extend .btn;
+  @apply bg-white text-front-primary border-white;
+}
+.btn-b-primary-white {
+  @extend .btn-primary-white;
+  @apply border-front-primary;
+}
+.btn-white-primary {
+  @extend .btn;
+  @apply bg-front-primary text-white border-front-primary;
+}
+.btn-white-secondary {
+  @extend .btn;
+  @apply bg-front-secondary text-white border-front-secondary;
+}
+.btn-white-red {
+  @extend .btn;
+  @apply bg-front-red text-white border-front-red;
+}
+.btn-icon-danger {
+  @apply text-front-red
+}
+
+.btn-icon-primary {
+  @extend %buttonIcon;
+  @apply text-front-primary;
+}

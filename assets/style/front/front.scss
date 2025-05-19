@@ -3,42 +3,47 @@
 @tailwind utilities;
 
 @layer base {
-    :root {
-      --space: 8px;
-      --front-bg: #fffcf6;
-      --front-primary: #000000;
-      --front-secondary: #2b3131;
-      --front-tertiary: #9EF8EE;
-      --front-red: #F24B0F;
-      --front-black: #2E2C33;
-      --container: 92%;
-      --container-sm: var(--container);
-      @media (min-width: 768px) {
-        --container: 90%;
-      }
-      @media (min-width: 992px) {
-        --container: 90vw;
-      }
-      @media (min-width: 1300px) {
-        --container-sm: 75vw;
-      }
-      @media (min-width: 1800px) {
-        --container: 1640px;
-        --container-sm: 1364px;
-      }
+  :root {
+    --space: 8px;
+    --front-bg: #fffcf6;
+    --front-primary: #000000;
+    --front-secondary: #2b3131;
+    --front-tertiary: #9EF8EE;
+    --front-red: #F24B0F;
+    --front-black: #2E2C33;
+    --container: 92%;
+    --container-sm: var(--container);
+    @media (min-width: 768px) {
+      --container: 90%;
+    }
+    @media (min-width: 992px) {
+      --container: 90vw;
+    }
+    @media (min-width: 1300px) {
+      --container-sm: 75vw;
+    }
+    @media (min-width: 1800px) {
+      --container: 1640px;
+      --container-sm: 1364px;
     }
   }
+}
 
   @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+  @import "../helper/reset";
+  @import "../helper/mixins";
   @import "header.scss";
+  @import "form.scss";
+  @import "btn.scss";
+
 
   html {
     font-size: 16px;
     scroll-behavior: smooth;
   }
-    body{
-        font-family: "Space Grotesk", sans-serif;
-        font-optical-sizing: auto;
-        font-style: normal;
-        @apply overflow-x-hidden bg-front-bg text-front-black font-normal;
-    }
+
+  body {
+      font-family: "Space Grotesk", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+  }
