@@ -1,7 +1,7 @@
 .header__nav {
     @apply bg-red-50 rounded
 }
-.header__title{
+.header__title {
     text-align: center;
     justify-content: flex-end;
 }
@@ -12,8 +12,3 @@
     padding: 0;
     margin: 0;
   }
-  
-  .nav-right {
-    justify-content: flex-end;
-  }
-  
