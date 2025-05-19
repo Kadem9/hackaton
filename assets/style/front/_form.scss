@@ -1,0 +1,83 @@
+div.form-group {
+  label {
+    @apply block text-sm font-medium text-gray-700 dark:text-gray-200;
+  }
+  input, select, textarea {
+    @apply block w-full px-2 py-1 mt-1 text-sm text-gray-900
+    bg-white dark:bg-gray-800 dark:text-gray-200
+    placeholder-gray-500 border border-gray-300 rounded-lg shadow-sm hover:ring
+    hover:ring-blue-100 focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300 focus:ring-opacity-50;
+  }
+  &.big {
+    input, select {
+      @apply text-lg;
+    }
+  }
+  &.small {
+    input, select {
+      @apply text-xs;
+    }
+  }
+  &.required label span,
+  .required span {
+    @apply text-red-500;
+  }
+  &.success input, &.success select, &.success textarea {
+    @apply border-green-300 focus:border-green-300 focus:ring-green-300;
+  }
+  &.error input, &.error select, &.error textarea {
+    @apply border-red-300 focus:border-red-300 focus:ring-red-300;
+  }
+  .support-text {
+    @apply block mt-0.5 text-xs text-gray-500;
+  }
+  &.error .support-text {
+    @apply text-red-500;
+  }
+  &.success .support-text {
+    @apply text-green-500;
+  }
+  &.disabled input, &.disabled select, &.disabled textarea {
+    @apply bg-gray-100 text-gray-500 cursor-not-allowed;
+  }
+}
+fieldset.form-group {
+  .required span {
+    @apply text-red-500;
+  }
+}
+.form-group.info {
+  .form-group-header {
+    @apply flex items-center justify-between;
+  }
+  .form-info .form-info-text {
+    width: 250px;
+    bottom: 25px;
+    right: 0;
+    @apply hidden text-sm text-gray-200 bg-gray-800 p-1 absolute rounded shadow;
+  }
+  .form-info {
+    @apply relative;
+  }
+  .form-info:hover .form-info-text {
+    @apply block;
+  }
+  .form-group-header .icon {
+    @apply text-gray-400;
+    width: 20px;
+    height: 20px;
+  }
+}
+.label-checkbox, .label-radio {
+  @apply flex items-center gap-1;
+  input[type="checkbox"], input[type="radio"] {
+    @apply text-blue-500 border border-gray-300 rounded focus:ring focus:ring-blue-300 focus:ring-opacity-50;
+  }
+}
+
+.select2 {
+  @apply block w-full px-2 py-1 mt-1 text-sm text-gray-900
+  bg-white dark:bg-gray-800 dark:text-gray-200
+  placeholder-gray-500 border border-gray-300 rounded-lg shadow-sm hover:ring
+  hover:ring-blue-100 focus:outline-none focus:ring focus:ring-blue-300 focus:border-blue-300 focus:ring-opacity-50;
+}

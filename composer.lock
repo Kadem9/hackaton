@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "87e642cfd71eb4d7ddc12e258acb8140",
+    "content-hash": "2c1383a132048cfb8c95376f57b0e2dc",
     "packages": [
         {
             "name": "doctrine/cache",
@@ -2144,7 +2144,7 @@
             "support": {
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
-            "time": "2024-09-11T13:17:53+00:00"
+            "time": "2021-07-14T16:46:02+00:00"
         },
         {
             "name": "symfony/cache",
