@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --space: 8px;
+        --card-bg: 12px;
+        --card-padding: 14px;
+        --border-radius: 3px;
+        --color: #2f3366;
+        --color-light: rgba(47, 51, 102, 0.5);
+        --bg: #f8f8fb;
+        --bg-light: #ffffff;
+        --border: rgba(0, 0, 0, 0.05);
+        --shadow: rgb(56 65 74 / 15%);
+        --contrast: #1269d3;
+        --contrast-hover: rgba(18, 105, 211, 0.85);
+        --contrast-opacity: rgba(18, 105, 211, 0.10);
+        --red: #e45858;
+        --red-opacity: rgba(228, 88, 88, 0.2);
+        --red-hover: rgba(228, 88, 88, 0.85);
+        --green: #2cb67d;
+        --green-opacity: rgba(44, 182, 125, 0.2);
+        --yellow: #faae2b;
+        --grey: #94a1b2;
+    }
+    /* dashboard tailwind class */
+    .app-dashboard {
+        @apply grid grid-cols-260-1 grid-rows-60-1 min-h-screen transition-dashboard duration-300 ease-out gap-0;
+        grid-template-areas:
+            "sidebar topbar"
+            "sidebar body";
+        align-items: initial;
+
+    }
+    .app-sidebar {
+        @apply bg-bg-light border-r border-solid border-border transition-width duration-300 ease-out;
+    }
+    .app-sidebar__title {
+        @apply text-color-light text-xs font-medium uppercase border-t border-solid border-border pt-2 mx-25 mb-1;
+    }
+    .app-sidebar__item a {
+        @apply relative flex items-center gap-1 px-3 py-2 bg-transparent hover:bg-contrast-opacity transition-background-color duration-300;
+    }
+    .app-topbar {
+        @apply h-[60px] bg-bg-light flex justify-end items-center border-b border-solid border-border px-2;
+        grid-area: topbar;
+    }
+    .app-body {
+        grid-area: body;
+    }
+    .app-sidebar {
+        grid-area: sidebar;
+    }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700&display=swap');
+@import "../helper/reset";
+@import "../helper/mixins";
+@import "_typo";
+@import "_card";
+@import "_button";
+@import "_alert";
+@import "_form";
+@import "_icon";
+@import "_badge";
+@import "_table";
+@import "_pagination";
+@import "_sort";
+@import "modal";
+
+@include dark {
+    --color: #fffffe;
+    --color-light: #94a1b2;
+    --bg: #030712;
+    --bg-light: #111827;
+    --border: rgba(255, 255, 255, 0.05);
+    --shadow: rgb(56 65 74 / 15%);
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+}

@@ -1,0 +1,25 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1">Modifier un utilisateur</h1>
+        <a href="{{ path('admin_user_index') }}" class="btn-secondary">Retour à la liste</a>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            {{ include('admin/user/_form.html.twig') }}
+        </div>
+    </div>
+
+    <h2 class="h2 mt-5">Supprimer un utilisateur</h2>
+    <div class="card mt-3">
+        <div class="card-body">
+            <div class="flex justify-end">
+                {{ include('admin/user/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

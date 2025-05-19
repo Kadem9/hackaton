@@ -1,0 +1,32 @@
+%badge {
+    @apply inline-block px-2 py-1 text-xs font-bold rounded-full;
+}
+
+.badge-primary {
+    @extend %badge;
+    @apply bg-blue-200 text-blue-500;
+}
+.badge-secondary {
+    @extend %badge;
+    @apply bg-gray-200 text-gray-500;
+}
+.badge-success {
+    @extend %badge;
+    @apply bg-green-200 text-green-600;
+}
+.badge-danger {
+    @extend %badge;
+    @apply bg-red-200 text-red-500;
+}
+.badge-warning {
+    @extend %badge;
+    @apply bg-yellow-200 text-yellow-600;
+}
+.badge-info {
+    @extend %badge;
+    @apply bg-gray-800 text-gray-100;
+}
+.badge-big {
+    @extend %badge;
+    @apply text-lg;
+}

@@ -1,0 +1,287 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block body %}
+    <div class="mt-3">
+        <h1 class="h1">Titre de niveau 1.h1</h1>
+        <h2 class="h2">Titre de niveau 2.h2</h2>
+        <h3 class="h3">Titre de niveau 3.h3</h3>
+        <h4 class="h4">Titre de niveau 4.h4</h4>
+    </div>
+    <div class="mt-3">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius. Expressa vero in iis aetatibus, quae iam confirmatae sunt. Commoda autem et incommoda in eo genere sunt, quae praeposita et reiecta diximus; Quantam rem agas, ut Circeis qui habitet totum hunc mundum suum municipium esse existimet?
+        </p>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Card</h1>
+        <div class="card">
+            <div class="card-header">
+                <p class="h4">Card header</p>
+            </div>
+            <div class="card-body">
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius. Expressa vero in iis aetatibus, quae iam confirmatae sunt. Commoda autem et incommoda in eo genere sunt, quae praeposita et reiecta diximus; Quantam rem agas, ut Circeis qui habitet totum hunc mundum suum municipium esse existimet?
+                </p>
+            </div>
+            <div class="card-footer">
+                <p>Card Footer</p>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Boutons</h1>
+        <div class="flex gap-2">
+            <button type="button" class="btn-primary">.btn-primary</button>
+            <button type="button" class="btn-secondary">.btn-secondary</button>
+            <button type="button" class="btn-tertiary">.btn-tertiary</button>
+            <button type="button" class="btn-danger">.btn-danger</button>
+            <button type="button" class="btn-success">.btn-success</button>
+            <button type="button" class="btn-danger" disabled>.btn-* [disabled]</button>
+        </div>
+        <div class="flex gap-2 mt-2">
+            <button type="button" class="btn-primary-outline">.btn-primary-outline</button>
+            <button type="button" class="btn-secondary-outline">.btn-secondary-outline</button>
+        </div>
+        <div class="flex gap-2 mt-2 items-start">
+            <button type="button" class="btn-primary btn-big">.btn-primary.btn-big</button>
+            <button type="button" class="btn-primary btn-small">.btn-primary.btn-small</button>
+            <button type="button" class="btn-icon-primary">
+                {{ icon('edit') }}
+            </button>
+            <button type="button" class="btn-icon-secondary">
+                {{ icon('user') }}
+            </button>
+            <button type="button" class="btn-icon-danger">
+                {{ icon('trash') }}
+            </button>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Alertes</h1>
+        <div class="flex flex-col gap-1">
+            <alert-message type="primary">
+                .alert-primary Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+            </alert-message>
+            <alert-message type="success">
+                .alert-success Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+            </alert-message>
+            <alert-message type="info">
+                .alert-info Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+            </alert-message>
+            <alert-message type="error">
+                .alert-danger Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+            </alert-message>
+            <alert-message type="warning">
+                .alert-warning Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+            </alert-message>
+        </div>
+
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Badges</h1>
+        <div class="flex gap-2 items-center">
+            <span class="badge-primary">.badge-primary</span>
+            <span class="badge-secondary">.badge-secondary</span>
+            <span class="badge-success">.badge-success</span>
+            <span class="badge-danger">.badge-danger</span>
+            <span class="badge-warning">.badge-warning</span>
+            <span class="badge-info">.badge-info</span>
+
+            <span class="badge-primary badge-big">.badge-big</span>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Formulaires</h1>
+        <div class="card">
+            <div class="card-body">
+                <div class="grid grid-cols-3 items-start gap-2">
+                    <div class="form-group">
+                        <label for="input1">Input 1</label>
+                        <input type="text" class="form-control" id="input1" placeholder="Input 1">
+                    </div>
+                    <div class="form-group">
+                        <label for="select">Select</label>
+                        <select name="select" id="select">
+                            <option value=""></option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                    </div>
+                    <div class="form-group success">
+                        <label for="input-success">Input success</label>
+                        <input type="text" class="form-control" id="input-success" placeholder="Input 1">
+                    </div>
+                    <div class="form-group error">
+                        <label for="input-error">Input error</label>
+                        <input type="text" class="form-control" id="input-error" placeholder="Input error">
+                    </div>
+                    <div class="form-group">
+                        <label for="input-support">Input 1</label>
+                        <input type="text" class="form-control" id="input-support" placeholder="Input 1">
+                        <small class="support-text">
+                            Lorem ipsum dolor sit amet
+                        </small>
+                    </div>
+                    <div class="form-group required">
+                        <label for="input2">Required 1 <span>*</span></label>
+                        <input type="text" class="form-control" id="input2" required placeholder="Input required">
+                    </div>
+                    <div class="form-group info">
+                        <div class="form-group-header">
+                            <label for="input2">Label info <span>*</span></label>
+                            <div class="form-info">
+                                <div class="form-info-text">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius.
+                                </div>
+                                {{ icon('info') }}
+                            </div>
+                        </div>
+                        <input type="text" class="form-control" id="input2" required placeholder="Input required">
+                    </div>
+                    <div class="form-group big">
+                        <label for="input-big">Input big</label>
+                        <input type="text" class="form-control" id="input-big" placeholder="Input big">
+                    </div>
+                    <div class="form-group small">
+                        <label for="input-small">Input small</label>
+                        <input type="text" class="form-control" id="input-small" placeholder="Input small">
+                    </div>
+                    <div class="form-group">
+                        <label for="textarea">Input 1</label>
+                        <textarea name="textarea" id="textarea"></textarea>
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                    <div>
+                        <label for="checkbox1" class="label-checkbox">
+                            <input type="checkbox" name="checkbox1" id="checkbox1">
+                            <span>Active</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="checkbox2" class="label-checkbox">
+                            <input type="checkbox" name="checkbox2" id="checkbox2" checked>
+                            <span>Checked</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="checkbox3" class="label-checkbox">
+                            <input type="checkbox" name="checkbox3" id="checkbox3" disabled>
+                            <span>Disabled</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="flex gap-2 mt-3">
+                    <div>
+                        <label for="radio1" class="label-radio">
+                            <input type="radio" name="radio1" id="radio1">
+                            <span>Active</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="radio2" class="label-radio">
+                            <input type="radio" name="radio2" id="radio2" checked>
+                            <span>Checked</span>
+                        </label>
+                    </div>
+                    <div>
+                        <label for="radio3" class="label-radio">
+                            <input type="radio" name="radio3" id="radio3" disabled>
+                            <span>Disabled</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Icons</h1>
+        <div class="flex flex-wrap items-center gap-1">
+            {% for icon in icons %}
+            <span title="{{ icon }}">
+                {{ icon(icon) }}
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Table</h1>
+        <div class="card">
+            <div class="card-header">
+                <p class="h4">Table</p>
+            </div>
+            <div class="card-body p0">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Header 1</th>
+                            <th>Header 2</th>
+                            <th>Header 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>Cell 1</td>
+                        <td>Cell 2</td>
+                        <td>Cell 3</td>
+                    </tr>
+                    <tr>
+                        <td>Cell 1</td>
+                        <td>Cell 2</td>
+                        <td>Cell 3</td>
+                    </tr>
+                    <tr>
+                        <td>Cell 1</td>
+                        <td>Cell 2</td>
+                        <td>Cell 3</td>
+                    </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Footer 1</td>
+                            <td>Footer 2</td>
+                            <td>Footer 3</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="mt-3">
+        <h1 class="h1">Pagination</h1>
+        <div>
+            <ul class="pagination">
+                <li class="pagination-item" aria-disabled="true">
+                    <span>
+                        {{ icon('left') }}
+                    </span>
+                </li>
+                <li class="active pagination-item">
+                    <span>1</span>
+                </li>
+                <li class="pagination-item">
+                    <a href="#">2</a>
+                </li>
+                <li class="pagination-item">
+                    <a href="#">3</a>
+                </li>
+                <li class="pagination-item">
+                    <a rel="next" href="#">
+                        {{ icon('right') }}
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="mt-3">
+        <h1 class="h1">Modal</h1>
+        <button class="btn-primary open-modal">Ouvrir modal</button>
+        <modal-box title="Titre de modal" trigger=".open-modal">
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam ante Aristippus, et ille melius. Expressa vero in iis aetatibus, quae iam confirmatae sunt. Commoda autem et incommoda in eo genere sunt, quae praeposita et reiecta diximus; Quantam rem agas, ut Circeis qui habitet totum hunc mundum suum municipium esse existimet?
+            </p>
+        </modal-box>
+    </div>
+{% endblock %}

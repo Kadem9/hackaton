@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+<div class="grid grid-cols-2 gap-2">
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.roles) }}
+    {{ form_widget(form.enabled) }}
+</div>
+
+<button class="btn-primary mt-3" >
+    Valider
+</button>
+{{ form_end(form) }}

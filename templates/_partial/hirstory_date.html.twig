@@ -1,0 +1,4 @@
+<div class="flex justify-between items-center">
+    <p class="italic">Créé le : {{ createdAt|date('d/m/Y H:i') }}</p>
+    <p class="italic">Modifié le : {{ updatedAt ? updatedAt|date('d/m/Y H:i') : 'jamais' }}</p>
+</div>

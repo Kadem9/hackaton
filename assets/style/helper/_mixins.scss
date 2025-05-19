@@ -1,0 +1,21 @@
+@mixin dark () {
+    @if (&) {
+        @media (prefers-color-scheme: dark) {
+            body:not([class~='light']) & {
+                @content;
+            }
+        }
+        .dark &{
+            @content;
+        }
+    } @else {
+        @media (prefers-color-scheme: dark) {
+            body:not([class~='light']) {
+                @content;
+            }
+        }
+        .dark {
+            @content;
+        }
+    }
+}

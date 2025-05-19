@@ -1,0 +1,6 @@
+.sort {
+    @apply flex gap-0.5;
+    &.current {
+        @apply text-emerald-600;
+    }
+}

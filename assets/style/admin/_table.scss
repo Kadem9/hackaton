@@ -1,0 +1,30 @@
+.table {
+    @apply w-full table-auto;
+    thead {
+        @apply bg-gray-50 text-gray-500 border-t border-solid border-gray-100 dark:bg-gray-800 dark:border-gray-900;
+    }
+    thead th {
+        @apply px-2 py-2 uppercase text-xs text-left font-bold;
+    }
+    tbody td {
+        @apply px-2 py-2 text-sm text-left border-t border-solid border-gray-100 dark:border-gray-700;
+    }
+    tfoot {
+        @apply bg-gray-50 text-gray-500 border-b border-solid border-gray-100 dark:bg-gray-800 dark:border-gray-900;
+    }
+    tfoot td {
+        @apply px-2 py-2 text-sm text-left border-t border-solid border-gray-100 dark:border-gray-900;
+    }
+    &.table-sm {
+        @apply text-sm;
+        thead th {
+            @apply text-xs;
+        }
+        tbody td {
+            @apply text-xs;
+        }
+        tfoot td {
+            @apply text-xs;
+        }
+    }
+}

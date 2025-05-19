@@ -1,0 +1,55 @@
+{% extends 'base_admin.html.twig' %}
+
+{% block title %}User index{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-between">
+        <h1 class="h1">Utilisateurs</h1>
+        <a href="{{ path('admin_user_new') }}" class="btn-primary">Créer un utilisateur</a>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-header">
+            <h2 class="h4">
+                Liste des utilisateurs
+            </h2>
+        </div>
+        <div class="card-body p0"><table class="table">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Date de création</th>
+                    <th>Enabled</th>
+                    <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.email }}</td>
+                        <td>{{ user.createdAt ? user.createdAt|date('d/m/Y') : '' }}</td>
+                        <td>
+                            <span class="badge-{{ user.enabled ? 'success' : 'danger' }}">
+                                {{ user.enabled ? 'Oui' : 'Non' }}
+                            </span>
+                        </td>
+                        <td>
+                            <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn-icon-primary">
+                                {{ icon('edit') }}
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="10">Aucun résultat</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+{% endblock %}

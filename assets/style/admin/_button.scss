@@ -1,0 +1,89 @@
+%button {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-1 rounded-md shadow-md text-lg transition-colors duration-300 ease-out;
+}
+%buttonIcon {
+    @apply transition-colors duration-300 ease-out;
+}
+
+.btn-primary {
+    @extend %button;
+    @apply bg-blue-600 text-white;
+    &:hover {
+        @apply bg-blue-700;
+    }
+}
+.btn-primary-outline {
+    @extend %button;
+    @apply text-blue-600 bg-white shadow-none border border-blue-600 border-solid;
+    &:hover {
+        @apply bg-blue-700 text-white;
+    }
+}
+.btn-secondary {
+    @extend %button;
+    @apply bg-slate-400 text-white;
+    &:hover {
+        @apply bg-slate-500;
+    }
+}
+.btn-tertiary {
+    @extend %button;
+    @apply bg-purple-400 text-white;
+    &:hover {
+        @apply bg-purple-500;
+    }
+}
+.btn-secondary-outline {
+    @extend %button;
+    @apply text-slate-500 bg-white shadow-none border border-slate-500 border-solid;
+    &:hover {
+        @apply bg-slate-500 text-white;
+    }
+}
+.btn-danger {
+    @extend %button;
+    @apply bg-red-600 text-white;
+    &:hover {
+        @apply bg-red-700;
+    }
+}
+.btn-success {
+    @extend %button;
+    @apply bg-emerald-500 text-white;
+    &:hover {
+        @apply bg-emerald-700;
+    }
+}
+button[disabled] {
+    @apply cursor-not-allowed opacity-50 bg-gray-500;
+    &:hover {
+        @apply bg-gray-500;
+    }
+}
+.btn-big {
+    @apply text-xl px-5 py-3;
+}
+.btn-small {
+    @apply text-sm;
+}
+.btn-icon-primary {
+    @extend %buttonIcon;
+    @apply text-blue-600;
+    &:hover {
+        @apply text-blue-700;
+    }
+}
+.btn-icon-secondary {
+    @extend %buttonIcon;
+    @apply text-slate-500;
+    &:hover {
+        @apply text-slate-600;
+    }
+}
+.btn-icon-danger {
+    @extend %buttonIcon;
+    @apply text-red-500;
+    &:hover {
+        @apply text-red-600;
+    }
+}

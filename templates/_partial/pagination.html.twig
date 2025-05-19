@@ -1,0 +1,68 @@
+{% if pageCount > 1 %}
+  <ul class="pagination">
+    {% if previous is defined %}
+      <li class="pagination-item">
+        <a rel="prev" href="{{ path(route, query|merge({(pageParameterName): previous})) }}">{{ icon('left')}}</a>
+      </li>
+    {% else %}
+      <li class="pagination-item" aria-disabled="true">
+        <span>{{ icon('left')}}</span>
+      </li>
+    {% endif %}
+
+    {% if startPage > 1 %}
+      <li class="pagination-item">
+        <a href="{{ path(route, query|merge({(pageParameterName): 1})) }}">1</a>
+      </li>
+      {% if startPage == 3 %}
+        <li class="pagination-item">
+          <a href="{{ path(route, query|merge({(pageParameterName): 2})) }}">2</a>
+        </li>
+      {% elseif startPage != 2 %}
+        <li aria-disabled="true">
+          <span>&hellip;</span>
+        </li>
+      {% endif %}
+    {% endif %}
+
+    {% for page in pagesInRange %}
+      {% if page != current %}
+        <li class="pagination-item">
+          <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
+        </li>
+      {% else %}
+        <li class="active pagination-item">
+          <span>{{ page }}</span>
+        </li>
+      {% endif %}
+
+    {% endfor %}
+
+    {% if pageCount > endPage %}
+      {% if pageCount > (endPage + 1) %}
+        {% if pageCount > (endPage + 2) %}
+          <li class="pagination-item" aria-disabled="true">
+            <span>&hellip;</span>
+          </li>
+        {% else %}
+          <li class="pagination-item">
+            <a href="{{ path(route, query|merge({(pageParameterName): (pageCount - 1)})) }}">{{ pageCount -1 }}</a>
+          </li>
+        {% endif %}
+      {% endif %}
+      <li class="pagination-item">
+        <a href="{{ path(route, query|merge({(pageParameterName): pageCount})) }}">{{ pageCount }}</a>
+      </li>
+    {% endif %}
+
+    {% if next is defined %}
+      <li class="pagination-item">
+        <a rel="next" href="{{ path(route, query|merge({(pageParameterName): next})) }}">{{ icon('right')}}</a>
+      </li>
+    {% else %}
+      <li class="pagination-item" aria-disabled="true">
+        <span>{{ icon('right')}}</span>
+      </li>
+    {% endif %}
+  </ul>
+{% endif %}

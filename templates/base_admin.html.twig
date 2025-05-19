@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex,nofollow">
+    <title>{% block title %}CMS{% endblock %}</title>
+    {{ vite_asset('admin.ts') }}
+</head>
+<body class="{{ user_theme() }} text-[14px] text-color bg-bg overflow-x-hidden">
+<div class="app-dashboard" id="app-dashboard">
+    <aside class="app-sidebar">
+        <nav class="sticky top-0">
+            <div class="app-sidebar__logo mx-25 h-[60px] relative flex justify-center items-center border-b border-solid border-border text-contrast">
+                <span class="brand h3">AdminCMS</span>
+                <div class="app-sidebar__btn">
+                    <button id="sidebar-btn">{{ icon('left', true) }}</button>
+                </div>
+            </div>
+            <ul class="app-sidebar__menu">
+                <li class="app-sidebar__title">Membres</li>
+                <li class="app-sidebar__item {{ current_route_class('admin_member_') }}">
+                    <a href="{{ path('admin_member_index') }}" class="[.active_&]:bg-contrast-opacity">
+                        {{ icon('member', true) }} Adhérents
+                    </a>
+                </li>
+                <li class="app-sidebar__title">Fédération</li>
+                <li class="app-sidebar__item {{ current_route_class('admin_club_') }}">
+                    <a href="{{ path('admin_club_index') }}" class="[.active_&]:bg-contrast-opacity">
+                        {{ icon('squares', true) }} Clubs
+                    </a>
+                </li>
+                <li class="app-sidebar__title">Gestion</li>
+                <li class="app-sidebar__item {{ current_route_class('admin_user_') }}">
+                    <a href="{{ path('admin_user_index') }}" class="[.active_&]:bg-contrast-opacity">
+                        {{ icon('users', true) }} Utilisateurs
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+    <aside class="app-topbar">
+        <div>
+            <ul class="app-topbar__menu flex items-center gap-3">
+                <li>
+                    <theme-switcher></theme-switcher>
+                </li>
+                <li class="app-topbar_item"><a href="">{{ current_username() }}</a></li>
+                <li class="app-topbar_item"><a href="">{{ icon('logout', true) }}</a></li>
+            </ul>
+        </div>
+    </aside>
+    <main class="app-body max-w-full p-2 overflow-x-hidden">
+        {% for label, messages in app.flashes(['success', 'error', 'info']) %}
+            {% for message in messages %}
+                <alert-message type="{{ label }}">
+                    {{ message|trans|raw }}
+                </alert-message>
+            {% endfor %}
+        {% endfor %}
+        {% block body %}{% endblock %}
+    </main>
+</div>
+</body>
+{% block javascripts_end %}{% endblock %}
+</html>

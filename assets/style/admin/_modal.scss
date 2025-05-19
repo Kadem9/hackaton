@@ -1,0 +1,18 @@
+.modal {
+    @apply fixed w-screen h-screen top-0 left-0 items-start pt-10 justify-center bg-black bg-opacity-50 z-50 hidden;
+    &.show {
+        @apply flex;
+    }
+    .modal-content {
+        @apply bg-white rounded-lg max-w-[90%] w-[800px] max-h-[90%] overflow-y-auto;
+    }
+    .modal-content.large {
+        @apply w-[1200px];
+    }
+    .modal-header {
+        @apply flex justify-between items-center pb-2 border-b border-b-gray-200 border-solid p-3;
+    }
+    .modal-body {
+        @apply px-3 py-2;
+    }
+}
