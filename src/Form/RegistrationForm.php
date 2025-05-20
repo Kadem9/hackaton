@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,6 +20,22 @@ class RegistrationForm extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('civility', ChoiceType::class, [
+                'label' => 'Vous êtes',
+                'choices' => [
+                    'Monsieur' => 'Monsieur',
+                    'Madame' => 'Madame',
+                ],
+            ])
+            ->add('type', ChoiceType::class, [
+                'label' => 'Je suis',
+                'choices' => [
+                    'Un particulier' => 'particulier',
+                    'Un professionnel' => 'professionnel',
+                ],
+                'expanded' => true,
+                'multiple' => false,
+            ])
             ->add('email', EmailType::class, [
                 'label' => 'Votre adresse mail',
                 'required' => true,

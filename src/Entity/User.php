@@ -61,12 +61,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(targetEntity: UserPreference::class, mappedBy: 'user')]
     private Collection $userPreferences;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $civility = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $address = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $phone = null;
+
+    /**
+     * @var Collection<int, Vehicle>
+     */
+    #[ORM\OneToMany(targetEntity: Vehicle::class, mappedBy: 'user')]
+    private Collection $vehicles;
+
+    /**
+     * @var Collection<int, Conductor>
+     */
+    #[ORM\OneToMany(targetEntity: Conductor::class, mappedBy: 'user')]
+    private Collection $conductors;
+
+    #[ORM\Column(length: 255)]
+    private ?string $type = null;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->enabled = true;
         $this->theme = 'light';
         $this->userPreferences = new ArrayCollection();
+        $this->vehicles = new ArrayCollection();
+        $this->conductors = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -255,6 +281,114 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $userPreference->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCivility(): ?string
+    {
+        return $this->civility;
+    }
+
+    public function setCivility(?string $civility): static
+    {
+        $this->civility = $civility;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(?string $address): static
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): static
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vehicle>
+     */
+    public function getVehicles(): Collection
+    {
+        return $this->vehicles;
+    }
+
+    public function addVehicle(Vehicle $vehicle): static
+    {
+        if (!$this->vehicles->contains($vehicle)) {
+            $this->vehicles->add($vehicle);
+            $vehicle->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeVehicle(Vehicle $vehicle): static
+    {
+        if ($this->vehicles->removeElement($vehicle)) {
+            // set the owning side to null (unless already changed)
+            if ($vehicle->getUser() === $this) {
+                $vehicle->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Conductor>
+     */
+    public function getConductors(): Collection
+    {
+        return $this->conductors;
+    }
+
+    public function addConductor(Conductor $conductor): static
+    {
+        if (!$this->conductors->contains($conductor)) {
+            $this->conductors->add($conductor);
+            $conductor->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConductor(Conductor $conductor): static
+    {
+        if ($this->conductors->removeElement($conductor)) {
+            // set the owning side to null (unless already changed)
+            if ($conductor->getUser() === $this) {
+                $conductor->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): static
+    {
+        $this->type = $type;
 
         return $this;
     }

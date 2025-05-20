@@ -3,5 +3,22 @@
 {% block title %}Mon compte{% endblock %}
 
 {% block body %}
+    <div class="fo-container mt-page">
+        <div class="grid grid-cols-1-3">
+            {% include 'front/account/_partial/_sidebar.html.twig' %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Mon compte</h2>
+                </div>
+                <div class="card-body">
+                    <div class="grid grid-cols-1-3 gap-4">
+                        <p><span class="text-gray-500">Nom :</span><br><span class="text-xl">{{ app.user.lastname }}</span></p>
+                        <p><span class="text-gray-500">Prénom :</span><br><span class="text-xl">{{ app.user.firstname }}</span></p>
+                        <p><span class="text-gray-500">Email :</span><br><span class="text-xl">{{ app.user.email }}</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}

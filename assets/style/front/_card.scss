@@ -1,0 +1,18 @@
+.card {
+    @apply flex flex-col bg-bg-light border border-solid border-border shadow-sm;
+}
+.card .card-header {
+    @apply flex items-center justify-between p-2 bg-bg-light border-b border-solid border-border;
+}
+.card .card-body {
+    @apply p-2 bg-bg-light;
+}
+.card .card-body.p0 {
+    @apply p-0;
+}
+.card .card-footer {
+    @apply p-2 bg-gray-50 border-t border-solid border-t-gray-100 dark:bg-gray-800;
+    & p {
+        @apply text-gray-500;
+    }
+}

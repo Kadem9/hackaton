@@ -30,22 +30,39 @@
   }
 }
 
-  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
-  @import "../helper/reset";
-  @import "../helper/mixins";
-  @import "header.scss";
-  @import "form.scss";
-  @import "btn.scss";
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+@import "../helper/reset";
+@import "../helper/mixins";
+@import "header.scss";
+@import "form.scss";
+@import "btn.scss";
+@import "grid.scss";
+@import "card.scss";
 
 
-  html {
-    font-size: 16px;
-    scroll-behavior: smooth;
-  }
 
-  body {
-      font-family: "Space Grotesk", sans-serif;
-      font-optical-sizing: auto;
-      font-style: normal;
-  }
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
 
+body {
+    font-family: "Space Grotesk", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+/* container */
+.fo-container, .fo-container-sm {
+  @apply mx-auto;
+}
+.fo-container {
+  width: var(--container);
+}
+.fo-container-sm {
+  width: var(--container-sm);
+}
+
+.mt-page {
+  @apply mt-[50px];
+}
