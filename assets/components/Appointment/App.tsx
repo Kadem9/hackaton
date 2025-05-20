@@ -8,13 +8,16 @@ export function App() {
             bot.setAttribute('chat-title', 'RDV Auto');
             bot.setAttribute('agent-id', '038f7a1e-73dc-49e4-a903-7d586b52165b');
             bot.setAttribute('language-code', 'fr');
+            bot.setAttribute('mode', 'embedded');
             document.body.appendChild(bot);
         }
     }, []);
 
     return (
-        <div>
-            <p>Notre assistant est disponible pour prendre un RDV avec vous.</p>
+        <div className="chatbox-wrapper">
+            <h2 className="text-lg mb-4">Assistance Prise de Rendez-vous</h2>
+            <div id="chatbot-container"
+                 className="border rounded-xl shadow-md overflow-hidden h-[600px] max-w-[400px] mx-auto"></div>
         </div>
     );
 }
