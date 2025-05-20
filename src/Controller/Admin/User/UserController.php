@@ -3,7 +3,7 @@
 namespace App\Controller\Admin\User;
 
 use App\Entity\User;
-use App\Form\UserType;
+use App\Form\User\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;

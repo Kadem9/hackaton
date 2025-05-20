@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehicleRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,9 +34,20 @@ class Vehicle
     #[ORM\Column(nullable: true)]
     private ?int $mileage = null;
 
+    /**
+     * @var Collection<int, Appointment>
+     */
+    #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'vehicle')]
+    private Collection $appointments;
+
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
+    private ?Conductor $conductor = null;
+
+    public function __construct()
+    {
+        $this->appointments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -113,15 +126,46 @@ class Vehicle
         return $this;
     }
 
-    public function getUser(): ?User
+    /**
+     * @return Collection<int, Appointment>
+     */
+    public function getAppointments(): Collection
     {
-        return $this->user;
+        return $this->appointments;
     }
 
-    public function setUser(?User $user): static
+    public function addAppointment(Appointment $appointment): static
     {
-        $this->user = $user;
+        if (!$this->appointments->contains($appointment)) {
+            $this->appointments->add($appointment);
+            $appointment->setVehicle($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAppointment(Appointment $appointment): static
+    {
+        if ($this->appointments->removeElement($appointment)) {
+            // set the owning side to null (unless already changed)
+            if ($appointment->getVehicle() === $this) {
+                $appointment->setVehicle(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getConductor(): ?Conductor
+    {
+        return $this->conductor;
+    }
+
+    public function setConductor(?Conductor $conductor): static
+    {
+        $this->conductor = $conductor;
 
         return $this;
     }
 }
+

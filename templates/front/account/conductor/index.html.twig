@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+{% block title %}Mes conducteurs{% endblock %}
+
+{% block body %}
+    <div class="fo-container mt-page">
+        <div class="grid grid-cols-1-3">
+            {% include 'front/account/_partial/_sidebar.html.twig' %}
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Mes conducteurs</h2>
+                    <a href="{{ path('account_conductor_new') }}" class="btn-white-secondary">Ajouter un conducteur</a>
+                </div>
+                <div class="card-body">
+                    {% if conductors is empty %}
+                        <p>Aucun conducteur enregistré.</p>
+                    {% else %}
+                        <ul>
+                            {% for conductor in conductors %}
+                                <li class="mb-2">
+                                    <strong>{{ conductor.firstname }} {{ conductor.lastname }}</strong><br>
+                                    Tel : {{ conductor.phone }}<br>
+                                    <a href="{{ path('account_conductor_edit', {id: conductor.id}) }}">Modifier</a> |
+                                    <form method="post" action="{{ path('account_conductor_delete', {id: conductor.id}) }}" style="display:inline-block;" onsubmit="return confirm('Supprimer ce conducteur ?');">
+                                        <input type="hidden" name="_token" value="{{ csrf_token('delete_conductor_' ~ conductor.id) }}">
+                                        <button class="btn-white-red" data-btn="xs">Supprimer</button>
+                                    </form>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

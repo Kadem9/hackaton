@@ -4,7 +4,7 @@ namespace App\Controller\Front\Security;
 
 use App\Entity\Conductor;
 use App\Entity\User;
-use App\Form\RegistrationForm;
+use App\Form\Register\RegistrationForm;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Bundle\SecurityBundle\Security;
