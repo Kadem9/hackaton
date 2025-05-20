@@ -3,7 +3,21 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<section class="home__banner" style="background-image: url('{{ asset('assets/img/automobile.svg') }}');">
+<section class="home__banner-section">
+  <div class="home__content-wrapper">
+    <div class="home__text">
+      <h1>Bienvenue sur Automobiles</h1>
+      <p>Découvrez nos services de location et de gestion de véhicules.</p>
+        <button class="btn-white-secondary" data-btn="xs" type="submit">
+        Contactez nous
+        </button>    
+    </div>
+    <div class="home__image">
+      <img src="{{ asset('assets/img/automobile.svg') }}" alt="Automobile">
+    </div>
+  </div>
 </section>
-        <make-appointment></make-appointment>
+
+<make-appointment></make-appointment>
+
 {% endblock %}

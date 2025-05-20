@@ -1,4 +1,54 @@
-.home__banner {
-    @apply w-full h-[400px] sm:h-[500px] md:h-[600px] bg-center bg-cover bg-no-repeat;
+.home__banner-section {
+  padding: 4rem 2rem;
+  background-color: #f9f9f9;
+}
+
+.home__content-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.home__text {
+  flex: 1;
+  min-width: 280px;
+}
+
+.home__text h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.home__text p {
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.btn-contact {
+  background-color: #000;
+  color: #fff;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #333;
   }
-  
+}
+
+.home__image {
+  flex: 1;
+  text-align: right;
+  min-width: 280px;
+}
+
+.home__image img {
+  max-width: 300px;
+  height: auto;
+}
