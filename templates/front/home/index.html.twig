@@ -6,5 +6,7 @@
 <section class="banner">
     <img src="{{ asset('assets/img/banner.webp')}}" alt="Image d'accueil">
 </section>
-<make-appointment></make-appointment>
+    {% if app.user %}
+        <make-appointment></make-appointment>
+    {% endif %}
 {% endblock %}
