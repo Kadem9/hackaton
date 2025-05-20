@@ -5,6 +5,7 @@ namespace App\Controller\Api\DialogFlow;
 
 use App\Repository\VehicleRepository;
 use App\Service\Dialogflow\DialogflowSessionStore;
+use App\Service\Dialogflow\OperationSuggestion;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -16,6 +17,7 @@ class DialogflowWebhookController extends AbstractController
     public function __construct(
         private VehicleRepository $vehicleRepo,
         private DialogflowSessionStore $store,
+        private OperationSuggestion $operationService,
     )
     {
     }
@@ -31,7 +33,8 @@ class DialogflowWebhookController extends AbstractController
             'Confirm Vehicle' => $this->handleConfirmVehicle($body),
             'Ask Driver Info' => $this->handleAskDriverInfo($body),
             'Collect Driver Info' => $this->handleCollectDriverInfo($body),
-            'Ask Problem Intent' => $this->handleAskProblem($body),
+            'Ask Problem' => $this->handleAskProblem($body),
+            'Ask Kilometrage' => $this->handleAskKilometrage($body),
             default => new JsonResponse([
                 'fulfillmentText' => "Intent non reconnu : $intent",
             ]),
@@ -164,31 +167,47 @@ class DialogflowWebhookController extends AbstractController
 
     private function handleAskProblem(array $body): JsonResponse
     {
-        $sessionId = $body['session'];
         $description = $body['queryResult']['queryText'] ?? '';
+        $sessionId = $body['session'];
 
-        $match = str_contains(strtolower($description), 'frein') ? 'Remplacement plaquettes de frein' : null;
+        $suggested = $this->operationService->suggest($description);
 
-        $this->store->set($sessionId, 'probleme', $description);
-        $this->store->set($sessionId, 'operation', $match ?? 'diagnostic');
+        if ($suggested) {
+            $this->store->set($sessionId, 'probleme', $description);
+            $this->store->set($sessionId, 'operation', $suggested['operation_name']);
 
-        if (!$match) {
             return $this->json([
-                'fulfillmentText' => "Je vous recommande un diagnostic. Voulez-vous qu’un expert vous rappelle ?",
+                'fulfillmentText' => "Merci, cela semble correspondre à : {$suggested['operation_name']}. Quel est le kilométrage de votre véhicule ?",
                 'outputContexts' => [[
-                    'name' => $sessionId . '/contexts/propose_rappel',
+                    'name' => $sessionId . '/contexts/ask_kilometrage',
                     'lifespanCount' => 5,
                 ]]
             ]);
         }
 
         return $this->json([
-            'fulfillmentText' => "Merci, cela semble être : $match. Quel est le kilométrage actuel du véhicule ?",
+            'fulfillmentText' => "Je vous recommande un diagnostic complet. Souhaitez-vous qu’un expert vous rappelle ?",
             'outputContexts' => [[
-                'name' => $sessionId . '/contexts/ask_kilometrage',
+                'name' => $sessionId . '/contexts/propose_rappel',
                 'lifespanCount' => 5,
-                'parameters' => ['operation' => $match]
             ]]
         ]);
     }
+
+    private function handleAskKilometrage(array $body): JsonResponse
+    {
+        $sessionId = $body['session'];
+        $kilometrage = (int) ($body['queryResult']['parameters']['kilometrage'] ?? 0);
+
+        $this->store->set($sessionId, 'kilometrage', $kilometrage);
+
+        return $this->json([
+            'fulfillmentText' => "Merci. Nous avons enregistré $kilometrage km. Souhaitez-vous qu’un conseiller vérifie les opérations proposées ?",
+            'outputContexts' => [[
+                'name' => $sessionId . '/contexts/verify_request',
+                'lifespanCount' => 5
+            ]]
+        ]);
+    }
+
 }

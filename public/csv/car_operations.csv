@@ -1,0 +1,58 @@
+﻿operation_name;category;additionnal_help;additionnal_comment;time_unit;price
+Service Huile Moteur;Je souhaite entretenir mon véhicule;Veuillez noter que lors de la vidange, le remplacement du microfiltre d’habitacle est nécessaire. Aussi, nous vous invitons à l’ajouter à votre sélection.;NULL;10;494
+Service microfiltre d'habitacle;Je souhaite entretenir mon véhicule;NULL;NULL;2;215
+Service filtre à carburant;Je souhaite entretenir mon véhicule;NULL;NULL;3;339
+Service filtre à air;Je souhaite entretenir mon véhicule;NULL;NULL;2;247
+Service liquide de freins;Je souhaite entretenir mon véhicule;NULL;NULL;4;409
+Service contrôle du véhicule;Je souhaite entretenir mon véhicule;NULL;NULL;6;337
+Service plaquettes de frein arrière;Je souhaite entretenir mon véhicule;NULL;NULL;7;362
+Service plaquettes de frein avant;Je souhaite entretenir mon véhicule;NULL;NULL;6;392
+Essai dynamique;Je souhaite entretenir mon véhicule;NULL;NULL;3;300
+Service bougies d'allumage;Je souhaite entretenir mon véhicule;NULL;NULL;12;552
+Indicateur de maintenance allumé sur le véhicule;Je souhaite entretenir mon véhicule;NULL;NULL;18;479
+Inspection;Je souhaite entretenir mon véhicule;NULL;NULL;55;679
+Service Plaquettes + Disques de frein Avant;Je souhaite entretenir mon véhicule;NULL;NULL;10;422
+Service Plaquettes + Disques de frein Arrière;Je souhaite entretenir mon véhicule;NULL;NULL;12;591
+Service Microfiltre d'Habitacle à Particules Fines;Je souhaite entretenir mon véhicule;NULL;NULL;2;189
+Lavage du véhicule;Je souhaite entretenir mon véhicule;NULL;NULL;4;225
+Contrôle des niveaux;Je souhaite entretenir mon véhicule;NULL;NULL;2;237
+Entretien 24 mois / 30.000 Km;Je souhaite entretenir mon véhicule;NULL;NULL;18;751
+Entretien 48 mois / 60.000 Km;Je souhaite entretenir mon véhicule;NULL;NULL;30;1169
+Entretien 72 mois / 90.000 Km;Je souhaite entretenir mon véhicule;NULL;NULL;18;802
+Entretien supérieur à 72 mois / 90.000 Km;Je souhaite entretenir mon véhicule;NULL;NULL;0;51
+Liquide de freins - 36 mois;Je souhaite entretenir mon véhicule;NULL;NULL;12;588
+Liquide de freins - 60 mois;Je souhaite entretenir mon véhicule;NULL;NULL;12;541
+Liquide de freins - 84 mois;Je souhaite entretenir mon véhicule;NULL;NULL;12;536
+Test batterie;Je souhaite entretenir mon véhicule;NULL;NULL;5;396
+Appoint AdBlue;Je souhaite entretenir mon véhicule;NULL;NULL;2;203
+Contrôle fin de garantie;Je souhaite entretenir mon véhicule;NULL;NULL;12;651
+Recharge Climatisation;Je souhaite entretenir mon véhicule;NULL;NULL;10;450
+Remplacement Ampoule;Je souhaite entretenir mon véhicule;NULL;NULL;3;349
+Service GPS 2 ans;Je souhaite entretenir mon véhicule;NULL;NULL;8;523
+Service GPS unique;Je souhaite entretenir mon véhicule;NULL;NULL;8;426
+Permutation saisonnière des roues;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;18;794
+Permutation saisonnière des roues et stockage;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;18;705
+Contrôle géométrie (parallélisme);Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;18;656
+Devis pneumatique;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;0;290
+Remplacement pneumatiques x2;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;20;927
+Remplacement pneumatiques x4;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;28;1062
+Remplacement amortisseurs;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;36;1272
+Niveaux pression pneumatiques;Je souhaite changer ou réparer mes roues ou pneus;NULL;NULL;6;453
+Contrôle technique;Je souhaite réaliser mon contrôle technique;NULL;NULL;6;439
+Rendez-vous mécanique;Je souhaite réparer mon véhicule;NULL;Merci de donner plus d'indications sur votre demande :;18;843
+Rendez-vous carrosserie;Je souhaite réparer mon véhicule;NULL;Merci de donner plus d'indications sur votre demande :;18;726
+Réparation impact pare-brise;Je souhaite réparer mon véhicule;NULL;NULL;12;532
+Service Embrayage;Je souhaite réparer mon véhicule;NULL;NULL;39;1513
+Service recherche de panne diagnostic;Je souhaite réparer mon véhicule;NULL;Merci de donner plus d'indications sur votre demande :;24;541
+Remplacement de pare-brise;Je souhaite réparer mon véhicule;NULL;NULL;36;1296
+Teinte des vitres;Je souhaite réparer mon véhicule;NULL;NULL;1;137
+Service bougies d'allumage;Je souhaite entretenir mon véhicule;NULL;NULL;3;312
+Service nettoyage climatisation;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;3;332
+Service Essuie-glaces avant;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;2;302
+Service Essuie-glaces arrière;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;2;335
+Service recharge de climatisation R134A;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;8;519
+Service recharge de climatisation R1234yf;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;8;360
+Service climatisation;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;18;675
+Service désodorisant climatisation;Je souhaite entretenir ma climatisation et/ou changer mes essuie-glaces;NULL;NULL;2;360
+Demande de rappel;Je ne sais pas ce que je veux faire;Je souhaite être recontacté(e) par ma concession afin de définir avec exactitude l'étendue des réparations à réaliser.;Merci de donner plus d'indications sur votre demande :;0;146
+Passage au banc de diagnostic;Je souhaite profiter des offres promotionnelles;NULL;Merci de donner plus d'indications sur votre demande :;18;667
