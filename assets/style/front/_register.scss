@@ -1,54 +1,66 @@
-.register-page {
-    @apply relative w-full h-screen overflow-hidden;
+.register-form-container {
+    @apply flex items-center justify-center min-h-screen px-4;
+  }
+  .home__banner {
+    @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
+  }
+.register-form {
+    @apply bg-black bg-opacity-85 p-8 rounded-[10px] w-full max-w-[600px] max-h-[900px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] relative ;
   
-    .home__banner {
-      @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
+    h1 {
+      @apply text-white text-center text-2xl font-semibold mb-4;
     }
   
-    .register-form-container {
-      @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10;
+    form {
+      @apply max-h-[500px] overflow-y-auto pr-2;
     }
   
-    .register-form-box {
-      @apply flex gap-8 items-center flex-col;
+    .grid {
+      @apply gap-4;
     }
   
-    .register-form {
-      @apply bg-black bg-opacity-85 p-8 rounded-[10px] h-[700px] w-[600px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)];
+    .form-label {
+      @apply block text-sm font-medium text-white mb-1;
+    }
   
-      h1 {
-        @apply text-white text-center mb-8;
+    .form-input,
+    input[type='text'],
+    input[type='email'],
+    input[type='password'],
+    input[type='tel'],
+    select {
+      @apply w-full px-3 py-2 rounded-md bg-gray-800 text-white border-none placeholder-gray-400;
+    }
+  
+    .form-check {
+      @apply col-span-2 flex items-center gap-2;
+      
+      input[type='checkbox'] {
+        @apply w-4 h-4 accent-white;
       }
   
       label {
-        @apply mt-4 block font-medium text-[#ccc];
-      }
-  
-      input[type="email"],
-      input[type="password"],
-      input[type="text"] {
-        @apply mt-1 w-full p-2.5 border-none rounded bg-[#222] text-white;
-      }
-  
-      .btn {
-        @apply w-full mt-8;
-      }
-  
-      .alert {
-        @apply bg-[#ff4444] text-white p-3 rounded mb-4;
+        @apply text-white;
       }
     }
   
-    @media (max-width: 768px) {
-      .register-form {
-        @apply w-[90vw];
-      }
+    .form-group {
+      @apply flex flex-col col-span-2;
     }
   
-    @media (max-width: 480px) {
-      .register-form {
-        @apply p-6 w-[95vw];
-      }
+    .btn-white-secondary {
+      @apply w-full mt-4 bg-white text-black font-bold py-2 px-4 rounded hover:bg-gray-200 transition;
+    }
+  
+    form::-webkit-scrollbar {
+      width: 8px;
+    }
+    form::-webkit-scrollbar-thumb {
+      background: #444;
+      border-radius: 4px;
+    }
+    form::-webkit-scrollbar-track {
+      background: transparent;
     }
   }
   
