@@ -4,6 +4,7 @@
 namespace App\Controller\Api\DialogFlow;
 
 use App\Repository\VehicleRepository;
+use App\Service\Dialogflow\DialogflowSessionStore;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DialogflowWebhookController extends AbstractController
 {
     public function __construct(
-        private VehicleRepository   $vehicleRepo,
+        private VehicleRepository $vehicleRepo,
+        private DialogflowSessionStore $store,
     )
     {
     }
@@ -21,6 +23,7 @@ class DialogflowWebhookController extends AbstractController
     public function __invoke(Request $request): JsonResponse
     {
         $body = json_decode($request->getContent(), true);
+        $sessionId = $body['session'] ?? 'unknown-session';
         $intent = $body['queryResult']['intent']['displayName'] ?? '';
 
         return match ($intent) {
@@ -37,6 +40,7 @@ class DialogflowWebhookController extends AbstractController
 
     private function handleAskPlaque(array $body): JsonResponse
     {
+        $sessionId = $body['session'];
         $plaque = strtoupper(str_replace('-', '', $body['queryResult']['parameters']['plaque'] ?? ''));
         $vehicle = $this->vehicleRepo->findOneBy(['immatriculation' => $plaque]);
 
@@ -45,27 +49,36 @@ class DialogflowWebhookController extends AbstractController
             $modele = $vehicle->getModel();
             $annee = $vehicle->getDateOfCirculation()?->format('Y');
 
+            // Stockage
+            $this->store->set($sessionId, 'plaque', $plaque);
+            $this->store->set($sessionId, 'marque', $marque);
+            $this->store->set($sessionId, 'modele', $modele);
+            $this->store->set($sessionId, 'annee', $annee);
+            $this->store->set($sessionId, 'source', 'bdd');
+
             return $this->json([
                 'fulfillmentText' => "Est-ce bien une $marque $modele $annee ?",
                 'outputContexts' => [[
-                    'name' => $body['session'] . '/contexts/confirm_vehicle',
+                    'name' => $sessionId . '/contexts/confirm_vehicle',
                     'lifespanCount' => 5,
                     'parameters' => compact('plaque', 'marque', 'modele', 'annee')
                 ]]
             ]);
         }
 
-        // ici mettre l'api externe
-        $mock = [
-            'marque' => 'Peugeot',
-            'modele' => '208',
-            'annee' => '2021'
-        ];
+        // API externe simulée
+        $mock = ['marque' => 'Peugeot', 'modele' => '208', 'annee' => '2021'];
+
+        $this->store->set($sessionId, 'plaque', $plaque);
+        $this->store->set($sessionId, 'marque', $mock['marque']);
+        $this->store->set($sessionId, 'modele', $mock['modele']);
+        $this->store->set($sessionId, 'annee', $mock['annee']);
+        $this->store->set($sessionId, 'source', 'api');
 
         return $this->json([
             'fulfillmentText' => "Est-ce bien une {$mock['marque']} {$mock['modele']} {$mock['annee']} ?",
             'outputContexts' => [[
-                'name' => $body['session'] . '/contexts/confirm_vehicle',
+                'name' => $sessionId . '/contexts/confirm_vehicle',
                 'lifespanCount' => 5,
                 'parameters' => [
                     'plaque' => $plaque,
@@ -80,36 +93,43 @@ class DialogflowWebhookController extends AbstractController
 
     private function handleConfirmVehicle(array $body): JsonResponse
     {
+        $sessionId = $body['session'];
         $response = strtolower(trim($body['queryResult']['queryText'] ?? ''));
 
-        if ($response === 'oui') {
+        $this->store->set($sessionId, 'confirm_vehicle', $response);
+
+        if (in_array($response, ['oui', 'yes', 'c’est bien ça'])) {
             return $this->json([
                 'fulfillmentText' => "Très bien. Quel est le problème avec votre véhicule ?",
                 'outputContexts' => [[
-                    'name' => $body['session'] . '/contexts/ask_problem',
+                    'name' => $sessionId . '/contexts/ask_problem',
                     'lifespanCount' => 5,
                 ]]
             ]);
         }
 
         return $this->json([
-            'fulfillmentText' => "D’accord. Quel est le modèle de votre véhicule ?",
+            'fulfillmentText' => "D’accord. Pouvez-vous m’indiquer le modèle de votre véhicule ?",
             'outputContexts' => [[
-                'name' => $body['session'] . '/contexts/ask_driver_info',
+                'name' => $sessionId . '/contexts/ask_driver_info',
                 'lifespanCount' => 5,
             ]]
         ]);
     }
 
+
     private function handleAskDriverInfo(array $body): JsonResponse
     {
+        $sessionId = $body['session'];
         $response = strtolower(trim($body['queryResult']['queryText'] ?? ''));
+
+        $this->store->set($sessionId, 'is_driver', $response);
 
         if ($response === 'oui') {
             return $this->json([
                 'fulfillmentText' => "Très bien. Quel est le problème avec votre véhicule ?",
                 'outputContexts' => [[
-                    'name' => $body['session'] . '/contexts/ask_problem',
+                    'name' => $sessionId . '/contexts/ask_problem',
                     'lifespanCount' => 5,
                 ]]
             ]);
@@ -118,7 +138,7 @@ class DialogflowWebhookController extends AbstractController
         return $this->json([
             'fulfillmentText' => "Pouvez-vous me donner vos informations (nom, prénom, téléphone) ?",
             'outputContexts' => [[
-                'name' => $body['session'] . '/contexts/collect_driver_info',
+                'name' => $sessionId . '/contexts/collect_driver_info',
                 'lifespanCount' => 5,
             ]]
         ]);
@@ -126,13 +146,17 @@ class DialogflowWebhookController extends AbstractController
 
     private function handleCollectDriverInfo(array $body): JsonResponse
     {
+        $sessionId = $body['session'];
         $params = $body['queryResult']['parameters'] ?? [];
 
+        $this->store->set($sessionId, 'prenom', $params['prenom'] ?? null);
+        $this->store->set($sessionId, 'nom', $params['nom'] ?? null);
+        $this->store->set($sessionId, 'tel', $params['tel'] ?? null);
 
         return $this->json([
-            'fulfillmentText' => "Merci {${params['prenom']}}, quel est le problème avec votre véhicule ?",
+            'fulfillmentText' => "Merci {$params['prenom']}, quel est le problème avec votre véhicule ?",
             'outputContexts' => [[
-                'name' => $body['session'] . '/contexts/ask_problem',
+                'name' => $sessionId . '/contexts/ask_problem',
                 'lifespanCount' => 5,
             ]]
         ]);
@@ -140,15 +164,19 @@ class DialogflowWebhookController extends AbstractController
 
     private function handleAskProblem(array $body): JsonResponse
     {
+        $sessionId = $body['session'];
         $description = $body['queryResult']['queryText'] ?? '';
 
         $match = str_contains(strtolower($description), 'frein') ? 'Remplacement plaquettes de frein' : null;
+
+        $this->store->set($sessionId, 'probleme', $description);
+        $this->store->set($sessionId, 'operation', $match ?? 'diagnostic');
 
         if (!$match) {
             return $this->json([
                 'fulfillmentText' => "Je vous recommande un diagnostic. Voulez-vous qu’un expert vous rappelle ?",
                 'outputContexts' => [[
-                    'name' => $body['session'] . '/contexts/propose_rappel',
+                    'name' => $sessionId . '/contexts/propose_rappel',
                     'lifespanCount' => 5,
                 ]]
             ]);
@@ -157,7 +185,7 @@ class DialogflowWebhookController extends AbstractController
         return $this->json([
             'fulfillmentText' => "Merci, cela semble être : $match. Quel est le kilométrage actuel du véhicule ?",
             'outputContexts' => [[
-                'name' => $body['session'] . '/contexts/ask_kilometrage',
+                'name' => $sessionId . '/contexts/ask_kilometrage',
                 'lifespanCount' => 5,
                 'parameters' => ['operation' => $match]
             ]]
