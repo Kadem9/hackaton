@@ -2,20 +2,20 @@
     <div class="card-header">
         <h2 class="card-title">Espace Personnel</h2>
     </div>
-    <div class="card-body">
+    <div class="card-body p-0">
         <nav>
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('account_index') }}">Mon compte</a>
+            <ul class="divide-y divide-gray-200">
+                <li>
+                    <a class="block px-4 py-3 hover:bg-gray-100 transition" href="{{ path('account_index') }}">Mon compte</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="">Mes rendez-vous</a>
+                <li>
+                    <a class="block px-4 py-3 hover:bg-gray-100 transition" href="#">Mes rendez-vous</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('account_vehicle_index') }}">Mes véhicules</a>
+                <li>
+                    <a class="block px-4 py-3 hover:bg-gray-100 transition" href="{{ path('account_vehicle_index') }}">Mes véhicules</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('account_conductor_index') }}">Mes conducteurs</a>
+                <li>
+                    <a class="block px-4 py-3 hover:bg-gray-100 transition" href="{{ path('account_conductor_index') }}">Mes conducteurs</a>
                 </li>
             </ul>
         </nav>
