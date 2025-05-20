@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front\Security;
 
+use App\Entity\Conductor;
 use App\Entity\User;
 use App\Form\RegistrationForm;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,6 +30,23 @@ class RegisterController extends AbstractController
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
 
             $entityManager->persist($user);
+
+            $conductor = new Conductor();
+            $conductor->setUser($user);
+
+            $isConductor = $request->request->get('is_conductor');
+
+            if ($isConductor) {
+                $conductor->setFirstname($user->getFirstname());
+                $conductor->setLastname($user->getLastname());
+                $conductor->setPhone($user->getTel());
+            } else {
+                $conductor->setFirstname($request->request->get('firstname_conductor'));
+                $conductor->setLastname($request->request->get('name_conductor'));
+                $conductor->setPhone($request->request->get('tel_conductor'));
+            }
+
+            $entityManager->persist($conductor);
             $entityManager->flush();
 
             return $security->login($user, 'form_login', 'main');
@@ -38,4 +56,5 @@ class RegisterController extends AbstractController
             'registrationForm' => $form,
         ]);
     }
+
 }

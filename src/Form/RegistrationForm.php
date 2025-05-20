@@ -48,6 +48,10 @@ class RegistrationForm extends AbstractType
                 'label' => 'Votre nom',
                 'required' => true,
             ])
+            ->add('tel', TextType::class, [
+                'label' => 'Votre numéro de téléphone',
+                'required' => true,
+            ])
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
                 'label' => 'Votre mot de passe',
