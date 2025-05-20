@@ -15,9 +15,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class DialogflowWebhookController extends AbstractController
 {
     public function __construct(
-        private VehicleRepository $vehicleRepo,
-        private DialogflowSessionStore $store,
-        private OperationSuggestion $operationService,
+        private readonly VehicleRepository $vehicleRepo,
+        private readonly DialogflowSessionStore $store,
+        private readonly OperationSuggestion $operationService,
     )
     {
     }
@@ -32,8 +32,8 @@ class DialogflowWebhookController extends AbstractController
             'Ask Plaque' => $this->handleAskPlaque($body),
             'Confirm Vehicle' => $this->handleConfirmVehicle($body),
             'Ask Driver Info' => $this->handleAskDriverInfo($body),
-            'Collect Driver Info' => $this->handleCollectDriverInfo($body),
             'Ask Problem' => $this->handleAskProblem($body),
+            'Collect Driver Info' => $this->handleCollectDriverInfo($body),
             'Ask Kilometrage' => $this->handleAskKilometrage($body),
             default => new JsonResponse([
                 'fulfillmentText' => "Intent non reconnu : $intent",
@@ -120,7 +120,6 @@ class DialogflowWebhookController extends AbstractController
         ]);
     }
 
-
     private function handleAskDriverInfo(array $body): JsonResponse
     {
         $sessionId = $body['session'];
@@ -160,13 +159,15 @@ class DialogflowWebhookController extends AbstractController
             'fulfillmentText' => "Merci {$params['prenom']}, quel est le problème avec votre véhicule ?",
             'outputContexts' => [[
                 'name' => $sessionId . '/contexts/ask_problem',
-                'lifespanCount' => 5,
+                'lifespanCount' => 10,
             ]]
         ]);
     }
 
     private function handleAskProblem(array $body): JsonResponse
     {
+        file_put_contents('/tmp/debug_ask_problem.log', "✅ Reçu : " . $body['queryResult']['queryText'] . "\n", FILE_APPEND);
+
         $description = $body['queryResult']['queryText'] ?? '';
         $sessionId = $body['session'];
 
