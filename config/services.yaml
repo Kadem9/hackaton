@@ -27,3 +27,6 @@ services:
     App\Twig\AppExtension:
         arguments:
             $iconVersion: "%env(ICON_VERSION)%"
+    App\Service\Dialogflow\OperationSuggestion:
+        arguments:
+            $csvPath: '%kernel.project_dir%/public/csv/car_operations.csv'
