@@ -14,10 +14,8 @@ export function App() {
     }, []);
 
     return (
-        <div className="chatbox-wrapper">
-            <h2 className="text-lg mb-4">Assistance Prise de Rendez-vous</h2>
-            <div id="chatbot-container"
-                 className="border rounded-xl shadow-md overflow-hidden h-[600px] max-w-[400px] mx-auto"></div>
+        <div>
+            <p>Notre assistant est disponible pour prendre un RDV avec vous.</p>
         </div>
     );
 }

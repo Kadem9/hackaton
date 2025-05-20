@@ -1,0 +1,9 @@
+.chatbox-wrapper {
+    display: flex;
+    justify-content: center;
+    padding: 2rem;
+}
+df-messenger {
+    width: 100%;
+    height: 100%;
+}

@@ -1,3 +1,4 @@
+// @ts-ignore
 import Sortable from 'sortablejs';
 import {jsonFetch} from "../function/api";
 export class SortableWrapper extends HTMLElement {
