@@ -1,0 +1,98 @@
+.login-page {
+  @apply relative w-full h-screen overflow-hidden;
+
+  .home__banner {
+    @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
+  }
+
+  .login-form-container {
+    @apply absolute top-8 right-8 z-10 flex items-start gap-8 flex-wrap;
+
+    .login-form-box {
+      @apply flex gap-8 items-start flex-wrap;
+    }
+
+    .login-form {
+      @apply bg-black bg-opacity-85 p-8 rounded-[10px] w-[350px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] min-h-[400px];
+
+      h1 {
+        @apply text-white text-center mb-8;
+      }
+
+      label {
+        @apply mt-4 block font-medium text-[#ccc];
+      }
+
+      input[type="email"],
+      input[type="password"] {
+        @apply mt-1 w-full p-2.5 border-none rounded bg-[#222] text-white;
+      }
+
+      .btn {
+        @apply w-full mt-8;
+      }
+
+      .alert {
+        @apply bg-[#ff4444] text-white p-3 rounded mb-4;
+      }
+    }
+
+    .login-side-text {
+      @apply max-w-[250px] text-[rgb(173,100,100)] pt-2;
+
+      h2 {
+        @apply font-bold text-[1.5rem] mb-2;
+      }
+
+      p {
+        @apply text-[0.95rem] text-[#010101];
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .login-form-container {
+      @apply top-4 right-4 flex-col items-center;
+
+      .login-form-box {
+        @apply flex-col items-center gap-4;
+      }
+
+      .login-form {
+        @apply w-[90vw] min-h-fit;
+      }
+
+      .login-side-text {
+        @apply max-w-[90vw] text-center;
+
+        h2 {
+          @apply text-[1.3rem];
+        }
+
+        p {
+          @apply text-[0.9rem];
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    .login-form-container {
+      @apply top-2 right-2;
+
+      .login-form {
+        @apply p-6 w-[95vw];
+      }
+
+      .login-side-text {
+        h2 {
+          @apply text-[1.2rem];
+        }
+
+        p {
+          @apply text-[0.85rem];
+        }
+      }
+    }
+  }
+}

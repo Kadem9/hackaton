@@ -3,8 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<section class="banner">
-    <img class="w-full" src="{{ asset('assets/img/banner.webp')}}" alt="Image daccueil">
+<section class="home__banner" style="background-image: url('{{ asset('assets/img/automobile.svg') }}');">
 </section>
 <make-appointment></make-appointment>
 {% endblock %}
