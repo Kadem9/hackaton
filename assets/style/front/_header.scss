@@ -1,19 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
 
 .header__nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-.header__title{
-    font-family: "Orbitron", sans-serif;
-    font-optical-sizing: auto;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 40px;
-    text-align: center;
+  @apply flex items-center justify-between m-5 flex-wrap;
 }
+
+.header__title {
+  font-family: 'Orbitron', sans-serif;
+  @apply font-medium text-[28px] text-center pl-0 sm:text-[32px] md:text-[36px] lg:text-[40px] lg:pl-[200px];
+}
+
 .header__nav_ul {
-    display: flex;
-    gap:1rem;
+  @apply flex gap-4 pr-2 sm:pr-4 md:pr-5;
 }

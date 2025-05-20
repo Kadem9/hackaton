@@ -1,0 +1,54 @@
+.register-page {
+    @apply relative w-full h-screen overflow-hidden;
+  
+    .home__banner {
+      @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
+    }
+  
+    .register-form-container {
+      @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10;
+    }
+  
+    .register-form-box {
+      @apply flex gap-8 items-center flex-col;
+    }
+  
+    .register-form {
+      @apply bg-black bg-opacity-85 p-8 rounded-[10px] h-[700px] w-[600px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)];
+  
+      h1 {
+        @apply text-white text-center mb-8;
+      }
+  
+      label {
+        @apply mt-4 block font-medium text-[#ccc];
+      }
+  
+      input[type="email"],
+      input[type="password"],
+      input[type="text"] {
+        @apply mt-1 w-full p-2.5 border-none rounded bg-[#222] text-white;
+      }
+  
+      .btn {
+        @apply w-full mt-8;
+      }
+  
+      .alert {
+        @apply bg-[#ff4444] text-white p-3 rounded mb-4;
+      }
+    }
+  
+    @media (max-width: 768px) {
+      .register-form {
+        @apply w-[90vw];
+      }
+    }
+  
+    @media (max-width: 480px) {
+      .register-form {
+        @apply p-6 w-[95vw];
+      }
+    }
+  }
+  

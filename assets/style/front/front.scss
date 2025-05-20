@@ -38,19 +38,21 @@
 @import "btn.scss";
 @import "grid.scss";
 @import "card.scss";
+  @import "login.scss";
+  @import "home.scss";
+  @import "register.scss";
 
 
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
-
-body {
-    font-family: "Space Grotesk", sans-serif;
-    font-optical-sizing: auto;
-    font-style: normal;
-}
+  body {
+      font-family: "Space Grotesk", sans-serif;
+      font-optical-sizing: auto;
+      font-style: normal;
+  }
 
 /* container */
 .fo-container, .fo-container-sm {

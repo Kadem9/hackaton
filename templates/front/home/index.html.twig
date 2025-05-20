@@ -3,8 +3,7 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<section class="banner">
-    <img src="{{ asset('assets/img/banner.webp')}}" alt="Image d'accueil">
+<section class="home__banner" style="background-image: url('{{ asset('assets/img/automobile.svg') }}');">
 </section>
     {% if app.user %}
         <make-appointment></make-appointment>

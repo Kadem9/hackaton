@@ -1,11 +1,8 @@
 <nav class="header__nav">
         <div></div>
-        <h1 class="header__title">Automobiles</h1>
+        <a class="header__title" href="{{ path('app_home') }}">Automobiles</a>
         <div>
             <ul class="header__nav_ul">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
-                </li>
                 {% if app.user %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('account_index') }}">Mon compte</a>
