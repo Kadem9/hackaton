@@ -3,21 +3,59 @@
 {% block title %}Accueil{% endblock %}
 
 {% block body %}
-<section class="home__banner-section">
-  <div class="home__content-wrapper">
-    <div class="home__text">
-      <h1>Bienvenue sur Automobiles</h1>
-      <p>Découvrez nos services de location et de gestion de véhicules.</p>
-        <button class="btn-white-secondary" data-btn="xs" type="submit">
-        Contactez nous
-        </button>    
+<section class="home__hero">
+  <div class="home__hero-wrapper">
+    <div class="home__hero-text">
+      <h1>Si votre voiture souffre,<br><span class="highlight">amenez-la chez Automobiles !</span></h1>
+      <p>Nous proposons les meilleurs services de réparation, d’entretien et de gestion de flotte. Notre priorité : la relation client durable.</p>
+      <a href="#contact" class="btn-primary">Contactez-nous</a>
+
+      <div class="home__stats">
+        <div class="stat">
+          <span class="stat-number">320</span>
+          <span class="stat-label">Techniciens expérimentés</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">3561</span>
+          <span class="stat-label">Projets complétés</span>
+        </div>
+      </div>
     </div>
-    <div class="home__image">
+
+    <div class="home__hero-image">
       <img src="{{ asset('assets/img/automobile.svg') }}" alt="Automobile">
     </div>
   </div>
 </section>
 
 <make-appointment></make-appointment>
+
+<section class="home__services-section">
+  <div class="container">
+    <h2 class="section-title">Nos services automobiles</h2>
+    <p class="section-subtitle">Découvrez les services que nous proposons pour entretenir ou réparer votre véhicule.</p>
+    
+    <div class="services-grid">
+      <div class="service-card">
+        <img src="{{ asset('assets/img/service1.jpg') }}" alt="Transmission">
+        <h3>Transmission</h3>
+        <p>Nous assurons l'entretien et la réparation des systèmes de transmission pour tous types de véhicules.</p>
+        <a href="#" class="service-link">En savoir plus</a>
+      </div>
+      <div class="service-card">
+        <img src="{{ asset('assets/img/service2.jpg') }}" alt="Diagnostic électronique">
+        <h3>Diagnostic électronique</h3>
+        <p>Nos outils de diagnostic avancé permettent une détection rapide des pannes électroniques.</p>
+        <a href="#" class="service-link">En savoir plus</a>
+      </div>
+      <div class="service-card">
+        <img src="{{ asset('assets/img/service3.jpg') }}" alt="Réparation climatisation">
+        <h3>Réparation climatisation</h3>
+        <p>Entretien complet et recharge des systèmes de climatisation pour un confort optimal.</p>
+        <a href="#" class="service-link">En savoir plus</a>
+      </div>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
