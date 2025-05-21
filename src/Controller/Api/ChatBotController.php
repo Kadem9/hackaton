@@ -8,7 +8,7 @@ use App\Service\Chatbot\ConcessionLocatorService;
 use App\Service\Chatbot\GeminiService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/api/chatbot', name: 'api_chatbot_')]

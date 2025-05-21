@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import './style.css';
+import 'leaflet/dist/leaflet.css';
+import LeafletMap from "./LeafletMap.tsx";
 
 type Step = {
     step: string;
@@ -14,7 +16,6 @@ export function App() {
     const [inputValue, setInputValue] = useState('');
     const [selected, setSelected] = useState<string[]>([]);
 
-    // Initial fetch
     useEffect(() => {
         fetchStep('start');
     }, []);
@@ -46,6 +47,11 @@ export function App() {
                     <div key={index} class="chatbot__message">{msg}</div>
                 ))}
             </div>
+
+            {currentStep?.step === 'choose_garage' && (currentStep as any).data?.garages && (
+                <LeafletMap garages={(currentStep as any).data.garages} />
+            )}
+
 
             {currentStep?.type === 'text' && (
                 <form onSubmit={handleSubmit} class="chatbot__form">
