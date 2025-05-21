@@ -179,6 +179,46 @@ class ChatBotController extends AbstractController
                     'data' => ['garages' => $results]
                 ]);
 
+            case 'choose_garage':
+                if (empty($input)) {
+                    return $this->json([
+                        'step' => 'ask_reminder',
+                        'message' => "Souhaitez-vous qu'on vous appelle pour fixer le rendez-vous ?",
+                        'type' => 'confirm'
+                    ]);
+                }
+
+                return $this->json([
+                    'step' => 'ask_date_type',
+                    'message' => "Souhaitez-vous choisir une date précise ou le premier créneau disponible ?",
+                    'type' => 'confirm',
+                    'data' => ['selected_garage' => $input]
+                ]);
+
+            case 'ask_date_type':
+                if (strtolower($input) === 'oui') {
+                    return $this->json([
+                        'step' => 'choose_date',
+                        'message' => "Merci ! Veuillez indiquer la date souhaitée (ex: 24/05/2025).",
+                        'type' => 'text'
+                    ]);
+                }
+
+                $slots = [
+                    'Vendredi 24/05 à 10h30',
+                    'Vendredi 24/05 à 15h00',
+                    'Lundi 27/05 à 09h00'
+                ];
+
+                return $this->json([
+                    'step' => 'confirm_slot',
+                    'message' => "Voici les créneaux disponibles :",
+                    'type' => 'checkbox',
+                    'options' => $slots,
+                    'data' => ['mode' => 'auto']
+                ]);
+
+
 
 
             default:
