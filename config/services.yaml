@@ -30,3 +30,6 @@ services:
     App\Service\Dialogflow\OperationSuggestion:
         arguments:
             $csvPath: '%kernel.project_dir%/public/csv/car_operations.csv'
+    App\Service\Dialogflow\ConcessionLocator:
+        arguments:
+            $csvPath: '%kernel.project_dir%/public/csv/concessions.csv'

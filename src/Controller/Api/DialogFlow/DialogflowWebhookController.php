@@ -4,6 +4,7 @@
 namespace App\Controller\Api\DialogFlow;
 
 use App\Repository\VehicleRepository;
+use App\Service\Dialogflow\ConcessionLocator;
 use App\Service\Dialogflow\DialogflowSessionStore;
 use App\Service\Dialogflow\OperationSuggestion;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,6 +19,7 @@ class DialogflowWebhookController extends AbstractController
         private readonly VehicleRepository $vehicleRepo,
         private readonly DialogflowSessionStore $store,
         private readonly OperationSuggestion $operationService,
+        private readonly ConcessionLocator $concessionLocator,
     )
     {
     }
@@ -35,6 +37,9 @@ class DialogflowWebhookController extends AbstractController
             'Ask Problem' => $this->handleAskProblem($body),
             'Collect Driver Info' => $this->handleCollectDriverInfo($body),
             'Ask Kilometrage' => $this->handleAskKilometrage($body),
+            'Verify Request' => $this->handleVerifyRequest($body),
+            'Confirm Operation Intent' => $this->handleConfirmOperation($body),
+            'Ask Location' => $this->handleAskLocation($body),
             default => new JsonResponse([
                 'fulfillmentText' => "Intent non reconnu : $intent",
             ]),
@@ -52,7 +57,6 @@ class DialogflowWebhookController extends AbstractController
             $modele = $vehicle->getModel();
             $annee = $vehicle->getDateOfCirculation()?->format('Y');
 
-            // Stockage
             $this->store->set($sessionId, 'plaque', $plaque);
             $this->store->set($sessionId, 'marque', $marque);
             $this->store->set($sessionId, 'modele', $modele);
@@ -69,7 +73,6 @@ class DialogflowWebhookController extends AbstractController
             ]);
         }
 
-        // API externe simulée
         $mock = ['marque' => 'Peugeot', 'modele' => '208', 'annee' => '2021'];
 
         $this->store->set($sessionId, 'plaque', $plaque);
@@ -102,14 +105,27 @@ class DialogflowWebhookController extends AbstractController
         $this->store->set($sessionId, 'confirm_vehicle', $response);
 
         if (in_array($response, ['oui', 'yes', 'c’est bien ça'])) {
+            $this->store->set($sessionId, 'confirm_vehicle', 'yes');
+
+            if ($this->store->get($sessionId, 'source') === 'api') {
+                return $this->json([
+                    'fulfillmentText' => "Êtes-vous le conducteur du véhicule ?",
+                    'outputContexts' => [[
+                        'name' => $sessionId . '/contexts/ask_driver_info',
+                        'lifespanCount' => 5,
+                    ]]
+                ]);
+            }
+
             return $this->json([
-                'fulfillmentText' => "Très bien. Quel est le problème avec votre véhicule ?",
+                'fulfillmentText' => "Très bien. Pouvez-vous m’expliquer le problème avec votre véhicule ?",
                 'outputContexts' => [[
                     'name' => $sessionId . '/contexts/ask_problem',
                     'lifespanCount' => 5,
                 ]]
             ]);
         }
+
 
         return $this->json([
             'fulfillmentText' => "D’accord. Pouvez-vous m’indiquer le modèle de votre véhicule ?",
@@ -156,10 +172,10 @@ class DialogflowWebhookController extends AbstractController
         $this->store->set($sessionId, 'tel', $params['tel'] ?? null);
 
         return $this->json([
-            'fulfillmentText' => "Merci {$params['prenom']}, quel est le problème avec votre véhicule ?",
+            'fulfillmentText' => "Merci pour vos informations.",
             'outputContexts' => [[
                 'name' => $sessionId . '/contexts/ask_problem',
-                'lifespanCount' => 10,
+                'lifespanCount' => 5,
             ]]
         ]);
     }
@@ -207,6 +223,72 @@ class DialogflowWebhookController extends AbstractController
             'outputContexts' => [[
                 'name' => $sessionId . '/contexts/verify_request',
                 'lifespanCount' => 5
+            ]]
+        ]);
+    }
+
+    private function handleVerifyRequest(array $body): JsonResponse
+    {
+        $sessionId = $body['session'];
+        $operation = $this->store->get($sessionId, 'operation') ?? 'non spécifiée';
+        $kilometrage = $this->store->get($sessionId, 'kilometrage') ?? 'inconnu';
+
+        return $this->json([
+            'fulfillmentText' => "Nous avons enregistré l’opération : $operation pour $kilometrage km. Souhaitez-vous confirmer cette demande ou la modifier ?",
+            'outputContexts' => [[
+                'name' => $sessionId . '/contexts/ask_location',
+                'lifespanCount' => 5
+            ]]
+        ]);
+    }
+
+    private function handleConfirmOperation(array $body): JsonResponse
+    {
+        $sessionId = $body['session'];
+
+        return $this->json([
+            'fulfillmentText' => "Parfait. Où souhaitez-vous effectuer l’intervention ? Merci d’indiquer votre ville et code postal.",
+            'outputContexts' => [[
+                'name' => $sessionId . '/contexts/ask_location',
+                'lifespanCount' => 5,
+            ]]
+        ]);
+    }
+
+    private function handleAskLocation(array $body): JsonResponse
+    {
+        file_put_contents('/tmp/debug_location.log', json_encode($body, JSON_PRETTY_PRINT), FILE_APPEND);
+
+        $sessionId = $body['session'];
+        $params = $body['queryResult']['parameters'] ?? [];
+
+        $ville = $params['ville']['city'] ?? ($params['ville'] ?? '');
+        $codePostal = $params['code_postal'] ?? '';
+        $lat = $params['ville']['lat'] ?? null;
+        $lon = $params['ville']['lng'] ?? null;
+
+        $this->store->set($sessionId, 'ville', $ville);
+        $this->store->set($sessionId, 'code_postal', $codePostal);
+
+        $concession = $this->concessionLocator->findNearest($codePostal, $lat, $lon);
+
+        if ($concession) {
+            $this->store->set($sessionId, 'concession', $concession);
+
+            return $this->json([
+                'fulfillmentText' => "Merci. La concession la plus proche est : {$concession['dealership_name']} à {$concession['city']} ({$concession['zipcode']}). Souhaitez-vous une date précise ou au plus tôt ?",
+                'outputContexts' => [[
+                    'name' => $sessionId . '/contexts/ask_date',
+                    'lifespanCount' => 5,
+                ]]
+            ]);
+        }
+
+        return $this->json([
+            'fulfillmentText' => "Aucune concession trouvée à proximité de $codePostal. Pouvez-vous réessayer ?",
+            'outputContexts' => [[
+                'name' => $sessionId . '/contexts/ask_location',
+                'lifespanCount' => 5,
             ]]
         ]);
     }
