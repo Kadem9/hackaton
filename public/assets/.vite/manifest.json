@@ -1,20 +1,20 @@
 {
   "admin.ts": {
-    "file": "admin.ts-CiTamu_N.js",
+    "file": "admin.ts-DneH4gAq.js",
     "name": "admin.ts",
     "src": "admin.ts",
     "isEntry": true,
     "css": [
-      "admin-Bxvty6rD.css"
+      "admin-C92z0qP0.css"
     ]
   },
   "front.ts": {
-    "file": "front.ts-B-jLGiGM.js",
+    "file": "front.ts-DVE3lc2X.js",
     "name": "front.ts",
     "src": "front.ts",
     "isEntry": true,
     "css": [
-      "front-mqBeS1Kn.css"
+      "front-GAuwxZ4A.css"
     ]
   }
 }
