@@ -1,21 +1,95 @@
-import { useEffect } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
+import './style.css';
+
+type Step = {
+    step: string;
+    message: string;
+    type: 'text' | 'confirm' | 'checkbox';
+    options?: string[];
+};
 
 export function App() {
+    const [messages, setMessages] = useState<string[]>([]);
+    const [currentStep, setCurrentStep] = useState<Step | null>(null);
+    const [inputValue, setInputValue] = useState('');
+    const [selected, setSelected] = useState<string[]>([]);
+
+    // Initial fetch
     useEffect(() => {
-        if (!document.querySelector('df-messenger')) {
-            const bot = document.createElement('df-messenger');
-            bot.setAttribute('intent', 'WELCOME');
-            bot.setAttribute('chat-title', 'RDV Auto');
-            bot.setAttribute('agent-id', '038f7a1e-73dc-49e4-a903-7d586b52165b');
-            bot.setAttribute('language-code', 'fr');
-            bot.setAttribute('mode', 'embedded');
-            document.body.appendChild(bot);
-        }
+        fetchStep('start');
     }, []);
 
+    const fetchStep = async (step: string, input?: string[] | string) => {
+        const res = await fetch('/api/chatbot/step', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ step, input })
+        });
+
+        const json = await res.json();
+        setMessages(prev => [...prev, json.message]);
+        setCurrentStep(json);
+        setInputValue('');
+        setSelected([]);
+    };
+
+    const handleSubmit = (e: Event) => {
+        e.preventDefault();
+        const input = currentStep?.type === 'checkbox' ? selected : inputValue;
+        fetchStep(currentStep!.step, input);
+    };
+
     return (
-        <div>
-            <p>Notre assistant est disponible pour prendre un RDV avec vous.</p>
+        <div class="chatbot">
+            <div class="chatbot__messages">
+                {messages.map((msg, index) => (
+                    <div key={index} class="chatbot__message">{msg}</div>
+                ))}
+            </div>
+
+            {currentStep?.type === 'text' && (
+                <form onSubmit={handleSubmit} class="chatbot__form">
+                    <input
+                        type="text"
+                        value={inputValue}
+                        onInput={(e) => setInputValue((e.target as HTMLInputElement).value)}
+                        placeholder="Votre réponse..."
+                        class="chatbot__input"
+                    />
+                    <button type="submit" class="chatbot__button">Envoyer</button>
+                </form>
+            )}
+
+            {currentStep?.type === 'confirm' && (
+                <div class="chatbot__confirm">
+                    <button onClick={() => fetchStep(currentStep.step, 'oui')}>Oui</button>
+                    <button onClick={() => fetchStep(currentStep.step, 'non')}>Non</button>
+                </div>
+            )}
+
+            {currentStep?.type === 'checkbox' && (
+                <form onSubmit={handleSubmit} class="chatbot__form chatbot__checkboxes">
+                    {currentStep.options?.map((op, i) => (
+                        <label key={i} class="chatbot__checkbox-label">
+                            <input
+                                type="checkbox"
+                                value={op}
+                                checked={selected.includes(op)}
+                                onChange={(e) => {
+                                    const value = (e.target as HTMLInputElement).value;
+                                    setSelected(prev =>
+                                        prev.includes(value)
+                                            ? prev.filter(v => v !== value)
+                                            : [...prev, value]
+                                    );
+                                }}
+                            />
+                            {op}
+                        </label>
+                    ))}
+                    <button type="submit" class="chatbot__button">Valider</button>
+                </form>
+            )}
         </div>
     );
 }

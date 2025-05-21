@@ -1,0 +1,124 @@
+{
+  "vehicules": [
+    {
+      "marque": "Tesla",
+      "modele": "Model 3",
+      "immatriculation": "EL-789-TS",
+      "vin": "5YJ3E1EA0PF123456",
+      "date_mise_en_circulation": "2022-02-20",
+      "type": "Electrique"
+    },
+    {
+      "marque": "Porsche",
+      "modele": "911 Carrera",
+      "immatriculation": "SP-911-PO",
+      "vin": "WP0ZZZ99ZJS123456",
+      "date_mise_en_circulation": "2021-08-15",
+      "type": "Sportive"
+    },
+    {
+      "marque": "Land Rover",
+      "modele": "Defender",
+      "immatriculation": "OF-456-LR",
+      "vin": "SALGA2EVXA1234567",
+      "date_mise_en_circulation": "2020-11-30",
+      "type": "SUV"
+    },
+    {
+      "marque": "Ford",
+      "modele": "F-150 Raptor",
+      "immatriculation": "PT-789-FD",
+      "vin": "1FTFW1RGXJFA12345",
+      "date_mise_en_circulation": "2019-07-22",
+      "type": "Pick-up"
+    },
+    {
+      "marque": "Ferrari",
+      "modele": "F8 Tributo",
+      "immatriculation": "FR-458-IT",
+      "vin": "ZFF83LPA0F0123456",
+      "date_mise_en_circulation": "2023-01-10",
+      "type": "Supercar"
+    },
+    {
+      "marque": "Volvo",
+      "modele": "XC90 Recharge",
+      "immatriculation": "HY-901-VO",
+      "vin": "YV1LFA0GCJ1234567",
+      "date_mise_en_circulation": "2022-09-05",
+      "type": "Hybride"
+    },
+    {
+      "marque": "Toyota",
+      "modele": "Hilux",
+      "immatriculation": "UL-678-TY",
+      "vin": "MR0FZ22G0J1234567",
+      "date_mise_en_circulation": "2018-04-18",
+      "type": "Utilitaire"
+    },
+    {
+      "marque": "Audi",
+      "modele": "e-tron GT",
+      "immatriculation": "ET-123-AU",
+      "vin": "WAUZZZGPXNA123456",
+      "date_mise_en_circulation": "2023-03-12",
+      "type": "Electrique"
+    },
+    {
+      "marque": "Jeep",
+      "modele": "Wrangler Rubicon",
+      "immatriculation": "JP-345-JP",
+      "vin": "1C4JJXR68NW123456",
+      "date_mise_en_circulation": "2022-07-25",
+      "type": "4x4"
+    },
+    {
+      "marque": "Lexus",
+      "modele": "LC 500",
+      "immatriculation": "LX-500-LX",
+      "vin": "JTHHZ1BH0J1234567",
+      "date_mise_en_circulation": "2021-12-08",
+      "type": "Coupé"
+    },
+    {
+      "marque": "Chevrolet",
+      "modele": "Corvette Stingray",
+      "immatriculation": "CV-632-US",
+      "vin": "1G1YB3D47P5123456",
+      "date_mise_en_circulation": "2023-05-30",
+      "type": "Sportive"
+    },
+    {
+      "marque": "Mitsubishi",
+      "modele": "L200",
+      "immatriculation": "LT-200-MT",
+      "vin": "MMLJNK740FJ123456",
+      "date_mise_en_circulation": "2020-06-14",
+      "type": "Pick-up"
+    },
+    {
+      "marque": "Lamborghini",
+      "modele": "Urus",
+      "immatriculation": "UR-789-LB",
+      "vin": "ZHWGU11F8LLA12345",
+      "date_mise_en_circulation": "2022-11-17",
+      "type": "SUV"
+    },
+    {
+      "marque": "Nissan",
+      "modele": "GT-R",
+      "immatriculation": "GT-R35-NS",
+      "vin": "JN1AR5EF0CM123456",
+      "date_mise_en_circulation": "2019-10-03",
+      "type": "Sportive"
+    },
+    {
+      "marque": "Kia",
+      "modele": "EV6",
+      "immatriculation": "EV-600-KI",
+      "vin": "KNDJGX2E7M1234567",
+      "date_mise_en_circulation": "2023-04-22",
+      "type": "Electrique"
+    }
+  ]
+}
