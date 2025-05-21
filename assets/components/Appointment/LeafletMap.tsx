@@ -1,4 +1,4 @@
-import {useEffect, useRef} from 'preact/hooks';
+import { useEffect, useRef } from 'preact/hooks';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
@@ -13,9 +13,10 @@ type Garage = {
 
 type Props = {
     garages: Garage[];
+    onGarageSelect: (garage: Garage) => void;
 };
 
-export default function LeafletMap({ garages }: Props) {
+export default function LeafletMap({ garages, onGarageSelect }: Props) {
     const mapRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -35,16 +36,36 @@ export default function LeafletMap({ garages }: Props) {
             parseFloat(garages[0].longitude),
         ];
 
-        // @ts-ignore
+        // @ts-ignore todo a corriger kdm
         const map = L.map(mapRef.current).setView(center, 12);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
+            attribution: '&copy; OpenStreetMap contributors',
         }).addTo(map);
 
         garages.forEach((garage) => {
-            const marker = L.marker([parseFloat(garage.latitude), parseFloat(garage.longitude)]).addTo(map);
-            marker.bindPopup(`<strong>${garage.name}</strong><br>${garage.address}<br>${garage.zipcode} ${garage.city}`);
+            const marker = L.marker([
+                parseFloat(garage.latitude),
+                parseFloat(garage.longitude),
+            ]).addTo(map);
+
+            marker.bindPopup(`
+                <div class="map-popup">
+                    <strong>${garage.name}</strong><br/>
+                    ${garage.address}<br/>
+                    ${garage.zipcode} ${garage.city}<br/>
+                    <button class="map-select-btn" data-id="${garage.name}">Choisir ce garage</button>
+                </div>
+            `);
+
+            marker.on('popupopen', () => {
+                setTimeout(() => {
+                    const btn = document.querySelector(`[data-id="${garage.name}"]`);
+                    if (btn) {
+                        btn.addEventListener('click', () => onGarageSelect(garage));
+                    }
+                }, 100);
+            });
         });
 
         return () => map.remove();

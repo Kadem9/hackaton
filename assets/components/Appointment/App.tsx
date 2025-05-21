@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'preact/hooks';
 import './style.css';
 import 'leaflet/dist/leaflet.css';
-import LeafletMap from "./LeafletMap.tsx";
+import LeafletMap from './LeafletMap.tsx';
 
 type Step = {
     step: string;
     message: string;
     type: 'text' | 'confirm' | 'checkbox';
     options?: string[];
+    data?: any;
 };
 
 export function App() {
@@ -24,7 +25,7 @@ export function App() {
         const res = await fetch('/api/chatbot/step', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ step, input })
+            body: JSON.stringify({ step, input }),
         });
 
         const json = await res.json();
@@ -44,14 +45,19 @@ export function App() {
         <div class="chatbot">
             <div class="chatbot__messages">
                 {messages.map((msg, index) => (
-                    <div key={index} class="chatbot__message">{msg}</div>
+                    <div key={index} class="chatbot__message" dangerouslySetInnerHTML={{ __html: msg }}
+                    />
                 ))}
             </div>
 
-            {currentStep?.step === 'choose_garage' && (currentStep as any).data?.garages && (
-                <LeafletMap garages={(currentStep as any).data.garages} />
+            {currentStep?.step === 'choose_garage' && currentStep?.data?.garages && (
+                <LeafletMap
+                    garages={currentStep.data.garages}
+                    onGarageSelect={(garage) => {
+                        fetchStep('choose_garage', [`${garage.name} – ${garage.address} (${garage.zipcode} ${garage.city})`]);
+                    }}
+                />
             )}
-
 
             {currentStep?.type === 'text' && (
                 <form onSubmit={handleSubmit} class="chatbot__form">

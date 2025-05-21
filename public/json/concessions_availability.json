@@ -1,0 +1,1796 @@
+[
+  {
+    "dealership_name": "ENVERGURE LA ROCHELLE",
+    "city": "Puilboreau",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 0,
+      "2025-05-28": 4,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "ROYAL SA MEYLAN",
+    "city": "Meylan",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 7,
+      "2025-05-28": 6,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "PAYS DE LOIRE AUTOMOBILES NANTES",
+    "city": "Saint-Herblain",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 6,
+      "2025-05-28": 3,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 69 LYON",
+    "city": "Lyon",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 3,
+      "2025-05-28": 0,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "INDIGO LES ULIS",
+    "city": "Villebon-sur-Yvette",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 4,
+      "2025-05-28": 5,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "INDIGO JUVISY",
+    "city": "Juvisy-sur-Orge",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 4,
+      "2025-05-28": 3,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "INDIGO LISSES",
+    "city": "Lisses",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 4,
+      "2025-05-28": 3,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "L'ESPACE H STRASBOURG",
+    "city": "Hoenheim",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": "closed",
+      "2025-05-28": 5,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "HORIZON CH. POZZI PARIS",
+    "city": "Levallois-Perret",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 4,
+      "2025-05-28": 8,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BAYERN AUTO SPORT CALAIS",
+    "city": "Coquelles",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 7,
+      "2025-05-28": 7,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "BAYERN AUTO SPORT DUNKERQUE",
+    "city": "Coudekerque-Branche CEDEX",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": "closed",
+      "2025-05-28": 3,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "BAYERN AUTO SPORT ST OMER",
+    "city": "Arques",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 7,
+      "2025-05-28": 0,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "INDIGO BALLAINVILLIERS",
+    "city": "Ballainvilliers",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 3,
+      "2025-05-28": "closed",
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "BYmyCAR BAC CHENNEVIERES",
+    "city": "Chennevières-sur-Marne",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 8,
+      "2025-05-28": 3,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "BYmyCAR PARIS BIZOT",
+    "city": "Paris",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 8,
+      "2025-05-28": 0,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "ESPACE BERTEAUX DREUX",
+    "city": "Vernouillet",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 4,
+      "2025-05-28": "closed",
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "FOUREL VALENCE",
+    "city": "Valence",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 7,
+      "2025-05-28": 8,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BYmyCAR 77 MARNE LA VALLEE",
+    "city": "Saint-Thibault-des-Vignes",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 8,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "HORIZON LA DEFENSE",
+    "city": "Nanterre",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 5,
+      "2025-05-28": 7,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "HORIZON ST-OUEN-L'AUMONE",
+    "city": "Saint-Ouen-l'Aumône",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 7,
+      "2025-05-28": "closed",
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "HORIZON ST-GRATIEN",
+    "city": "Saint-Gratien",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 7,
+      "2025-05-28": 3,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM TARBES",
+    "city": "Tarbes",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 5,
+      "2025-05-28": 8,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM PAU",
+    "city": "Lescar",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 8,
+      "2025-05-28": 3,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "BMS MANTES",
+    "city": "Buchelay",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 5,
+      "2025-05-28": 6,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM BEZIERS",
+    "city": "Béziers",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 3,
+      "2025-05-28": "closed",
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM NARBONNE",
+    "city": "Narbonne",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 3,
+      "2025-05-28": 5,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM CARCASSONNE",
+    "city": "Carcassonne",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 7,
+      "2025-05-28": "closed",
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "HUCHET SAS RENNES",
+    "city": "Saint-Grégoire",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 0,
+      "2025-05-28": 6,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "HUCHET SAS SAINT MALO",
+    "city": "Saint-Malo",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 8,
+      "2025-05-28": 7,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "GRIM PASSION MONTPELLIER",
+    "city": "Lattes",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 6,
+      "2025-05-28": 3,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE METZ",
+    "city": "Metz",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 8,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "PANEL MELUN",
+    "city": "Vert-Saint-Denis",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 3,
+      "2025-05-28": 6,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "HESS AUTO BESANCON",
+    "city": "Besançon",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 0,
+      "2025-05-28": 7,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "CHARRIER CHOLET",
+    "city": "Cholet",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 8,
+      "2025-05-28": 0,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "ISERAN AUTOMOBILES CHAMBERY",
+    "city": "Chambéry",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 4,
+      "2025-05-28": 5,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE TERVILLE",
+    "city": "Terville",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 6,
+      "2025-05-28": 3,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "AXXIA SA BOURGES",
+    "city": "Saint-Doulchard",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 3,
+      "2025-05-28": 4,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "HELI-DRIVE CLERMONT",
+    "city": "Aubière",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 0,
+      "2025-05-28": 8,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE BAYERN DIJON",
+    "city": "Chenôve",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 5,
+      "2025-05-28": 7,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BERNARDINI AJACCIO",
+    "city": "Ajaccio",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 7,
+      "2025-05-28": 3,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "OLIVA MOTOR PERPIGNAN",
+    "city": "Perpignan",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 6,
+      "2025-05-28": 7,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "GRIM RODEZ",
+    "city": "Onet-le-Château",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 7,
+      "2025-05-28": 4,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM PÉRIGUEUX",
+    "city": "Trélissac",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": "closed",
+      "2025-05-28": 3,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "OUEST MOTORS BREST",
+    "city": "Brest",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 4,
+      "2025-05-28": 6,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE CAEN",
+    "city": "MONDEVILLE",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 3,
+      "2025-05-28": 0,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE SAINT-LO",
+    "city": "SAINT-LÔ",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 7,
+      "2025-05-28": 4,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "AMPLITUDE AUTOMOBILES TOURS",
+    "city": "Chambray-les-Tours",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 0,
+      "2025-05-28": 0,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "AMPLITUDE LE MANS",
+    "city": "Le Mans",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 6,
+      "2025-05-28": 8,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 71 MACON",
+    "city": "Sancé",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 0,
+      "2025-05-28": "closed",
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "BYmyCAR NOISY",
+    "city": "Noisy-le-Sec",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 5,
+      "2025-05-28": 3,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE EPINAL",
+    "city": "Chavelot",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 4,
+      "2025-05-28": 0,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BMS LE HAVRE",
+    "city": "Le Havre",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 7,
+      "2025-05-28": 8,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "HORIZON NORMANDIE ROUEN",
+    "city": "Rouen",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 5,
+      "2025-05-28": 4,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "BAVARIA MOTORS TOULON EST LA GARDE",
+    "city": "La Garde",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 4,
+      "2025-05-28": 6,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "BAYERN LILLE BY AUTOSPHERE",
+    "city": "Villeneuve-d'Ascq",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 5,
+      "2025-05-28": 0,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "SAINT-MERRI BEAUVAIS",
+    "city": "Beauvais",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 5,
+      "2025-05-28": 4,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "GARAGE THIREAU CHARTRES",
+    "city": "Nogent-le-Phaye",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 6,
+      "2025-05-28": 6,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE ALENCON",
+    "city": "Valframbert",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 3,
+      "2025-05-28": 5,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "PELRAS TOULOUSE",
+    "city": "Toulouse",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": "closed",
+      "2025-05-28": 8,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "JMS AUTOMOBILE COLMAR",
+    "city": "Colmar",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 0,
+      "2025-05-28": 0,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "BRESSE AUTO SPORT BOURG",
+    "city": "Viriat",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 8,
+      "2025-05-28": 6,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "AUVERGNE AUTO AURILLAC",
+    "city": "Aurillac",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 7,
+      "2025-05-28": "closed",
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "L'ESPACE BIENVENUE ROYAN",
+    "city": "St Georges de Didonne",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 8,
+      "2025-05-28": 8,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM BRIVE",
+    "city": "Brive-la-Gaillarde",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": "closed",
+      "2025-05-28": "closed",
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "6EME AVENUE BOURGOIN",
+    "city": "Bourgoin-Jallieu",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 6,
+      "2025-05-28": 0,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 38 VIENNE",
+    "city": "Vienne",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 6,
+      "2025-05-28": 0,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "DUPONT SA ORLEANS",
+    "city": "Orléans",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 0,
+      "2025-05-28": 8,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "FOCH AUTOMOBILES AVIGNON",
+    "city": "Avignon",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": "closed",
+      "2025-05-28": 5,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "6EME AVENUE LYON 3",
+    "city": "Lyon",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 4,
+      "2025-05-28": 0,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "NEUBAUER BOULOGNE",
+    "city": "Boulogne-Billancourt",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": "closed",
+      "2025-05-28": 5,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE REIMS",
+    "city": "Reims",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 8,
+      "2025-05-28": 3,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "GRAND SUD AUTO MARSEILLE",
+    "city": "Marseille",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 4,
+      "2025-05-28": 4,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE NANCY",
+    "city": "Maxéville",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 4,
+      "2025-05-28": 0,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "OUEST MOTORS MORLAIX",
+    "city": "Morlaix",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 5,
+      "2025-05-28": 0,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "HESS AUTO BELFORT",
+    "city": "Belfort",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 0,
+      "2025-05-28": 5,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "LITTORAL AUTOMOBILES VANNES",
+    "city": "Vannes",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 5,
+      "2025-05-28": 3,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "CAP OUEST LA BAULE",
+    "city": "Guérande",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 7,
+      "2025-05-28": 3,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "BAYERN SECLIN BY AUTOSPHERE",
+    "city": "Seclin",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": "closed",
+      "2025-05-28": "closed",
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "HUCHET LAVAL",
+    "city": "Laval",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 3,
+      "2025-05-28": 8,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "DUPONT SA MONTARGIS",
+    "city": "Amilly",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 8,
+      "2025-05-28": 3,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "NEUBAUER CHAMBOURCY",
+    "city": "Chambourcy",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 0,
+      "2025-05-28": 4,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "CAR PREMIUM 59 DOUAI",
+    "city": "Dechy",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 4,
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "LATITUDE AUTOMOBILES LORIENT",
+    "city": "Lorient",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 5,
+      "2025-05-27": 4,
+      "2025-05-28": 6,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "AXXIA SA CHATEAUROUX",
+    "city": "Châteauroux",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 0,
+      "2025-05-28": 7,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "OUEST MOTORS SAINT-BRIEUC",
+    "city": "TREGUEUX",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": "closed",
+      "2025-05-28": "closed",
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "HESS AUTO PRESTIGE JURA LONS LE SAUNIER",
+    "city": "Lons-le-Saunier",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 3,
+      "2025-05-28": 4,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "ARAVIS AUTOMOBILES ANNECY",
+    "city": "EPAGNY METZ-TESSY",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 0,
+      "2025-05-28": 6,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "JMS AUTOMOBILE MULHOUSE",
+    "city": "Sausheim",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 3,
+      "2025-05-28": 6,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "VALMOTORS VALENCIENNES",
+    "city": "Petite-Forêt",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 8,
+      "2025-05-28": 3,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "EQUATION TOULOUSE",
+    "city": "Labège",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": "closed",
+      "2025-05-28": 5,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "BMW PARIS",
+    "city": "Paris",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 4,
+      "2025-05-28": 3,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "L'ESPACE BIENVENUE ANGOULEME",
+    "city": "Champniers",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 6,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 42 BMW ST-ETIENNE",
+    "city": "Saint-Etienne",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 8,
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "6EME AVENUE VENISSIEUX",
+    "city": "Vénissieux",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 4,
+      "2025-05-28": 5,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "EDENAUTO PREMIUM LIMOGES",
+    "city": "Limoges",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 8,
+      "2025-05-28": 5,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE NIORT",
+    "city": "Niort",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 8,
+      "2025-05-28": 4,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "NEUBAUER MIRABEAU",
+    "city": "Paris",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 3,
+      "2025-05-28": 4,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "PANEL FONTAINEBLEAU",
+    "city": "Samoreau",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 4,
+      "2025-05-28": 0,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "AXXIA SA NEVERS",
+    "city": "Nevers",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": "closed",
+      "2025-05-28": 4,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "ENVERGURE ANGERS",
+    "city": "Beaucouzé",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 6,
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "NEUBAUER LE CHESNAY/PARLY II",
+    "city": "Le Chesnay",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 0,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "BMW PARIS VELIZY",
+    "city": "Vélizy-Villacoublay",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 6,
+      "2025-05-28": 4,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BAVARIA MOTORS TOULON OUEST OLLIOULES",
+    "city": "Ollioules",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 8,
+      "2025-05-28": "closed",
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "BYmyCAR IVRY",
+    "city": "Ivry-sur-Seine",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 8,
+      "2025-05-28": 0,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "AMPLITUDE AUTOMOBILES BLOIS",
+    "city": "Blois",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 5,
+      "2025-05-28": 6,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "BMS EVREUX",
+    "city": "Evreux",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 6,
+      "2025-05-28": 7,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "MINI MONT-SION AUTOMOBILES Vetraz-Monthoux",
+    "city": "Vetraz-Monthoux",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 4,
+      "2025-05-28": 8,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "GRIM ALBI",
+    "city": "Albi",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 0,
+      "2025-05-28": 5,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "EQUATION MONTAUBAN",
+    "city": "Montauban",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 8,
+      "2025-05-28": 7,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "FOUREL MONTELIMAR",
+    "city": "Montélimar",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 0,
+      "2025-05-28": 4,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "LATITUDE AUTOMOBILES QUIMPER",
+    "city": "Quimper",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 7,
+      "2025-05-28": 4,
+      "2025-05-29": 6
+    }
+  },
+  {
+    "dealership_name": "PAYS DE LOIRE AUTOMOBILES REZE",
+    "city": "Rezé",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 6,
+      "2025-05-28": 8,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "BAYERN AVENUE CANNES",
+    "city": "Mougins",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 8,
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "L'ESPACE H HAGUENAU",
+    "city": "Haguenau",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 0,
+      "2025-05-28": 6,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "BAYERN AUTO SPORT BOULOGNE SUR MER",
+    "city": "Saint-Léonard",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": "closed",
+      "2025-05-28": 0,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 69 VILLEFRANCHE",
+    "city": "Villefranche-sur-Saône",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 8,
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "PANEL AUXERRE",
+    "city": "Auxerre",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 4,
+      "2025-05-28": "closed",
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE BAYERN TROYES",
+    "city": "Rosières-Près-Troyes",
+    "availability": {
+      "2025-05-23": 0,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 6,
+      "2025-05-28": 5,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "STORE MONACO",
+    "city": "Monaco",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 0,
+      "2025-05-28": 7,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "L'ESPACE BIENVENUE ROCHEFORT",
+    "city": "Rochefort",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 0,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "ALTITUDE 42 ROANNE",
+    "city": "Le Coteau",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": "closed",
+      "2025-05-28": 8,
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "MONT D'AREU AUTOMOBILES",
+    "city": "Domancy",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": "closed",
+      "2025-05-28": "closed",
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "AUTO BOURGOGNE VACHER MONTCEAU",
+    "city": "Montceau-les-Mines",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": 5,
+      "2025-05-28": 3,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "STATION 7 SELLENS MARSEILLE",
+    "city": "Marseille",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 0,
+      "2025-05-28": "closed",
+      "2025-05-29": 0
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE BAYERN CHALON",
+    "city": "Chalon-sur-Saône",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 3,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "GARAGE RAYMOND MARMANDE",
+    "city": "Marmande",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 2,
+      "2025-05-25": "closed",
+      "2025-05-26": 6,
+      "2025-05-27": 7,
+      "2025-05-28": 6,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "MERIDIONAL AUTO NIMES",
+    "city": "Nîmes",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 0,
+      "2025-05-28": 6,
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "HELI-MOTORS VICHY",
+    "city": "Bellerive-sur-Allier",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 7,
+      "2025-05-28": 4,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "BERNARDINI BASTIA",
+    "city": "Furiani",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 3,
+      "2025-05-27": "closed",
+      "2025-05-28": "closed",
+      "2025-05-29": 5
+    }
+  },
+  {
+    "dealership_name": "GARAGE ALAIN VERNE MEYZIEU",
+    "city": "Meyzieu",
+    "availability": {
+      "2025-05-23": 8,
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": "closed",
+      "2025-05-28": 7,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "EQUATION CASTRES",
+    "city": "Castres",
+    "availability": {
+      "2025-05-23": 3,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 5,
+      "2025-05-28": 0,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "BMW NICE PREMIUM MOTORS",
+    "city": "Nice",
+    "availability": {
+      "2025-05-23": 4,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 4,
+      "2025-05-28": 7,
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "CAR AVENUE SARREBOURG",
+    "city": "Sarrebourg",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": "closed",
+      "2025-05-27": 6,
+      "2025-05-28": 6,
+      "2025-05-29": 7
+    }
+  },
+  {
+    "dealership_name": "MINI STORE RABATAU MARSEILLE",
+    "city": "Marseille",
+    "availability": {
+      "2025-05-23": 7,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 8,
+      "2025-05-27": 6,
+      "2025-05-28": "closed",
+      "2025-05-29": "closed"
+    }
+  },
+  {
+    "dealership_name": "BAYARD AUTO MOTO GAP",
+    "city": "Gap",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 0,
+      "2025-05-28": 7,
+      "2025-05-29": 3
+    }
+  },
+  {
+    "dealership_name": "SAINT-MERRI AMIENS",
+    "city": "Rivery",
+    "availability": {
+      "2025-05-23": 6,
+      "2025-05-24": 1,
+      "2025-05-25": "closed",
+      "2025-05-26": 7,
+      "2025-05-27": 3,
+      "2025-05-28": 8,
+      "2025-05-29": 8
+    }
+  },
+  {
+    "dealership_name": "SAINT-MERRI COMPIEGNE",
+    "city": "Jaux",
+    "availability": {
+      "2025-05-23": "closed",
+      "2025-05-24": 0,
+      "2025-05-25": "closed",
+      "2025-05-26": 0,
+      "2025-05-27": 0,
+      "2025-05-28": 6,
+      "2025-05-29": 4
+    }
+  },
+  {
+    "dealership_name": "SAINT-MERRI CHANTILLY",
+    "city": "Saint-Maximin",
+    "availability": {
+      "2025-05-23": 5,
+      "2025-05-24": 3,
+      "2025-05-25": "closed",
+      "2025-05-26": 4,
+      "2025-05-27": 5,
+      "2025-05-28": 6,
+      "2025-05-29": 7
+    }
+  }
+]

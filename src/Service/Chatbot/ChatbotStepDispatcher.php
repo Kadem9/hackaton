@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Service\Chatbot;
+
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+readonly class ChatbotStepDispatcher
+{
+    public function __construct(
+        private ChatbotVehicleService $vehicleService,
+        private ChatbotUserRegistrationService $userRegistrationService,
+        private ChatbotDiagnosisService $diagnosisService,
+        private ChatbotConcessionService $concessionService,
+        private ChatbotAppointmentService $appointmentService,
+    ) {}
+
+    public function dispatch(string $step, mixed $input, Request $request, ?UserInterface $user): JsonResponse
+    {
+        return match ($step) {
+            'start' => $this->vehicleService->handleStart($user),
+            'choose_existing_or_new' => $this->vehicleService->handleVehicleChoice($input),
+            'ask_immatriculation' => $this->vehicleService->handleImmatriculation($input, $request, $user),
+            'ask_brand' => $this->vehicleService->handleBrand($input, $request, $user),
+            'ask_model' => $this->vehicleService->handleModel($input, $request),
+            'ask_mileage' => $this->vehicleService->handleMileage($input, $request),
+            'ask_circulation_date' => $this->vehicleService->handleCirculationDate($input, $request),
+            'ask_vin' => $this->vehicleService->handleVin($input, $request),
+            'ask_is_driver' => $this->vehicleService->handleIsDriver($input, $request, $user),
+            'choose_conductor' => $this->vehicleService->handleChooseConductor($input, $request),
+            'create_conductor' => $this->vehicleService->handleCreateConductor($input, $request),
+            'ask_civility' => $this->userRegistrationService->handleCivility($input, $request),
+            'ask_email' => $this->userRegistrationService->handleEmail($input, $request),
+            'ask_user_type' => $this->userRegistrationService->handleUserType($input, $request),
+            'ask_name' => $this->userRegistrationService->handleName($input, $request),
+            'ask_phone' => $this->userRegistrationService->handlePhone($input, $request),
+            'ask_password' => $this->userRegistrationService->handlePassword($input, $request),
+            'finalize_registration' => $this->userRegistrationService->handleFinalizeRegistration($request),
+            'ask_problem' => $this->diagnosisService->handleProblem($input, $request),
+            'choose_operations' => $this->diagnosisService->handleChooseOperations($input, $request),
+            'ask_location' => $this->concessionService->handleLocation($input, $request),
+            'choose_garage' => $this->concessionService->handleChooseGarage($input, $request),
+            'ask_date_type' => $this->appointmentService->handleDateType($input, $request),
+            'choose_date' => $this->appointmentService->handleChooseDate($input, $request),
+            'confirm_slot' => $this->appointmentService->handleConfirmSlot($input, $request),
+//            'final_confirmation' => $this->appointmentService->handleFinalConfirmation($input, $request),
+            'confirm_appointment' => $this->appointmentService->handleConfirmAppointment($input, $request),
+            'finalize_appointment' => $this->appointmentService->handleFinalizeAppointment($input, $request),
+            'confirm_final' => $this->appointmentService->handleFinalConfirmation($input, $request),
+
+            default => new JsonResponse(['message' => 'Étape inconnue.'], 400),
+        };
+    }
+}

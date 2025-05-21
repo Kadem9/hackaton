@@ -26,7 +26,9 @@ readonly class ChatbotRegistrationService
         string $immatriculation,
         string $brand,
         string $model,
-        ?\DateTimeInterface $circulationDate = null
+        ?\DateTimeInterface $circulationDate = null,
+        ?int $mileage = null,
+        ?string $vin = null
     ): User {
 
         $user = new User();
@@ -50,6 +52,8 @@ readonly class ChatbotRegistrationService
         $vehicle->setModel($model);
         $vehicle->setImmatriculation($immatriculation);
         $vehicle->setDateOfCirculation($circulationDate);
+        $vehicle->setMileage($mileage);
+        $vehicle->setVin($vin);
         $vehicle->setConductor($conductor);
 
         $this->vehicleNormalizer->normalize($vehicle);

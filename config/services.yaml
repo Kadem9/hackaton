@@ -40,6 +40,9 @@ services:
     App\Service\Chatbot\ConcessionLocatorService:
         arguments:
             $csvPath: '%concession_csv_path%'
-    App\Controller\Api\ChatBotController:
+    App\Service\Chatbot\ChatbotVehicleService:
         arguments:
-            $fakeVehiclePath: '%fake_vehicle_json_path%'
+            $fakeVehiclePath: '%kernel.project_dir%/public/json/voiture_plaques.json'
+    App\Service\Chatbot\ChatbotAvailabilityService:
+        arguments:
+            $availabilityPath: '%kernel.project_dir%/public/json/concessions_availability.json'
