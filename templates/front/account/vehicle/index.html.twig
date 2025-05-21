@@ -18,6 +18,7 @@
                             {% for vehicle in vehicles %}
                                 <li class="mb-3">
                                     <div class="info mb-2">
+                                    <img src="{{ asset('assets/img/' ~ vehicle.brand|lower ~ '.svg') }}" alt="Logo {{ vehicle.brand }}" class="h-6 w-auto">
                                         <span class="font-bold">{{ vehicle.brand }} {{ vehicle.model }}</span><br>
                                         <span class="font-bold">Immatriculation :</span> {{ vehicle.immatriculation }}<br>
                                         <span class="font-bold">Conducteur :</span> {{ vehicle.conductor.firstname }} <br>

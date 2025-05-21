@@ -6,6 +6,7 @@ use App\Entity\Vehicle;
 use App\Form\Vehicle\VehicleType;
 use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
+use App\Service\User\CurrentUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -60,10 +61,13 @@ class VehicleController extends AbstractController
 
 
     #[Route('/{id}/modifier', name: 'edit')]
-    public function edit(Request $request, Vehicle $vehicle, EntityManagerInterface $em, VehicleNormalizer $normalizer): Response
+    public function edit(Request $request, Vehicle $vehicle, EntityManagerInterface $em, VehicleNormalizer $normalizer, CurrentUserService $currentUserService): Response
     {
-        if ($vehicle->getConductor()?->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
+        $user = $currentUserService->getCurrentUser();
+        foreach ($user->getConductors() as $conductor) {
+            if ($conductor->getUser() !== $user) {
+                throw $this->createAccessDeniedException();
+            }
         }
 
         $form = $this->createForm(VehicleType::class, $vehicle, [
@@ -86,10 +90,13 @@ class VehicleController extends AbstractController
     }
 
     #[Route('/{id}/supprimer', name: 'delete', methods: ['POST'])]
-    public function delete(Request $request, Vehicle $vehicle, EntityManagerInterface $em): Response
+    public function delete(Request $request, Vehicle $vehicle, EntityManagerInterface $em, CurrentUserService $currentUserService): Response
     {
-        if ($vehicle->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
+        $user = $currentUserService->getCurrentUser();
+        foreach ($user->getConductors() as $conductor) {
+            if ($conductor->getUser() !== $user) {
+                throw $this->createAccessDeniedException();
+            }
         }
 
         if ($this->isCsrfTokenValid('delete_vehicle_' . $vehicle->getId(), $request->request->get('_token'))) {
