@@ -6,6 +6,7 @@ use App\Entity\Vehicle;
 use App\Form\Vehicle\VehicleType;
 use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
+use App\Service\User\CurrentUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,8 +37,13 @@ class VehicleController extends AbstractController
 
 
     #[Route('/nouveau', name: 'new')]
-    public function new(Request $request, EntityManagerInterface $em, VehicleNormalizer $normalizer): Response
+    public function new(Request $request, EntityManagerInterface $em, VehicleNormalizer $normalizer, CurrentUserService $currentUserService): Response
     {
+        if ($currentUserService->getCurrentUser()?->getConductors() === null) {
+            $this->addFlash('error', 'Vous devez d\'abord créer un conducteur.');
+            return $this->redirectToRoute('account_conductor_new');
+        }
+
         $vehicle = new Vehicle();
         $form = $this->createForm(VehicleType::class, $vehicle, [
             'user' => $this->getUser(),
