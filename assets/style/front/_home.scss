@@ -1,152 +1,88 @@
 .home__hero {
-  background-color: #1e1e1e;
-  color: white;
-  padding: 6rem 2rem;
+  @apply bg-neutral-900 text-white px-8 py-24 sm:px-6 sm:py-20;
 
   .highlight {
-    color: #ffffff;
-    font-weight: 700;
+    @apply text-white font-bold;
   }
 
   .home__hero-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    max-width: 1200px;
-    margin: 0 auto;
+    @apply flex flex-wrap items-center justify-between max-w-[1200px] mx-auto;
   }
 
   .home__hero-text {
-    flex: 1;
-    min-width: 300px;
-    padding-right: 2rem;
+    @apply flex-1 min-w-[300px] pr-8;
 
     h1 {
-      font-size: 3rem;
-      line-height: 1.2;
-      font-weight: 600;
-      margin-bottom: 1rem;
+      @apply text-5xl leading-tight font-semibold mb-4 sm:text-4xl;
     }
 
     p {
-      font-size: 1.2rem;
-      color: #cfcfcf;
-      margin-bottom: 2rem;
+      @apply text-lg text-neutral-300 mb-8;
     }
 
     .btn-primary {
-      background-color: #0066ff;
-      color: white;
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-      transition: background-color 0.3s;
-
-      &:hover {
-        background-color: #004ecc;
-      }
+      @apply bg-blue-600 text-white py-3 px-6 rounded-lg font-bold inline-block transition-colors duration-300 hover:bg-blue-800;
     }
 
     .home__stats {
-      display: flex;
-      gap: 2rem;
-      margin-top: 3rem;
+      @apply flex gap-8 mt-12 flex-wrap;
 
       .stat {
         .stat-number {
-          font-size: 2rem;
-          font-weight: bold;
-          display: block;
+          @apply text-2xl font-bold block;
         }
         .stat-label {
-          font-size: 0.9rem;
-          color: #aaa;
+          @apply text-sm text-gray-400;
         }
       }
     }
   }
 
   .home__hero-image {
-    flex: 1;
-    text-align: right;
-    min-width: 300px;
+    @apply flex-1 min-w-[300px] text-right mt-8 sm:mt-12;
 
     img {
-      max-width: 100%;
-      height: auto;
+      @apply max-w-full h-auto;
     }
   }
 }
+
 .home__services-section {
-  background-color: #fff;
-  padding: 6rem 3rem;
+  @apply bg-white px-12 py-24 sm:px-6 sm:py-20;
 
   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    text-align: center;
+    @apply max-w-[1200px] mx-auto text-center;
   }
 
   .section-title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    font-weight: 700;
+    @apply text-4xl font-bold mb-4;
   }
 
   .section-subtitle {
-    color: #666;
-    font-size: 1.2rem;
-    margin-bottom: 3rem;
+    @apply text-gray-600 text-lg mb-12;
   }
 
   .services-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+    @apply grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3;
   }
 
   .service-card {
-    background-color: #f4f4f4;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-    text-align: left;
-    transition: transform 0.3s ease;
-
-    &:hover {
-      transform: translateY(-5px);
-    }
+    @apply bg-gray-100 p-8 rounded-xl shadow-md text-left transition-transform duration-300 hover:-translate-y-1;
 
     img {
-      width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 8px;
-      margin-bottom: 1rem;
+      @apply w-full h-[180px] object-cover rounded-lg mb-4;
     }
 
     h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
+      @apply text-xl font-semibold mb-2;
     }
 
     p {
-      font-size: 1rem;
-      color: #444;
-      margin-bottom: 1rem;
+      @apply text-base text-gray-700 mb-4;
     }
 
     .service-link {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: bold;
-      &:hover {
-        text-decoration: underline;
-      }
+      @apply text-blue-600 font-bold hover:underline;
     }
   }
 }

@@ -12,16 +12,29 @@
                 <div class="card-body">
                     {{ form_start(form) }}
                     <div class="grid grid-cols-2 gap-4">
-                        {{ form_row(form.brand) }}
+                        {# Ajout manuel de l'ID sur le champ brand #}
+                        <div>
+                            {{ form_label(form.brand) }}
+                            {{ form_widget(form.brand, {'attr': {'id': 'brand-selector'}}) }}
+                            {{ form_errors(form.brand) }}
+                        </div>
+
+                        <div id="brand-display" class="flex items-center gap-2 mt-2 hidden">
+                            <img id="brand-logo" src="" alt="Logo marque" class="h-6 w-auto">
+                            <span id="brand-name" class="text-sm font-semibold"></span>
+                        </div>
+
                         {{ form_row(form.model) }}
                         {{ form_row(form.immatriculation) }}
                         {{ form_row(form.vin) }}
                         {{ form_row(form.dateOfCirculation) }}
                         {{ form_row(form.mileage) }}
                     </div>
+
                     <div class="grid grid-cols-1 gap-2 mt-2">
                         {{ form_row(form.conductor) }}
                     </div>
+
                     <button class="btn-white-secondary mt-4" type="submit">
                         {{ form.vars.value.id ? 'Mettre à jour' : 'Ajouter' }}
                     </button>
@@ -30,4 +43,47 @@
             </div>
         </div>
     </div>
+
+    {# Script placé à l'extérieur de form_end pour éviter les conflits DOM #}
+    <script>
+        const logos = {
+            peugeot: '/assets/img/peugeot.svg',
+            bmw: '/assets/img/bmw.svg',
+            citroen: '/assets/img/citroen.svg',
+            bugatti: '/assets/img/bugatti.svg',
+            fiat: '/assets/img/fiat.svg',
+            ford: '/assets/img/ford.svg',
+            porsche: '/assets/img/porsche.svg',
+            renault: '/assets/img/renault.svg',
+            volkswagen: '/assets/img/volkswagen.svg',
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const selector = document.getElementById('brand-selector');
+            const logoContainer = document.getElementById('brand-display');
+            const logoImg = document.getElementById('brand-logo');
+            const brandText = document.getElementById('brand-name');
+
+            if (!selector) return;
+
+            selector.addEventListener('change', (event) => {
+                const selected = event.target.value;
+
+                if (logos[selected]) {
+                    logoImg.src = logos[selected];
+                    brandText.textContent = selected.charAt(0).toUpperCase() + selected.slice(1);
+                    logoContainer.classList.remove('hidden');
+                } else {
+                    logoContainer.classList.add('hidden');
+                }
+            });
+
+            // Affichage initial si une marque est déjà sélectionnée
+            if (selector.value && logos[selector.value]) {
+                logoImg.src = logos[selector.value];
+                brandText.textContent = selector.value.charAt(0).toUpperCase() + selector.value.slice(1);
+                logoContainer.classList.remove('hidden');
+            }
+        });
+    </script>
 {% endblock %}

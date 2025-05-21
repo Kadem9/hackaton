@@ -12,6 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType; 
+
 
 class VehicleType extends AbstractType
 {
@@ -37,7 +39,22 @@ class VehicleType extends AbstractType
                         ->setParameter('user', $options['user']);
                 },
             ])
-            ->add('mileage', IntegerType::class, ['label' => 'Kilométrage', 'required' => false]);
+            ->add('mileage', IntegerType::class, ['label' => 'Kilométrage', 'required' => false])
+            ->add('brand', ChoiceType::class, [
+                'choices' => [
+                    'Peugeot' => 'peugeot',
+                    'BMW' => 'bmw',
+                    'Citroën' => 'citroen',
+                    'Bugatti' => 'bugatti',
+                    'Fiat' => 'fiat',
+                    'Ford' => 'ford',
+                    'Porsche' => 'porsche',
+                    'Renault' => 'renault',
+                    'Volkswagen' => 'volkswagen',
+                ],
+                'placeholder' => 'Choisissez une marque',
+                'attr' => ['id' => 'brand-selector']
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
