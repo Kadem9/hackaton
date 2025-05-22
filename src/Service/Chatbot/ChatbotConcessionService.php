@@ -32,7 +32,7 @@ readonly class ChatbotConcessionService
         return new JsonResponse([
             'step' => 'choose_garage',
             'message' => "Voici les garages les plus proches de vous :",
-            'type' => 'checkbox',
+            'type' => 'radio',
             'options' => array_map(
                 fn($g) => "{$g['name']} – {$g['address']} ({$g['zipcode']} {$g['city']})",
                 $results
