@@ -57,87 +57,100 @@ readonly class ChatbotAppointmentService
 
     public function handleChooseDate(mixed $input, Request $request): JsonResponse
     {
+        $session = $request->getSession();
+
+        $session->set('chatbot_mode', 'manual');
+        $session->set('chatbot_slot_input', $input);
+
         return new JsonResponse([
             'step' => 'confirm_slot',
             'message' => "Parfait, nous avons bien noté la date souhaitée : $input",
             'type' => 'checkbox',
             'options' => [$input],
-            'data' => ['mode' => 'manual']
+            // plus besoin de data ici
         ]);
     }
+
 
     public function handleConfirmSlot(mixed $input, Request $request): JsonResponse
     {
         $session = $request->getSession();
+        $mode    = $session->get('chatbot_mode', 'auto');
 
         if (is_array($input)) {
             $input = $input[0] ?? '';
         }
+        $input = str_replace(['—','–'], '-', (string)$input);
 
-        $input = str_replace(['—', '–'], '-', (string)$input);
+        if ($mode === 'manual') {
+            $raw = $session->get('chatbot_slot_input', $input);
+            $date = \DateTime::createFromFormat('d/m/Y', $raw);
+            if (!$date) {
+                return new JsonResponse([
+                    'step'    => 'choose_date',
+                    'message' => "La date indiquée est invalide. Format attendu : JJ/MM/AAAA",
+                    'type'    => 'text'
+                ]);
+            }
 
-        if (!preg_match('/^([A-Za-zéèûîàç]+) (\d{2}) (\w+) - (\d+) créneaux$/u', $input, $matches)) {
-            return new JsonResponse([
-                'step' => 'choose_date',
-                'message' => "Le format du créneau est invalide.",
-                'type' => 'text'
-            ]);
+            $session->set('chatbot_appointment_date', $date);
+            $session->set('chatbot_slot', $raw);
+
+        } else {
+            if (!preg_match('/^([A-Za-zéèûîàç]+)\s+(\d{2})\s+(\w+)\s*-\s*(\d+)\s+créneaux?$/u', $input, $m)) {
+                return new JsonResponse([
+                    'step'    => 'choose_date',
+                    'message' => "Le format du créneau est invalide.",
+                    'type'    => 'text'
+                ]);
+            }
+            [,$dayName,$day,$monthFr,$count] = $m;
+
+            $map = [
+                'janvier'=>'January','février'=>'February','mars'=>'March','avril'=>'April',
+                'mai'=>'May','juin'=>'June','juillet'=>'July','août'=>'August',
+                'septembre'=>'September','octobre'=>'October','novembre'=>'November','décembre'=>'December'
+            ];
+            $monthEn = $map[strtolower($monthFr)] ?? null;
+            if (!$monthEn) {
+                return new JsonResponse([
+                    'step'    => 'choose_date',
+                    'message' => "Mois invalide, veuillez réessayer.",
+                    'type'    => 'text'
+                ]);
+            }
+
+            $year = (new \DateTime())->format('Y');
+            $date = \DateTime::createFromFormat('d F Y', "$day $monthEn $year");
+            if (!$date) {
+                return new JsonResponse([
+                    'step'    => 'choose_date',
+                    'message' => "Impossible de traiter la date choisie.",
+                    'type'    => 'text'
+                ]);
+            }
+
+            $session->set('chatbot_appointment_date', $date);
+            $session->set('chatbot_slot', $input);
         }
 
-        [$full, $dayName, $day, $monthFr, $count] = $matches;
-
-        $monthMap = [
-            'janvier' => 'January',
-            'février' => 'February',
-            'mars' => 'March',
-            'avril' => 'April',
-            'mai' => 'May',
-            'juin' => 'June',
-            'juillet' => 'July',
-            'août' => 'August',
-            'septembre' => 'September',
-            'octobre' => 'October',
-            'novembre' => 'November',
-            'décembre' => 'December',
-        ];
-
-        $monthEn = $monthMap[strtolower($monthFr)] ?? null;
-        if (!$monthEn) {
-            return new JsonResponse([
-                'step' => 'choose_date',
-                'message' => "Mois invalide, veuillez réessayer.",
-                'type' => 'text'
-            ]);
-        }
-
-        $year = (new \DateTime())->format('Y');
-        $dateString = "$day $monthEn $year";
-        $date = \DateTime::createFromFormat('d F Y', $dateString);
-
-        if (!$date) {
-            return new JsonResponse([
-                'step' => 'choose_date',
-                'message' => "Impossible de traiter la date choisie.",
-                'type' => 'text'
-            ]);
-        }
-
-        $session->set('chatbot_appointment_date', $date);
-
-        $vehicle = $session->get('chatbot_brand') . ' ' . $session->get('chatbot_model') . ' (' . $session->get('chatbot_immatriculation') . ')';
-        $garage = $session->get('chatbot_selected_garage') ?? 'Non précisé';
+        $vehicle = $session->get('chatbot_brand')
+            . ' ' . $session->get('chatbot_model')
+            . ' (' . $session->get('chatbot_immatriculation') . ')';
+        $garage  = $session->get('chatbot_selected_garage') ?? 'Non précisé';
         $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
+        $slot    = $session->get('chatbot_slot');
 
-        $recap = "<b>🚗 Véhicule :</b> {$vehicle}<br/>" .
-            "<b>📍 Garage :</b> {$garage}<br/>" .
-            "<b>📅 Créneau :</b> {$input}<br/>" .
-            "<b>🛠 Problème :</b> {$problem}<br/><br/>" .
-            "Souhaitez-vous confirmer ce rendez-vous ?";
+        $recap = "<b>🚗 Véhicule :</b> $vehicle<br/>"
+            . "<b>📍 Garage :</b> $garage<br/>"
+            . "<b>📅 Créneau :</b> $slot<br/>"
+            . "<b>🛠 Problème :</b> $problem<br/><br/>"
+            . "Souhaitez-vous confirmer ce rendez-vous ?";
 
         return new JsonResponse([
-            'step' => 'confirm_final',
+            'step'    => 'confirm_final',
             'message' => $recap,
-            'type' => 'confirm'
+            'type'    => 'confirm'
         ]);
     }
 

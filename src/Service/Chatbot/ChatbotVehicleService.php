@@ -58,32 +58,40 @@ readonly class ChatbotVehicleService
     public function handleConfirmVehicle(string $input, Request $request, ?UserInterface $user): JsonResponse
     {
         $session = $request->getSession();
-        $data = $request->request->all()['data'] ?? [];
+        $data   = json_decode($request->getContent(), true)['data'] ?? [];
         $source = $data['source'] ?? 'none';
 
         if (strtolower($input) !== 'oui') {
             return new JsonResponse([
-                'step' => 'ask_vehicle_name',
+                'step'    => 'ask_vehicle_name',
                 'message' => "Merci d’indiquer la marque et le modèle de votre véhicule.",
-                'type' => 'text'
+                'type'    => 'text',
             ]);
         }
 
         if ($source === 'none') {
-            // 🚦 Aucun véhicule trouvé → demande email
+            if (!$user) {
+                return new JsonResponse([
+                    'step'    => 'ask_check_email',
+                    'message' => "Avez-vous déjà un compte chez nous ? Merci d’indiquer votre email.",
+                    'type'    => 'text',
+                ]);
+            }
+
             return new JsonResponse([
-                'step' => 'ask_check_email',
-                'message' => "Avez-vous déjà un compte chez nous ? Merci d’indiquer votre email.",
-                'type' => 'text'
+                'step'    => 'ask_brand',
+                'message' => "Parfait ! Quelle est la marque du nouveau véhicule ?",
+                'type'    => 'text',
             ]);
         }
 
         return new JsonResponse([
-            'step' => 'ask_problem',
+            'step'    => 'ask_problem',
             'message' => "Pouvez-vous me décrire le problème rencontré ?",
-            'type' => 'text'
+            'type'    => 'text',
         ]);
     }
+
 
 
 
@@ -242,35 +250,50 @@ readonly class ChatbotVehicleService
     }
 
 
-    public function handleIsDriver(mixed $input, Request $request, ?UserInterface $user): JsonResponse
+    public function handleIsDriver(string $input, Request $request, ?UserInterface $user): JsonResponse
     {
         $session = $request->getSession();
-        $session->set('chatbot_is_driver', strtolower($input));
+        $isDriver = strtolower(trim($input)) === 'oui';
+        $session->set('chatbot_is_driver', $isDriver);
 
-        if (strtolower($input) === 'non' && $user) {
-            $conductors = $user->getConductors();
-            $options = [];
-
-            foreach ($conductors as $c) {
-                $options[] = "{$c->getFirstname()} {$c->getLastname()} (ID:{$c->getId()})";
+        if ($isDriver) {
+            if ($user) {
+                return new JsonResponse([
+                    'step'    => 'ask_problem',
+                    'message' => "Pouvez-vous me décrire le problème rencontré ?",
+                    'type'    => 'text',
+                ]);
             }
 
-            $options[] = "Ajouter un nouveau conducteur";
-
             return new JsonResponse([
-                'step' => 'choose_conductor',
-                'message' => "Qui est le conducteur ?",
-                'type' => 'checkbox',
-                'options' => $options
+                'step'    => 'ask_civility',
+                'message' => "Parfait. Vous êtes madame ou monsieur ?",
+                'type'    => 'text',
             ]);
         }
 
+        $conductors = $user?->getConductors() ?? [];
+        $options = [];
+
+        foreach ($conductors as $c) {
+            $options[] = sprintf(
+                "%s %s (ID:%d)",
+                $c->getFirstname(),
+                $c->getLastname(),
+                $c->getId()
+            );
+        }
+
+        $options[] = "Ajouter un nouveau conducteur";
+
         return new JsonResponse([
-            'step' => 'ask_civility',
-            'message' => "Parfait. Vous êtes madame ou monsieur ?",
-            'type' => 'text'
+            'step'    => 'choose_conductor',
+            'message' => "Qui est le conducteur ?",
+            'type'    => 'checkbox',
+            'options' => $options,
         ]);
     }
+
 
     public function handleChooseConductor(mixed $input, Request $request): JsonResponse
     {
