@@ -16,15 +16,54 @@
     margin-bottom: 1rem;
 }
 
+/* Message container with alignment */
+.chatbot__message-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.8rem;
+    max-width: 100%;
+}
+
+.align-left {
+    align-self: flex-start;
+    text-align: left;
+}
+
+.align-right {
+    align-self: flex-end;
+    text-align: right;
+}
+
+/* Sender label */
+.chatbot__sender {
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+    color: #666;
+}
+
+/* Common message style */
 .chatbot__message {
-    background-color: #e2e6ea;
     padding: 0.75rem 1rem;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 1rem;
     line-height: 1.4;
     word-wrap: break-word;
+    max-width: 100%;
 }
 
+/* Specific styles for bot and user */
+.bot-message {
+    background-color: #f1f1f1;
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: #d1e7ff;
+    align-self: flex-end;
+}
+
+/* Text input and button styles */
 .chatbot__form {
     display: flex;
     flex-direction: column;
@@ -56,6 +95,7 @@
     background-color: #0056b3;
 }
 
+/* Confirm button group */
 .chatbot__confirm {
     display: flex;
     gap: 1rem;
@@ -81,6 +121,7 @@
     opacity: 0.9;
 }
 
+/* Checkboxes */
 .chatbot__checkboxes {
     display: flex;
     flex-direction: column;
@@ -102,6 +143,7 @@
     background-color: #f1f1f1;
 }
 
+/* Responsive */
 @media (max-width: 480px) {
     .chatbot {
         padding: 1rem;
@@ -114,10 +156,12 @@
     }
 }
 
+/* Map popup styles */
 .map-popup {
     font-size: 0.9rem;
     line-height: 1.4;
 }
+
 .map-select-btn {
     margin-top: 8px;
     padding: 5px 10px;
@@ -127,6 +171,7 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
 .map-select-btn:hover {
     background-color: #2563EB;
 }
