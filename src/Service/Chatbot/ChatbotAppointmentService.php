@@ -71,7 +71,7 @@ public function __construct(
         return new JsonResponse([
             'step' => 'confirm_slot',
             'message' => "Parfait, nous avons bien noté la date souhaitée : $input",
-            'type' => 'checkbox',
+            'type' => 'radio',
             'options' => [$input],
             // plus besoin de data ici
         ]);

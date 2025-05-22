@@ -41,7 +41,7 @@ readonly class ChatbotVehicleService
                 return new JsonResponse([
                     'step' => 'choose_existing_or_new',
                     'message' => "Salut {$user->getFirstname()} 👋 ! Tu as déjà " . count($vehicles) . " véhicule(s) enregistré(s). Lequel veux-tu utiliser aujourd’hui ?",
-                    'type' => 'checkbox',
+                    'type' => 'radio',
                     'options' => $options,
                     'data' => ['existing' => true]
                 ]);
