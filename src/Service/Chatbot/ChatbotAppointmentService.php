@@ -191,45 +191,41 @@ readonly class ChatbotAppointmentService
 
     public function handleConfirmAppointment(string $input, Request $request): JsonResponse
     {
-        if (strtolower($input) !== 'oui') {
-            return new JsonResponse([
-                'step' => 'ask_reminder',
-                'message' => "Souhaitez-vous qu’un conseiller vous rappelle pour fixer le rendez-vous ?",
-                'type' => 'confirm'
-            ]);
-        }
-
         $session = $request->getSession();
 
-        $vehicleId = $session->get('chatbot_vehicle_id');
-        $dateString = $session->get('chatbot_slot');
-
-        try {
-            $date = \DateTime::createFromFormat('Y-m-d \à H\hi', $dateString);
-            if (!$date) {
-                return new JsonResponse([
-                    'step' => 'error',
-                    'message' => "Le format du créneau est invalide.",
-                    'type' => 'text'
-                ]);
-            }
-        } catch (\Exception) {
+        // Si l'utilisateur refuse
+        if (strtolower(trim($input)) !== 'oui') {
             return new JsonResponse([
-                'step' => 'error',
-                'message' => "Impossible d’interpréter la date sélectionnée.",
-                'type' => 'text'
+                'step'    => 'ask_reminder',
+                'message' => "Souhaitez-vous qu’un conseiller vous rappelle pour fixer le rendez-vous ?",
+                'type'    => 'confirm',
             ]);
         }
 
+        // 🔁 Récupération des infos
+        $vehicleId = $session->get('chatbot_vehicle_id');
+        /** @var \DateTimeInterface|null $date */
+        $date      = $session->get('chatbot_appointment_date');
+
+        if (!$date instanceof \DateTimeInterface) {
+            return new JsonResponse([
+                'step'    => 'error',
+                'message' => "Impossible de récupérer la date de rendez-vous.",
+                'type'    => 'text',
+            ]);
+        }
+
+        // 🚗 Récupération du véhicule
         $vehicle = $this->vehicleRepository->find($vehicleId);
         if (!$vehicle) {
             return new JsonResponse([
-                'step' => 'error',
+                'step'    => 'error',
                 'message' => "Véhicule introuvable. Impossible de valider le rendez-vous.",
-                'type' => 'text'
+                'type'    => 'text',
             ]);
         }
 
+        // ✅ Insertion en base
         $appointment = new Appointment();
         $appointment->setVehicle($vehicle);
         $appointment->setDate($date);
@@ -237,12 +233,17 @@ readonly class ChatbotAppointmentService
         $this->em->persist($appointment);
         $this->em->flush();
 
+        // 📄 Message de confirmation
         return new JsonResponse([
-            'step' => 'end',
-            'message' => "🎉 Votre rendez-vous a bien été enregistré dans notre système. Merci !",
-            'type' => 'text'
+            'step'    => 'end',
+            'message' => sprintf(
+                "🎉 Votre rendez-vous a bien été enregistré pour le %s !",
+                $date->format('d/m/Y à H\hi')
+            ),
+            'type'    => 'text',
         ]);
     }
+
 
     public function handleFinalizeAppointment(mixed $input, Request $request): JsonResponse
     {

@@ -2,7 +2,10 @@
 
 namespace App\Service\Chatbot;
 
+use App\Entity\Vehicle;
+use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,7 +15,9 @@ readonly class ChatbotVehicleService
     public function __construct(
         private VehicleRepository $vehicleRepository,
         private string $fakeVehiclePath,
-        private readonly ChatbotSanitizerService $sanitizer,
+        private ChatbotSanitizerService $sanitizer,
+        private VehicleNormalizer $normalizer,
+        private EntityManagerInterface $em,
     ) {}
 
     public function handleStart(?UserInterface $user): JsonResponse
@@ -58,10 +63,10 @@ readonly class ChatbotVehicleService
     public function handleConfirmVehicle(string $input, Request $request, ?UserInterface $user): JsonResponse
     {
         $session = $request->getSession();
-        $data   = json_decode($request->getContent(), true)['data'] ?? [];
-        $source = $data['source'] ?? 'none';
+        $payload = json_decode($request->getContent(), true)['data'] ?? [];
+        $source  = $payload['source']  ?? 'none';
 
-        if (strtolower($input) !== 'oui') {
+        if (strtolower(trim($input)) !== 'oui') {
             return new JsonResponse([
                 'step'    => 'ask_vehicle_name',
                 'message' => "Merci d’indiquer la marque et le modèle de votre véhicule.",
@@ -85,30 +90,76 @@ readonly class ChatbotVehicleService
             ]);
         }
 
-        return new JsonResponse([
-            'step'    => 'ask_problem',
-            'message' => "Pouvez-vous me décrire le problème rencontré ?",
-            'type'    => 'text',
-        ]);
-    }
+        if ($source === 'bdd') {
+            $session->set('chatbot_vehicle_id', $payload['vehicle_id']);
 
-
-
-
-    public function handleVehicleChoice(mixed $input): JsonResponse
-    {
-        if (in_array('Autre véhicule', (array)$input, true)) {
             return new JsonResponse([
-                'step' => 'ask_immatriculation',
-                'message' => "Entrez la plaque du nouveau véhicule.",
-                'type' => 'text'
+                'step'    => 'ask_problem',
+                'message' => "Pouvez-vous me décrire le problème rencontré ?",
+                'type'    => 'text',
+            ]);
+        }
+
+        if ($source === 'json') {
+            $matched = $payload['vehicle'];
+
+            $vehicle = new Vehicle();
+            $vehicle->setBrand(strtoupper($matched['marque']));
+            $vehicle->setModel(strtoupper($matched['modele']));
+            $vehicle->setImmatriculation(strtoupper(str_replace(['-',' '], '', $matched['immatriculation'])));
+            $vehicle->setVin($matched['vin']);
+            $vehicle->setDateOfCirculation(new \DateTime($matched['date_mise_en_circulation']));
+
+            if ($user) {
+                $conductor = $user->getConductors()->first();
+                $vehicle->setConductor($conductor);
+            }
+
+            $this->normalizer->normalize($vehicle);
+            $this->em->persist($vehicle);
+            $this->em->flush();
+
+            $session->set('chatbot_vehicle_id', $vehicle->getId());
+
+            return new JsonResponse([
+                'step'    => 'ask_problem',
+                'message' => "Votre véhicule a bien été enregistré. Pouvez-vous décrire le problème rencontré ?",
+                'type'    => 'text',
             ]);
         }
 
         return new JsonResponse([
-            'step' => 'ask_problem',
+            'message' => 'Étape inconnue.',
+        ], 400);
+    }
+
+
+    public function handleVehicleChoice(mixed $input, Request $request): JsonResponse
+    {
+        $session  = $request->getSession();
+        $selected = is_array($input) ? $input[0] : $input;
+
+        if ($selected === 'Autre véhicule') {
+            return new JsonResponse([
+                'step'    => 'ask_immatriculation',
+                'message' => "Entrez la plaque du nouveau véhicule.",
+                'type'    => 'text',
+            ]);
+        }
+
+        preg_match('/\(([^)]+)\)$/', $selected, $m);
+        $plate = strtoupper(str_replace(['-',' '], '', $m[1]));
+
+        $vehicle = $this->vehicleRepository->findOneBy(['immatriculation' => $plate]);
+        if (!$vehicle) {
+        }
+
+        $session->set('chatbot_vehicle_id', $vehicle->getId());
+
+        return new JsonResponse([
+            'step'    => 'ask_problem',
             'message' => "Parfait, quel est le problème avec votre véhicule ?",
-            'type' => 'text'
+            'type'    => 'text',
         ]);
     }
 
