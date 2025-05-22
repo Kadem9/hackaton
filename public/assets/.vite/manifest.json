@@ -1,28 +1,30 @@
 {
+  "_AlertMessage-BDWSgeA6.js": {
+    "file": "AlertMessage-BDWSgeA6.js",
+    "name": "AlertMessage"
+  },
   "admin.ts": {
-    "file": "admin.ts-BDu5AHzH.js",
+    "file": "admin.ts-BPN9xTk2.js",
     "name": "admin.ts",
     "src": "admin.ts",
     "isEntry": true,
+    "imports": [
+      "_AlertMessage-BDWSgeA6.js"
+    ],
     "css": [
-      "admin-BoD6X8qX.css"
+      "admin-CzXoVvnn.css"
     ]
   },
   "front.ts": {
-<<<<<<< HEAD
-    "file": "front.ts-93jm_dV5.js",
-=======
-    "file": "front.ts-DsrOBRSy.js",
->>>>>>> f0027a30eae1a38e0720ae5b11b14b673574ff20
+    "file": "front.ts-LeP9lN9_.js",
     "name": "front.ts",
     "src": "front.ts",
     "isEntry": true,
+    "imports": [
+      "_AlertMessage-BDWSgeA6.js"
+    ],
     "css": [
-<<<<<<< HEAD
-      "front-DfDzxrPs.css"
-=======
-      "front-CDfzADEm.css"
->>>>>>> f0027a30eae1a38e0720ae5b11b14b673574ff20
+      "front-CV9NlYrv.css"
     ]
   }
 }
