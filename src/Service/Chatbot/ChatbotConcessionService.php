@@ -59,7 +59,7 @@ readonly class ChatbotConcessionService
         return new JsonResponse([
             'step' => 'ask_date_type',
             'message' => "Souhaitez-vous choisir une date précise ou le premier créneau disponible ?",
-            'type' => 'confirm'
+            'type' => 'confirm_appointment'
         ]);
     }
 

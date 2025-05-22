@@ -6,7 +6,7 @@ import LeafletMap from "./LeafletMap.tsx";
 type Step = {
     step: string;
     message: string;
-    type: 'text' | 'confirm' | 'checkbox' | 'radio';
+    type: 'text' | 'confirm' | 'checkbox' | 'radio' | 'confirm_appointment';
     options?: string[];
     data?: any;
 };
@@ -125,6 +125,17 @@ export function App() {
                     </button>
                     <button onClick={() => fetchStep(currentStep.step, 'non')}>
                         Non
+                    </button>
+                </div>
+            )}
+
+            {currentStep?.type === 'confirm_appointment' && (
+                <div class="chatbot__confirm">
+                    <button onClick={() => fetchStep(currentStep.step, 'oui')}>
+                        Date précise
+                    </button>
+                    <button onClick={() => fetchStep(currentStep.step, 'non')}>
+                        Liste des créneaux
                     </button>
                 </div>
             )}
