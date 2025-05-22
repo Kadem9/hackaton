@@ -11,6 +11,7 @@ readonly class ChatbotDiagnosisService
 
     public function handleProblem(mixed $input, Request $request): JsonResponse
     {
+        $session = $request->getSession();
         if (!$input) {
             return new JsonResponse([
                 'step' => 'ask_problem',
@@ -18,6 +19,8 @@ readonly class ChatbotDiagnosisService
                 'type' => 'text'
             ]);
         }
+
+        $session->set('chatbot_problem', $input); 
 
         $operations = $this->geminiService->analyzeProblem($input);
         $operations = array_filter(array_map('trim', $operations));
@@ -38,7 +41,6 @@ readonly class ChatbotDiagnosisService
             'data' => ['problem' => $input]
         ]);
     }
-
     public function handleChooseOperations(mixed $input, Request $request): JsonResponse
     {
         if (empty($input)) {
@@ -49,11 +51,16 @@ readonly class ChatbotDiagnosisService
             ]);
         }
 
+        $session = $request->getSession();
+        $session->set('chatbot_selected_operations', $input);
+
+
         return new JsonResponse([
             'step' => 'ask_location',
             'message' => "Merci ! Dans quelle ville se trouve votre véhicule ?",
-            'type' => 'text',
-            'data' => ['operations' => $input]
+            'type' => 'text'
         ]);
     }
+
+
 }
