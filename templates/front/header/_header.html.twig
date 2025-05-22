@@ -8,21 +8,12 @@
     <a class="header__title" href="{{ path('app_home') }}">
         Auto<span class="color-primary-red">Mobiles</span>
     </a>
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const toggleBtn = document.getElementById('menu-toggle');
-        const menu = document.getElementById('mobile-menu');
-
-        if (toggleBtn && menu) {
-            toggleBtn.addEventListener('click', function () {
-                menu.classList.toggle('open');
-            });
-        }
-    });
-</script>
 
     <div class="menu" id="mobile-menu">
         <ul class="header__nav_ul">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ path('fo_chatbot') }}">L'assistant réparateur</a>
+            </li>
             {% if app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('account_index') }}">Mon compte</a>
@@ -41,3 +32,16 @@
         </ul>
     </div>
 </nav>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleBtn = document.getElementById('menu-toggle');
+        const menu = document.getElementById('mobile-menu');
+
+        if (toggleBtn && menu) {
+            toggleBtn.addEventListener('click', function () {
+                menu.classList.toggle('open');
+            });
+        }
+    });
+</script>

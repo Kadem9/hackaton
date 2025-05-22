@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}L'assistant réparateur{% endblock %}
+
+{% block body %}
+    <div class="fo-container">
+        <div class="chatbot__intro mt-2">
+            <h2 class="h2">Bienvenue chez AutoMobiles AI 🚗🤖</h2>
+            <p>
+                Je suis votre assistant réparateur virtuel.
+                 Je vous guide pas à pas pour diagnostiquer votre problème, trouver un garage près de chez vous et
+              réserver le créneau qui vous convient.
+                </p>
+            </div>
+        <div class="chatbot-wrapper">
+            <make-appointment></make-appointment>
+        </div>
+    </div>
+{% endblock %}

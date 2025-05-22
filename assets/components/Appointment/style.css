@@ -1,6 +1,18 @@
+.chatbot-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.chatbot__messages {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+
 .chatbot {
     width: 100%;
-    max-width: 900px;
+    min-width: 900px;
+    max-width: none;
     margin: 2rem auto;
     padding: 1rem;
     background: #f8f9fa;
@@ -16,6 +28,7 @@
     margin-bottom: 1rem;
 }
 
+/* Message container with alignment */
 .chatbot__message-container {
     display: flex;
     flex-direction: column;

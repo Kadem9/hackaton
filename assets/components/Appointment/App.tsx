@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'preact/hooks';
+import {useEffect, useState, useRef} from 'preact/hooks';
 import './style.css';
 import 'leaflet/dist/leaflet.css';
 import LeafletMap from "./LeafletMap.tsx";
@@ -19,6 +19,7 @@ type ChatMessage = {
 
 export function App() {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const messagesRef = useRef<HTMLDivElement>(null);
     const [currentStep, setCurrentStep] = useState<Step | null>(null);
     const [inputValue, setInputValue] = useState('');
     const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
@@ -74,10 +75,18 @@ export function App() {
         fetchStep(currentStep!.step, input);
     };
 
+    useEffect(() => {
+              if (!messagesRef.current) return;
+              messagesRef.current.scrollTo({
+                    top: messagesRef.current.scrollHeight,
+                    behavior: 'smooth'
+              });
+              }, [messages]);
+
 
     return (
         <div class="chatbot">
-            <div class="chatbot__messages">
+            <div class="chatbot__messages" ref={messagesRef}>
                 {messages.map((msg, index) => (
                     <div
                         key={index}
