@@ -50,3 +50,6 @@ services:
     App\Service\Chatbot\ChatbotAvailabilityService:
         arguments:
             $availabilityPath: '%kernel.project_dir%/public/json/concessions_availability.json'
+    App\Service\Appointment\AppointmentRecapService:
+        arguments:
+            $kernelTempDir: '%kernel.project_dir%/public/tmp'
