@@ -4,57 +4,120 @@
 
 {% block body %}
 <div class="register-page">
-  <section class="home__banner" style="background-image: url('{{ asset('assets/img/car.svg') }}');">
-    <div class="register-form-container">
-      <div class="register-form-box">
-        <div class="register-form">
-          <h1>Inscription</h1>
 
-            <div class="grid grid-cols-1 gap-2">
-                {{ form_errors(registrationForm) }}
+  <section class="resgiter-left">
+    <div class="headline">Bienvenue</div>
+    <div class="subtext">Rejoignez-nous pour la réparation de votre voiture,</div>
+    <div class="subtext">profitez des meilleurs services à tout créneau possible</div>
+
+    <div class="commentaire">
+      <div class="swiper testimonial-swiper">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="commentaire-card">
+              <div class="commentaire-content">Ce service m’a permis de mieux gérer mes véhicules !</div>
+              <div class="commentaire-author">
+                <img src="{{ asset('assets/img/user1.svg') }}" alt="user">
+                <span>Jean Dupont, Conducteur</span>
+              </div>
             </div>
+          </div><br>
 
-            {{ form_start(registrationForm) }}
-            <div class="grid grid-cols-2 gap-2 mt-2">
-                {{ form_row(registrationForm.type) }}
-                {{ form_row(registrationForm.civility) }}
-                {{ form_row(registrationForm.firstname) }}
-                {{ form_row(registrationForm.email) }}
-                {{ form_row(registrationForm.tel) }}
-
-                {{ form_row(registrationForm.lastname) }}
-                {{ form_row(registrationForm.plainPassword, {label: 'Votre mot de passe'}) }}
+          <div class="swiper-slide">
+            <div class="commentaire-card">
+              <div class="commentaire-content">Très intuitive et rapide à utiliser, je la recommande vivement !</div>
+              <div class="commentaire-author">
+                <img src="{{ asset('assets/img/user2.svg') }}" alt="user">
+                <span>Lora Blossom, Responsable</span>
+              </div>
             </div>
+          </div><br>
 
-            <div class="grid grid-cols-2 gap-2 mt-2">
-                <div class="form-check">
-                    <input type="checkbox" class="form-checkbox" id="is_conductor" name="is_conductor">
-                    <label class="form-label" for="is_conductor">Je suis le conducteur</label>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label" for="name_conductor">Nom du conducteur</label>
-                    <input type="text" class="form-input" id="name_conductor" name="name_conductor" placeholder="Nom du conducteur">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="firstname_conductor">Prénom du conducteur</label>
-                    <input type="text" class="form-input" id="firstname_conductor" name="firstname_conductor" placeholder="Prénom du conducteur">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="tel_conductor">Téléphone du conducteur</label>
-                    <input type="tel" class="form-input" id="tel_conductor" name="tel_conductor" placeholder="Tel du conducteur">
-                </div>
+          <div class="swiper-slide">
+            <div class="commentaire-card">
+              <div class="commentaire-content">Une plateforme simple et efficace, je recommande !</div>
+              <div class="commentaire-author">
+                <img src="{{ asset('assets/img/user3.svg') }}" alt="user">
+                <span>Sophie Martin, Gérante</span>
+              </div>
             </div>
+          </div>
 
-            <div class="grid grid-cols-1 gap-2 mt-2 mb-2">
-                {{ form_widget(registrationForm.agreeTerms) }}
-            </div>
-
-            <button type="submit" class="btn-white-secondary">S'inscrire</button>
-            {{ form_end(registrationForm) }}
         </div>
+
+        <div class="swiper-pagination"></div>
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
     </div>
   </section>
+
+  <section class="register-form-container">
+    <h1 class="headline">Inscription</h1>
+
+    <div class="grid grid-cols-1 gap-2">
+      {{ form_errors(registrationForm) }}
+    </div>
+
+    {{ form_start(registrationForm) }}
+    <div class="grid grid-cols-2 gap-2 mt-2">
+      {{ form_row(registrationForm.type) }}
+      {{ form_row(registrationForm.civility) }}
+      {{ form_row(registrationForm.firstname) }}
+      {{ form_row(registrationForm.email) }}
+      {{ form_row(registrationForm.tel) }}
+      {{ form_row(registrationForm.lastname) }}
+      {{ form_row(registrationForm.plainPassword, { label: 'Votre mot de passe' }) }}
+    </div>
+
+    <div class="grid grid-cols-2 gap-2 mt-2">
+      <div class="form-check">
+        <input type="checkbox" class="form-checkbox" id="is_conductor" name="is_conductor">
+        <label class="form-label" for="is_conductor">Je suis le conducteur</label>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="name_conductor">Nom du conducteur</label>
+        <input type="text" class="form-input" id="name_conductor" name="name_conductor" placeholder="Nom du conducteur">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="firstname_conductor">Prénom du conducteur</label>
+        <input type="text" class="form-input" id="firstname_conductor" name="firstname_conductor" placeholder="Prénom du conducteur">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="tel_conductor">Téléphone du conducteur</label>
+        <input type="tel" class="form-input" id="tel_conductor" name="tel_conductor" placeholder="Tel du conducteur">
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 gap-2 mt-2 mb-2">
+      {{ form_widget(registrationForm.agreeTerms) }}
+    </div>
+
+    <button type="submit" class="btn">S'inscrire</button>
+    {{ form_end(registrationForm) }}
+  </section>
 </div>
+{% endblock %}
+
+{% block javascript %}
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      new Swiper('.testimonial-swiper', {
+        loop: true,
+        spaceBetween: 20,
+        slidesPerView: 1,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      });
+    });
+  </script>
 {% endblock %}

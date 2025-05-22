@@ -1,66 +1,143 @@
-.register-form-container {
-    @apply flex items-center justify-center min-h-screen px-4;
+.register-page {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+
+  .resgiter-left {
+    width: 50%;
+    background: linear-gradient(to bottom, #1e1e1e, #111);
+    color: white;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .headline {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+
+    .subtext {
+      font-size: 1.1rem;
+      opacity: 0.85;
+      line-height: 1.6;
+    }
+
+    .commentaire {
+      margin-top: 3rem;
+      position: relative;
+
+      .swiper {
+        width: 100%;
+        max-width: 450px;
+        padding: 1rem 0;
+      }
+
+      .commentaire-card {
+        background-color: #2a2a2a;
+        border-radius: 1.2rem;
+        padding: 1.5rem;
+        min-height: 150px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        .commentaire-content {
+          font-size: 1rem;
+          line-height: 1.5;
+          color: #f1f1f1;
+          margin-bottom: 1rem;
+        }
+
+        .commentaire-author {
+          display: flex;
+          align-items: center;
+          gap: 0.6rem;
+
+          img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+          }
+
+          span {
+            font-size: 0.9rem;
+            color: #ccc;
+          }
+        }
+      }
+
+      .swiper-pagination {
+        bottom: 0;
+        text-align: center;
+        margin-top: 1rem;
+      }
+
+      .swiper-button-next,
+      .swiper-button-prev {
+        color: #fff;
+        top: 40%;
+      }
+    }
   }
-  .home__banner {
-    @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
-  }
-.register-form {
-    @apply bg-black bg-opacity-85 p-8 rounded-[10px] w-full max-w-[600px] max-h-[900px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] relative ;
-  
+
+  .register-form-container {
+    width: 50%;
+    background-color: #f9fafb;
+    padding: 4rem 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .headline {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
     h1 {
-      @apply text-white text-center text-2xl font-semibold mb-4;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
     }
-  
+
     form {
-      @apply max-h-[500px] overflow-y-auto pr-2;
-    }
-  
-    .grid {
-      @apply gap-4;
-    }
-  
-    .form-label {
-      @apply block text-sm font-medium text-white mb-1;
-    }
-  
-    .form-input,
-    input[type='text'],
-    input[type='email'],
-    input[type='password'],
-    input[type='tel'],
-    select {
-      @apply w-full px-3 py-2 rounded-md bg-gray-800 text-white border-none placeholder-gray-400;
-    }
-  
-    .form-check {
-      @apply col-span-2 flex items-center gap-2;
-      
-      input[type='checkbox'] {
-        @apply w-4 h-4 accent-white;
+      display: flex;
+      flex-direction: column;
+
+      .form-group,
+      .form-check {
+        margin-bottom: 1rem;
       }
-  
-      label {
-        @apply text-white;
+
+      .form-label {
+        font-size: 0.9rem;
+        margin-bottom: 0.3rem;
+        color: #374151;
+        display: block;
       }
-    }
-  
-    .form-group {
-      @apply flex flex-col col-span-2;
-    }
-  
-    .btn-white-secondary {
-      @apply w-full mt-4 bg-white text-black font-bold py-2 px-4 rounded hover:bg-gray-200 transition;
-    }
-  
-    form::-webkit-scrollbar {
-      width: 8px;
-    }
-    form::-webkit-scrollbar-thumb {
-      background: #444;
-      border-radius: 4px;
-    }
-    form::-webkit-scrollbar-track {
-      background: transparent;
+
+      .form-input,
+      .form-checkbox {
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        border: 1px solid #d1d5db;
+        width: 100%;
+      }
+
     }
   }
-  
+
+  // Responsive (facultatif)
+  @media (max-width: 768px) {
+    flex-direction: column;
+
+    .resgiter-left,
+    .register-form-container {
+      width: 100%;
+      padding: 2rem;
+    }
+  }
+}
