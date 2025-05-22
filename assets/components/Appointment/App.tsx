@@ -11,8 +11,13 @@ type Step = {
     data?: any;
 };
 
+type ChatMessage = {
+    sender: 'user' | 'bot';
+    text: string;
+};
+
 export function App() {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [currentStep, setCurrentStep] = useState<Step | null>(null);
     const [inputValue, setInputValue] = useState('');
     const [selected, setSelected] = useState<string[]>([]);
@@ -22,6 +27,11 @@ export function App() {
     }, []);
 
     const fetchStep = async (step: string, input?: string[] | string) => {
+        if (input) {
+            const userMessage = Array.isArray(input) ? input.join(', ') : input;
+            setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
+        }
+
         const res = await fetch('/api/chatbot/step', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -29,7 +39,7 @@ export function App() {
         });
 
         const json = await res.json();
-        setMessages(prev => [...prev, json.message]);
+        setMessages(prev => [...prev, { sender: 'bot', text: json.message }]);
         setCurrentStep(json);
         setInputValue('');
         setSelected([]);
@@ -44,10 +54,22 @@ export function App() {
     return (
         <div class="chatbot">
             <div class="chatbot__messages">
-                {messages.map((msg, index) => (
-                    <div key={index} class="chatbot__message" dangerouslySetInnerHTML={{ __html: msg }}
+            {messages.map((msg, index) => (
+                <div
+                    key={index}
+                    class={`chatbot__message-container ${msg.sender === 'user' ? 'align-right' : 'align-left'}`}
+                >
+                    <div class="chatbot__sender">
+                        {msg.sender === 'user' ? 'Vous' : 'Chatbot'}
+                    </div>
+                    <div
+                        class={`chatbot__message ${msg.sender === 'user' ? 'user-message' : 'bot-message'}`}
+                        dangerouslySetInnerHTML={{ __html: msg.text }}
                     />
-                ))}
+                </div>
+            ))}
+
+
             </div>
 
             {currentStep?.step === 'choose_garage' && currentStep?.data?.garages && (
