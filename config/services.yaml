@@ -47,7 +47,6 @@ services:
     App\Service\Chatbot\PexelsService:
         arguments:
             $apiKey: '%pexels_api_key%'
-            $fakeVehiclePath: '%kernel.project_dir%/public/json/voiture_plaques.json'
     App\Service\Chatbot\ChatbotAvailabilityService:
         arguments:
             $availabilityPath: '%kernel.project_dir%/public/json/concessions_availability.json'

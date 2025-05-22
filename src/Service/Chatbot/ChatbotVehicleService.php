@@ -18,6 +18,7 @@ readonly class ChatbotVehicleService
         private ChatbotSanitizerService $sanitizer,
         private VehicleNormalizer $normalizer,
         private EntityManagerInterface $em,
+        private PexelsService $pexelsService,
     ) {}
 
     public function handleStart(?UserInterface $user): JsonResponse
@@ -166,49 +167,63 @@ readonly class ChatbotVehicleService
     public function handleImmatriculation(mixed $input, Request $request, ?UserInterface $user): JsonResponse
     {
         $session = $request->getSession();
-        $plate = strtoupper(str_replace(['-', ' '], '', $input));
+        $plate   = strtoupper(str_replace(['-', ' '], '', (string)$input));
 
         $vehicle = $this->vehicleRepository->findOneBy(['immatriculation' => $plate]);
-
         if ($vehicle) {
+            $message   = sprintf(
+                "Est-ce bien une %s %s (%s) ?",
+                $vehicle->getBrand(),
+                $vehicle->getModel(),
+                $vehicle->getDateOfCirculation()?->format('Y')
+            );
+            $allImages = $this->pexelsService->searchImages("{$vehicle->getBrand()} {$vehicle->getModel()}");
+            $images    = $allImages ? [ $allImages[0] ] : [];
+
             return new JsonResponse([
-                'step' => 'confirm_vehicle',
-                'message' => sprintf(
-                    "Est-ce bien une %s %s (%s) ?",
-                    $vehicle->getBrand(),
-                    $vehicle->getModel(),
-                    $vehicle->getDateOfCirculation()?->format('Y')
-                ),
-                'type' => 'confirm',
-                'data' => ['source' => 'bdd', 'vehicle_id' => $vehicle->getId()]
+                'step'    => 'confirm_vehicle',
+                'message' => $message,
+                'type'    => 'confirm',
+                'data'    => [
+                    'source'     => 'bdd',
+                    'vehicle_id' => $vehicle->getId(),
+                    'images'     => $images,
+                ],
             ]);
         }
 
-        $content = json_decode(file_get_contents($this->fakeVehiclePath), true);
+        $content  = json_decode(file_get_contents($this->fakeVehiclePath), true);
         $vehicles = $content['vehicules'] ?? [];
-
         foreach ($vehicles as $item) {
             $itemPlate = strtoupper(str_replace(['-', ' '], '', $item['immatriculation']));
             if ($itemPlate === $plate) {
+                $message   = sprintf(
+                    "Est-ce bien une %s %s (%s) ?",
+                    strtoupper($item['marque']),
+                    strtoupper($item['modele']),
+                    (new \DateTime($item['date_mise_en_circulation']))->format('Y')
+                );
+                $allImages = $this->pexelsService->searchImages("{$item['marque']} {$item['modele']}");
+                $images    = $allImages ? [ $allImages[0] ] : [];
+
                 return new JsonResponse([
-                    'step' => 'confirm_vehicle',
-                    'message' => sprintf(
-                        "Est-ce bien une %s %s (%s) ?",
-                        strtoupper($item['marque']),
-                        strtoupper($item['modele']),
-                        (new \DateTime($item['date_mise_en_circulation']))->format('Y')
-                    ),
-                    'type' => 'confirm',
-                    'data' => ['source' => 'json', 'vehicle' => $item]
+                    'step'    => 'confirm_vehicle',
+                    'message' => $message,
+                    'type'    => 'confirm',
+                    'data'    => [
+                        'source'  => 'json',
+                        'vehicle' => $item,
+                        'images'  => $images,
+                    ],
                 ]);
             }
         }
 
         $session->set('chatbot_immatriculation', $plate);
         return new JsonResponse([
-            'step' => 'ask_brand',
+            'step'    => 'ask_brand',
             'message' => "Nous ne trouvons pas cette plaque dans nos données. Quelle est la marque du véhicule ?",
-            'type' => 'text'
+            'type'    => 'text',
         ]);
     }
 

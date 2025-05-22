@@ -16,9 +16,8 @@ type ChatMessage = {
     text: string;
 };
 
-
 export function App() {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [currentStep, setCurrentStep] = useState<Step | null>(null);
     const [inputValue, setInputValue] = useState('');
     const [selected, setSelected] = useState<string[]>([]);
@@ -30,8 +29,10 @@ export function App() {
     const fetchStep = async (step: string, input?: string[] | string) => {
         if (input) {
             const userMessage = Array.isArray(input) ? input.join(', ') : input;
-            // @ts-ignore
-            setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
+            setMessages(prev => [
+                ...prev,
+                { sender: 'user', text: userMessage }
+            ]);
         }
 
         const res = await fetch('/api/chatbot/step', {
@@ -40,8 +41,11 @@ export function App() {
             body: JSON.stringify({ step, input })
         });
 
-        const json = await res.json();
-        setMessages(prev => [...prev, json.message]);
+        const json: Step = await res.json();
+        setMessages(prev => [
+            ...prev,
+            { sender: 'bot', text: json.message }
+        ]);
         setCurrentStep(json);
         setInputValue('');
         setSelected([]);
@@ -56,60 +60,76 @@ export function App() {
     return (
         <div class="chatbot">
             <div class="chatbot__messages">
-            {messages.map((msg, index) => (
-                <div
-                    key={index}
-                    class={`chatbot__message-container ${msg.sender === 'user' ? 'align-right' : 'align-left'}`}
-                >
-                    <div class="chatbot__sender">
-                        {msg.sender === 'user' ? 'Vous' : 'Chatbot'}
-                    </div>
+                {messages.map((msg, index) => (
                     <div
-                        class={`chatbot__message ${msg.sender === 'user' ? 'user-message' : 'bot-message'}`}
-                        dangerouslySetInnerHTML={{ __html: msg.text }}
-                    />
-                </div>
-            ))}
-
-
+                        key={index}
+                        class={`chatbot__message-container ${
+                            msg.sender === 'user' ? 'align-right' : 'align-left'
+                        }`}
+                    >
+                        <div class="chatbot__sender">
+                            {msg.sender === 'user' ? 'Vous' : 'Chatbot'}
+                        </div>
+                        <div
+                            class={`chatbot__message ${
+                                msg.sender === 'user' ? 'user-message' : 'bot-message'
+                            }`}
+                            dangerouslySetInnerHTML={{ __html: msg.text }}
+                        />
+                    </div>
+                ))}
             </div>
 
             {currentStep?.step === 'choose_garage' && currentStep?.data?.garages && (
                 <LeafletMap
                     garages={currentStep.data.garages}
-                    onGarageSelect={(garage) => {
-                        fetchStep('choose_garage', [`${garage.name} – ${garage.address} (${garage.zipcode} ${garage.city})`]);
-                    }}
+                    onGarageSelect={garage =>
+                        fetchStep('choose_garage', [
+                            `${garage.name} – ${garage.address} (${garage.zipcode} ${garage.city})`
+                        ])
+                    }
                 />
             )}
-
 
             {currentStep?.type === 'text' && (
                 <form onSubmit={handleSubmit} class="chatbot__form">
                     <input
                         type="text"
                         value={inputValue}
-                        onInput={(e) => setInputValue((e.target as HTMLInputElement).value)}
+                        onInput={e => setInputValue((e.target as HTMLInputElement).value)}
                         placeholder="Votre réponse..."
                         class="chatbot__input"
                     />
-                    <button type="submit" class="chatbot__button">Envoyer</button>
+                    <button type="submit" class="chatbot__button">
+                        Envoyer
+                    </button>
                 </form>
             )}
 
             {currentStep?.type === 'confirm' && (
                 <div class="chatbot__confirm">
-                    <button onClick={() => fetchStep(currentStep.step, 'oui')}>Oui</button>
-                    <button onClick={() => fetchStep(currentStep.step, 'non')}>Non</button>
+                    <button onClick={() => fetchStep(currentStep.step, 'oui')}>
+                        Oui
+                    </button>
+                    <button onClick={() => fetchStep(currentStep.step, 'non')}>
+                        Non
+                    </button>
                 </div>
             )}
+
             {currentStep?.data?.images && (
                 <div class="chatbot__images">
                     {currentStep.data.images.map((url: string, i: number) => (
-                        <img key={i} src={url} alt="voiture" class="chatbot__image" />
+                        <img
+                            key={i}
+                            src={url}
+                            alt="voiture"
+                            class="chatbot__image"
+                        />
                     ))}
                 </div>
             )}
+
             {currentStep?.type === 'checkbox' && (
                 <form onSubmit={handleSubmit} class="chatbot__form chatbot__checkboxes">
                     {currentStep.options?.map((op, i) => (
@@ -118,19 +138,21 @@ export function App() {
                                 type="checkbox"
                                 value={op}
                                 checked={selected.includes(op)}
-                                onChange={(e) => {
-                                    const value = (e.target as HTMLInputElement).value;
+                                onChange={e => {
+                                    const v = (e.target as HTMLInputElement).value;
                                     setSelected(prev =>
-                                        prev.includes(value)
-                                            ? prev.filter(v => v !== value)
-                                            : [...prev, value]
+                                        prev.includes(v)
+                                            ? prev.filter(x => x !== v)
+                                            : [...prev, v]
                                     );
                                 }}
                             />
                             {op}
                         </label>
                     ))}
-                    <button type="submit" class="chatbot__button">Valider</button>
+                    <button type="submit" class="chatbot__button">
+                        Valider
+                    </button>
                 </form>
             )}
         </div>
