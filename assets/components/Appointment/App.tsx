@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'preact/hooks';
 import './style.css';
 import 'leaflet/dist/leaflet.css';
-import LeafletMap from './LeafletMap.tsx';
+import LeafletMap from "./LeafletMap.tsx";
 
 type Step = {
     step: string;
@@ -16,8 +16,9 @@ type ChatMessage = {
     text: string;
 };
 
+
 export function App() {
-    const [messages, setMessages] = useState<ChatMessage[]>([]);
+    const [messages, setMessages] = useState<string[]>([]);
     const [currentStep, setCurrentStep] = useState<Step | null>(null);
     const [inputValue, setInputValue] = useState('');
     const [selected, setSelected] = useState<string[]>([]);
@@ -29,17 +30,18 @@ export function App() {
     const fetchStep = async (step: string, input?: string[] | string) => {
         if (input) {
             const userMessage = Array.isArray(input) ? input.join(', ') : input;
+            // @ts-ignore
             setMessages(prev => [...prev, { sender: 'user', text: userMessage }]);
         }
 
         const res = await fetch('/api/chatbot/step', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ step, input }),
+            body: JSON.stringify({ step, input })
         });
 
         const json = await res.json();
-        setMessages(prev => [...prev, { sender: 'bot', text: json.message }]);
+        setMessages(prev => [...prev, json.message]);
         setCurrentStep(json);
         setInputValue('');
         setSelected([]);
@@ -81,6 +83,7 @@ export function App() {
                 />
             )}
 
+
             {currentStep?.type === 'text' && (
                 <form onSubmit={handleSubmit} class="chatbot__form">
                     <input
@@ -100,7 +103,13 @@ export function App() {
                     <button onClick={() => fetchStep(currentStep.step, 'non')}>Non</button>
                 </div>
             )}
-
+            {currentStep?.data?.images && (
+                <div class="chatbot__images">
+                    {currentStep.data.images.map((url: string, i: number) => (
+                        <img key={i} src={url} alt="voiture" class="chatbot__image" />
+                    ))}
+                </div>
+            )}
             {currentStep?.type === 'checkbox' && (
                 <form onSubmit={handleSubmit} class="chatbot__form chatbot__checkboxes">
                     {currentStep.options?.map((op, i) => (

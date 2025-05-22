@@ -43,9 +43,21 @@
 }
 
 /* Common message style */
+.chatbot__images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.chatbot__image {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
 .chatbot__message {
+    background-color: #e2e6ea;
     padding: 0.75rem 1rem;
-    border-radius: 10px;
+    border-radius: 8px;
     font-size: 1rem;
     line-height: 1.4;
     word-wrap: break-word;
@@ -63,7 +75,6 @@
     align-self: flex-end;
 }
 
-/* Text input and button styles */
 .chatbot__form {
     display: flex;
     flex-direction: column;
@@ -95,7 +106,6 @@
     background-color: #0056b3;
 }
 
-/* Confirm button group */
 .chatbot__confirm {
     display: flex;
     gap: 1rem;
@@ -121,7 +131,6 @@
     opacity: 0.9;
 }
 
-/* Checkboxes */
 .chatbot__checkboxes {
     display: flex;
     flex-direction: column;
@@ -143,7 +152,6 @@
     background-color: #f1f1f1;
 }
 
-/* Responsive */
 @media (max-width: 480px) {
     .chatbot {
         padding: 1rem;

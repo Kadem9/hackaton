@@ -12,28 +12,46 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\Chatbot\PexelsService;
 
 #[Route('/mon-compte/mes-vehicules', name: 'account_vehicle_')]
 class VehicleController extends AbstractController
 {
-    public function __construct(private readonly VehicleNormalizer $normalizer) {}
+    public function __construct(
+        private readonly VehicleNormalizer $normalizer,
+        private readonly PexelsService $pexelsService
+    ){}
 
     #[Route('/', name: 'index')]
     public function index(VehicleRepository $repo): Response
     {
         $user = $this->getUser();
-
+    
         $vehicles = $repo->createQueryBuilder('v')
             ->join('v.conductor', 'c')
             ->where('c.user = :user')
             ->setParameter('user', $user)
             ->getQuery()
             ->getResult();
-
+    
+        // Ajoute une image Pexels pour chaque véhicule
+        $vehiclesWithImages = [];
+        foreach ($vehicles as $vehicle) {
+            $query = sprintf('%s %s car side view outdoor', $vehicle->getBrand(), $vehicle->getModel());
+            $images = $this->pexelsService->searchImages($query, 1);
+            $image = $images[0] ?? null;
+    
+            $vehiclesWithImages[] = [
+                'vehicle' => $vehicle,
+                'image' => $image,
+            ];
+        }
+    
         return $this->render('front/account/vehicle/index.html.twig', [
-            'vehicles' => $vehicles,
+            'vehiclesWithImages' => $vehiclesWithImages,
         ]);
     }
+    
 
 
     #[Route('/nouveau', name: 'new')]
