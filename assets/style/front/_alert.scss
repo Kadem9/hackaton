@@ -1,0 +1,23 @@
+%alert {
+  @apply relative w-full flex justify-between items-center gap-2 px-2 py-2 rounded-lg text-lg mb-1;
+}
+.alert-primary {
+  @extend %alert;
+  @apply bg-blue-300 text-blue-700;
+}
+.alert-success {
+  @extend %alert;
+  @apply bg-green-300 text-green-700;
+}
+.alert-info {
+  @extend %alert;
+  @apply bg-gray-300 text-gray-700;
+}
+.alert-danger {
+  @extend %alert;
+  @apply bg-red-300 text-red-700;
+}
+.alert-warning {
+  @extend %alert;
+  @apply bg-yellow-300 text-yellow-700;
+}

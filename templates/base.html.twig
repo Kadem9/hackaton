@@ -18,6 +18,15 @@
     </head>
     <body>
     {% include "front/header/_header.html.twig" %}
+    <div class="container-fluid p-4">
+        {% for label, messages in app.flashes(['success', 'error', 'info']) %}
+            {% for message in messages %}
+                <alert-message type="{{ label }}">
+                    {{ message|trans|raw }}
+                </alert-message>
+            {% endfor %}
+        {% endfor %}
+    </div>
         {% block body %}{% endblock %}
     </body>
 {% block javascript %}
