@@ -243,6 +243,7 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
     $this->em->flush();
 
     $slot = $date->format('d/m/Y à H\hi');
+
     $data = [
         'firstname' => $firstname,
         'lastname'  => $lastname,
@@ -250,6 +251,7 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
         'garage'    => $session->get('chatbot_selected_garage'),
         'slot'      => $slot,
         'problem'   => $session->get('chatbot_problem') ?? 'Non précisé',
+        'operations' => $session->get('chatbot_selected_operations') ?? [],
     ];
 
     $files = $this->recapService->generate($data);
