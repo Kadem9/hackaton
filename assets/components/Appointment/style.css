@@ -1,6 +1,6 @@
 .chatbot {
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     margin: 2rem auto;
     padding: 1rem;
     background: #f8f9fa;
@@ -16,7 +16,6 @@
     margin-bottom: 1rem;
 }
 
-/* Message container with alignment */
 .chatbot__message-container {
     display: flex;
     flex-direction: column;
@@ -182,4 +181,27 @@
 
 .map-select-btn:hover {
     background-color: #2563EB;
+}
+
+
+.chatbot__timeslots .timeslot-day {
+    margin-bottom: 1rem;
+}
+.chatbot__timeslots .timeslot-day-label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+.chatbot__timeslots .timeslot-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.5rem;
+}
+.timeslot-btn {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    cursor: pointer;
+}
+.timeslot-btn:hover {
+    background: #eee;
 }

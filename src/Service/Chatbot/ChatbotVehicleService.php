@@ -2,9 +2,11 @@
 
 namespace App\Service\Chatbot;
 
+use App\Entity\Conductor;
 use App\Entity\Vehicle;
 use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
+use App\Service\User\CurrentUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,6 +21,7 @@ readonly class ChatbotVehicleService
         private VehicleNormalizer $normalizer,
         private EntityManagerInterface $em,
         private PexelsService $pexelsService,
+        private CurrentUserService $currentUserService,
     ) {}
 
     public function handleStart(?UserInterface $user): JsonResponse
@@ -318,19 +321,42 @@ readonly class ChatbotVehicleService
 
     public function handleIsDriver(string $input, Request $request, ?UserInterface $user): JsonResponse
     {
-        $session = $request->getSession();
-        $isDriver = strtolower(trim($input)) === 'oui';
+        $session    = $request->getSession();
+        $isDriver   = strtolower(trim($input)) === 'oui';
         $session->set('chatbot_is_driver', $isDriver);
 
         if ($isDriver) {
             if ($user) {
+                // ←— On crée et persiste le nouveau véhicule pour l'utilisateur connecté —→
+                $vehicle = new Vehicle();
+                $vehicle
+                    ->setBrand(            $session->get('chatbot_brand'))
+                    ->setModel(            $session->get('chatbot_model'))
+                    ->setImmatriculation(  $session->get('chatbot_immatriculation'))
+                    ->setVin(              $session->get('chatbot_vin'))
+                    ->setDateOfCirculation($session->get('chatbot_date'))
+                    ->setMileage(          $session->get('chatbot_mileage'));
+
+                // On rattache le véhicule au premier conducteur de l'utilisateur
+                $conductor = $user->getConductors()->first();
+                $vehicle->setConductor($conductor);
+
+                // Normalisation et sauvegarde
+                $this->normalizer->normalize($vehicle);
+                $this->em->persist($vehicle);
+                $this->em->flush();
+
+                // On stocke l'ID du véhicule en session
+                $session->set('chatbot_vehicle_id', $vehicle->getId());
+
                 return new JsonResponse([
                     'step'    => 'ask_problem',
-                    'message' => "Pouvez-vous me décrire le problème rencontré ?",
+                    'message' => "Votre véhicule a bien été ajouté. Pouvez-vous me décrire le problème rencontré ?",
                     'type'    => 'text',
                 ]);
             }
 
+            // Si pas connecté, on continue avec la création du profil conducteur
             return new JsonResponse([
                 'step'    => 'ask_civility',
                 'message' => "Parfait. Vous êtes madame ou monsieur ?",
@@ -338,16 +364,12 @@ readonly class ChatbotVehicleService
             ]);
         }
 
+        // Cas où l'utilisateur n'est pas le conducteur
         $conductors = $user?->getConductors() ?? [];
-        $options = [];
+        $options     = [];
 
         foreach ($conductors as $c) {
-            $options[] = sprintf(
-                "%s %s (ID:%d)",
-                $c->getFirstname(),
-                $c->getLastname(),
-                $c->getId()
-            );
+            $options[] = sprintf("%s %s (ID:%d)", $c->getFirstname(), $c->getLastname(), $c->getId());
         }
 
         $options[] = "Ajouter un nouveau conducteur";
@@ -365,53 +387,124 @@ readonly class ChatbotVehicleService
     {
         $session = $request->getSession();
 
+        // Si l’utilisateur souhaite ajouter un nouveau conducteur
         if (in_array('Ajouter un nouveau conducteur', (array)$input, true)) {
             return new JsonResponse([
-                'step' => 'create_conductor',
+                'step'    => 'create_conductor',
                 'message' => "Très bien. Merci d’indiquer le prénom, nom et téléphone du conducteur.",
-                'type' => 'text'
+                'type'    => 'text'
             ]);
         }
 
+        // Extraction de l’ID du conducteur sélectionné
         $selected = is_array($input) ? $input[0] : $input;
-        preg_match('/\(ID:(\d+)\)/', $selected, $matches);
+        preg_match('/\(ID:(\d+)\)$/', $selected, $matches);
         if (!isset($matches[1])) {
             return new JsonResponse([
-                'step' => 'choose_conductor',
+                'step'    => 'choose_conductor',
                 'message' => "Erreur lors de la sélection du conducteur.",
-                'type' => 'text'
+                'type'    => 'text'
+            ]);
+        }
+        $conductorId = (int)$matches[1];
+        $session->set('chatbot_conductor_id', $conductorId);
+
+        // Récupération de l'entité Conductor
+        $conductor = $this->em->getRepository(Conductor::class)->find($conductorId);
+        if (!$conductor) {
+            return new JsonResponse([
+                'step'    => 'choose_conductor',
+                'message' => "Conducteur introuvable.",
+                'type'    => 'text'
             ]);
         }
 
-        $session->set('chatbot_conductor_id', (int)$matches[1]);
+        // Création du véhicule à partir des données en session
+        $vehicle = new Vehicle();
+        $vehicle
+            ->setBrand($session->get('chatbot_brand'))
+            ->setModel($session->get('chatbot_model'))
+            ->setImmatriculation($session->get('chatbot_immatriculation'))
+            ->setDateOfCirculation($session->get('chatbot_date'))
+            ->setMileage($session->get('chatbot_mileage'))
+            ->setVin($session->get('chatbot_vin'))
+            ->setConductor($conductor);
 
+        // Normalisation et persistence
+        $this->normalizer->normalize($vehicle);
+        $this->em->persist($vehicle);
+        $this->em->flush();
+
+        // Stockage de l'ID du véhicule créé pour la suite
+        $session->set('chatbot_vehicle_id', $vehicle->getId());
+
+        // Passage à l'étape suivante
         return new JsonResponse([
-            'step' => 'ask_problem',
-            'message' => "Parfait, le véhicule sera lié à ce conducteur. Quel est le problème ?",
-            'type' => 'text'
+            'step'    => 'ask_problem',
+            'message' => "Parfait, votre véhicule a été enregistré et lié à ce conducteur. Quel est le problème rencontré ?",
+            'type'    => 'text'
         ]);
     }
+
 
     public function handleCreateConductor(mixed $input, Request $request): JsonResponse
     {
         $parts = explode(' ', $input);
         if (count($parts) < 3) {
             return new JsonResponse([
-                'step' => 'create_conductor',
+                'step'    => 'create_conductor',
                 'message' => "Merci d’indiquer : prénom nom téléphone",
-                'type' => 'text'
+                'type'    => 'text'
             ]);
         }
 
-        $request->getSession()->set('chatbot_conductor_firstname', $parts[0]);
-        $request->getSession()->set('chatbot_conductor_lastname', $parts[1]);
-        $request->getSession()->set('chatbot_conductor_phone', $parts[2]);
+        // Récupération de l'utilisateur et de la session
+        $user    = $this->currentUserService->getCurrentUser();
+        $session = $request->getSession();
+
+        // Décomposition des infos
+        [$first, $last, $phone] = $parts;
+
+        // 1) Création du conducteur
+        $conductor = new Conductor();
+        $conductor
+            ->setFirstname($first)
+            ->setLastname($last)
+            ->setPhone($phone)
+            ->setUser($user);
+
+        $this->em->persist($conductor);
+        $this->em->flush();
+
+        // Stockage de l'ID en session
+        $session->set('chatbot_conductor_id', $conductor->getId());
+
+        // 2) Si on était en mode "add_vehicle_only", on crée aussi le véhicule
+        if ($session->get('chatbot_mode') === 'add_vehicle_only') {
+            $vehicle = new Vehicle();
+            $vehicle
+                ->setBrand($session->get('chatbot_brand'))
+                ->setModel($session->get('chatbot_model'))
+                ->setImmatriculation($session->get('chatbot_immatriculation'))
+                ->setDateOfCirculation($session->get('chatbot_date'))
+                ->setMileage($session->get('chatbot_mileage'))
+                ->setVin($session->get('chatbot_vin'))
+                ->setConductor($conductor);
+
+            $this->normalizer->normalize($vehicle);
+            $this->em->persist($vehicle);
+            $this->em->flush();
+
+            // Stockage de l'ID du véhicule en session
+            $session->set('chatbot_vehicle_id', $vehicle->getId());
+        }
 
         return new JsonResponse([
-            'step' => 'ask_problem',
+            'step'    => 'ask_problem',
             'message' => "Parfait, votre conducteur a été noté. Quel est le problème avec le véhicule ?",
-            'type' => 'text'
+            'type'    => 'text'
         ]);
     }
+
 
 }

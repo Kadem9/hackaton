@@ -29,8 +29,8 @@ readonly class ChatbotRegistrationService
         ?\DateTimeInterface $circulationDate = null,
         ?int $mileage = null,
         ?string $vin = null
-    ): User {
-
+    ): Vehicle {                                        // ← changed return type
+        // création de l'utilisateur
         $user = new User();
         $user->setEmail($email);
         $user->setPlainPassword($plainPassword);
@@ -41,12 +41,14 @@ readonly class ChatbotRegistrationService
         $user->setType('client');
         $user->setRoles(['ROLE_USER']);
 
+        // création du conducteur
         $conductor = new Conductor();
         $conductor->setFirstname($firstname);
         $conductor->setLastname($lastname);
         $conductor->setPhone($phone);
         $conductor->setUser($user);
 
+        // création du véhicule
         $vehicle = new Vehicle();
         $vehicle->setBrand($brand);
         $vehicle->setModel($model);
@@ -56,13 +58,15 @@ readonly class ChatbotRegistrationService
         $vehicle->setVin($vin);
         $vehicle->setConductor($conductor);
 
+        // normalisation
         $this->vehicleNormalizer->normalize($vehicle);
 
+        // persistance en base
         $this->em->persist($user);
         $this->em->persist($conductor);
         $this->em->persist($vehicle);
         $this->em->flush();
 
-        return $user;
+        return $vehicle;                                // ← on renvoie le Vehicle créé
     }
 }

@@ -119,7 +119,7 @@ readonly class ChatbotUserRegistrationService
     {
         $session = $request->getSession();
 
-        $this->registrationService->register(
+        $vehicle = $this->registrationService->register(
             $session->get('chatbot_email'),
             $session->get('chatbot_password'),
             $session->get('chatbot_firstname'),
@@ -133,12 +133,15 @@ readonly class ChatbotUserRegistrationService
             $session->get('chatbot_vin'),
         );
 
+        $session->set('chatbot_vehicle_id', $vehicle->getId());
+
         return new JsonResponse([
-            'step' => 'ask_problem',
+            'step'    => 'ask_problem',
             'message' => "Super {$session->get('chatbot_firstname')}, votre compte et véhicule sont désormais référencés chez nous. Quel est le problème avec votre véhicule ?",
-            'type' => 'text'
+            'type'    => 'text'
         ]);
     }
+
 
     public function handleCheckEmail(string $input, Request $request): JsonResponse
     {

@@ -1,12 +1,13 @@
-import { useEffect, useState } from 'preact/hooks';
+import {useEffect, useState} from 'preact/hooks';
 import './style.css';
 import 'leaflet/dist/leaflet.css';
 import LeafletMap from "./LeafletMap.tsx";
+import {ComponentChild, VNode} from 'preact';
 
 type Step = {
     step: string;
     message: string;
-    type: 'text' | 'confirm' | 'checkbox' | 'radio' | 'confirm_appointment';
+    type: 'text' | 'confirm' | 'checkbox' | 'radio' | 'confirm_appointment' | 'timeslot';
     options?: string[];
     data?: any;
 };
@@ -22,7 +23,7 @@ export function App() {
     const [inputValue, setInputValue] = useState('');
     const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
     const [selectedRadio, setSelectedRadio] = useState<string>('');
-    
+
     useEffect(() => {
         fetchStep('start');
     }, []);
@@ -32,20 +33,25 @@ export function App() {
             const userMessage = Array.isArray(input) ? input.join(', ') : input;
             setMessages(prev => [
                 ...prev,
-                { sender: 'user', text: userMessage }
+                {sender: 'user', text: userMessage}
             ]);
+        }
+
+        const payload: any = {step, input};
+        if (currentStep?.data) {
+            payload.data = currentStep.data;
         }
 
         const res = await fetch('/api/chatbot/step', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ step, input })
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(payload)
         });
 
         const json: Step = await res.json();
         setMessages(prev => [
             ...prev,
-            { sender: 'bot', text: json.message }
+            {sender: 'bot', text: json.message}
         ]);
         setCurrentStep(json);
         setInputValue('');
@@ -56,7 +62,7 @@ export function App() {
     const handleSubmit = (e: Event) => {
         e.preventDefault();
         let input;
-    
+
         if (currentStep?.type === 'checkbox') {
             input = selectedCheckboxes;
         } else if (currentStep?.type === 'radio') {
@@ -64,10 +70,10 @@ export function App() {
         } else {
             input = inputValue;
         }
-    
+
         fetchStep(currentStep!.step, input);
     };
-    
+
 
     return (
         <div class="chatbot">
@@ -86,7 +92,7 @@ export function App() {
                             class={`chatbot__message ${
                                 msg.sender === 'user' ? 'user-message' : 'bot-message'
                             }`}
-                            dangerouslySetInnerHTML={{ __html: msg.text }}
+                            dangerouslySetInnerHTML={{__html: msg.text}}
                         />
                     </div>
                 ))}
@@ -176,6 +182,32 @@ export function App() {
                         Valider
                     </button>
                 </form>
+            )}
+
+            {currentStep?.type === 'timeslot' && currentStep?.data?.timeslots && (
+                <div class="chatbot__timeslots">
+                    {currentStep.data.timeslots.map((slot: {
+                        label: string | number | bigint | boolean | object | ComponentChild[] | VNode<any> | null | undefined;
+                        times: string[];
+                    }, i: unknown) => (
+                        <div key={i} class="timeslot-day">
+                            <div class="timeslot-day-label">{slot.label}</div>
+                            <div class="timeslot-grid">
+                                {slot.times.map((time: string, j: number) => (
+                                    <button
+                                        key={j}
+                                        class="timeslot-btn"
+                                        onClick={() =>
+                                            fetchStep('confirm_slot', `${slot.label} à ${time}`)
+                                        }
+                                    >
+                                        {time}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    ))}
+                </div>
             )}
 
             {currentStep?.type === 'radio' && (
