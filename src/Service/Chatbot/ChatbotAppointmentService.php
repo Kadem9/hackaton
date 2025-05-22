@@ -7,12 +7,17 @@ use App\Repository\VehicleRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use App\Service\Chatbot\PdfGeneratorService;
+
 
 readonly class ChatbotAppointmentService
 {
-    public function __construct(private ChatbotAvailabilityService $availabilityService, private VehicleRepository $vehicleRepository, private EntityManagerInterface $em)
-    {
-    }
+public function __construct(
+        private ChatbotAvailabilityService $availabilityService,
+        private VehicleRepository $vehicleRepository,
+        private EntityManagerInterface $em,
+        private PdfGeneratorService $pdfGeneratorService
+    ) {}
 
     public function handleDateType(string $input, Request $request): JsonResponse
     {
@@ -67,6 +72,7 @@ readonly class ChatbotAppointmentService
             'message' => "Parfait, nous avons bien noté la date souhaitée : $input",
             'type' => 'checkbox',
             'options' => [$input],
+            // plus besoin de data ici
         ]);
     }
 
@@ -228,6 +234,109 @@ readonly class ChatbotAppointmentService
         $this->em->persist($appointment);
         $this->em->flush();
 
+        // Recap data
+        $firstname = $session->get('chatbot_firstname');
+        $lastname = $session->get('chatbot_lastname');
+        $vehicleDetails = strtoupper($session->get('chatbot_brand') . ' ' . $session->get('chatbot_model') . ' (' . $session->get('chatbot_immatriculation') . ')');
+        $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
+        $slot = $date->format('d/m/Y à H\hi');
+        $garage = $session->get('chatbot_selected_garage');
+
+        // Generate PDF content
+        $html = <<<HTML
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Récapitulatif du Rendez-vous</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 14px;
+            color: #333;
+            margin: 40px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header img {
+            max-height: 80px;
+        }
+        .title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+            width: 30%;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://cdn.pixabay.com/photo/2014/04/03/00/41/race-car-309123_1280.png" alt="Logo"/>
+        <div class="title">Récapitulatif de votre Rendez-vous</div>
+    </div>
+
+    <table>
+        <tr><th>Client</th><td>{$firstname} {$lastname}</td></tr>
+        <tr><th>Véhicule</th><td>{$vehicleDetails}</td></tr>
+        <tr><th>Garage</th><td>{$garage}</td></tr>
+        <tr><th>Créneau</th><td>{$slot}</td></tr>
+        <tr><th>Problème</th><td>{$problem}</td></tr>
+    </table>
+
+    <div class="footer">
+        Merci d'avoir choisi nos services. Ce document a été généré automatiquement.
+    </div>
+</body>
+</html>
+HTML;
+
+        $pdfContent = $this->pdfGeneratorService->generatePdf($html);
+        $pdfPath = sys_get_temp_dir() . '/recap_' . uniqid() . '.pdf';
+        file_put_contents($pdfPath, $pdfContent);
+
+        $jsonData = [
+            'client' => ['firstname' => $firstname, 'lastname' => $lastname],
+            'vehicle' => $vehicleDetails,
+            'garage' => $garage,
+            'slot' => $slot,
+            'problem' => $problem,
+        ];
+        $jsonPath = sys_get_temp_dir() . '/recap_' . uniqid() . '.json';
+        file_put_contents($jsonPath, json_encode($jsonData, JSON_PRETTY_PRINT));
+
+        $encodedPdf = urlencode($pdfPath);
+        $encodedJson = urlencode($jsonPath);
+
+        $message = sprintf(
+            "🎉 Votre rendez-vous a bien été enregistré pour le %s !<br/><br/>
+    📄 <a href=\"/download-pdf?path=%s\" target=\"_blank\">Télécharger le PDF</a><br/>
+    🗂️ <a href=\"/download-json?path=%s\" target=\"_blank\">Télécharger les données JSON</a>",
+            $slot,
+            $encodedPdf,
+            $encodedJson
+        );
+
         return new JsonResponse([
             'step'    => 'end',
             'message' => sprintf(
@@ -235,6 +344,8 @@ readonly class ChatbotAppointmentService
                 $date->format('d/m/Y à H\hi')
             ),
             'type'    => 'text',
+            'pdf_url' => '/download-pdf?path=' . $encodedPdf,
+            'json_url' => '/download-json?path=' . $encodedJson,
         ]);
     }
 
