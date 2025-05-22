@@ -2,6 +2,8 @@
 
 namespace App\Service\Chatbot;
 
+use App\Entity\User;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -10,6 +12,7 @@ readonly class ChatbotUserRegistrationService
     public function __construct(
         private ChatbotRegistrationService $registrationService,
         private ChatbotSanitizerService $sanitizer,
+        private EntityManagerInterface $em
     ) {}
 
     public function handleCivility(mixed $input, Request $request): JsonResponse
@@ -136,4 +139,49 @@ readonly class ChatbotUserRegistrationService
             'type' => 'text'
         ]);
     }
+
+    public function handleCheckEmail(string $input, Request $request): JsonResponse
+    {
+        $session = $request->getSession();
+        $session->set('chatbot_email', $input);
+
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $input]);
+
+        if ($user) {
+            return new JsonResponse([
+                'step' => 'ask_password_login',
+                'message' => "Bienvenue de retour ! Entrez votre mot de passe pour continuer.",
+                'type' => 'text'
+            ]);
+        }
+
+        return new JsonResponse([
+            'step' => 'ask_user_type',
+            'message' => "Nous allons créer votre compte. Êtes-vous un particulier ou un professionnel ?",
+            'type' => 'text'
+        ]);
+    }
+
+    public function handleLoginPassword(string $input, Request $request): JsonResponse
+    {
+        $session = $request->getSession();
+        $email = $session->get('chatbot_email');
+        $user = $this->em->getRepository(User::class)->findOneBy(['email' => $email]);
+
+        if (!$user) {
+            return new JsonResponse([
+                'step' => 'ask_check_email',
+                'message' => "Email introuvable, veuillez réessayer.",
+                'type' => 'text'
+            ]);
+        }
+
+        return new JsonResponse([
+            'step' => 'ask_problem',
+            'message' => "Connexion réussie ! Pouvez-vous me décrire le problème avec votre véhicule ?",
+            'type' => 'text'
+        ]);
+    }
+
+
 }

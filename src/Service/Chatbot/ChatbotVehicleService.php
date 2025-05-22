@@ -55,6 +55,38 @@ readonly class ChatbotVehicleService
         ]);
     }
 
+    public function handleConfirmVehicle(string $input, Request $request, ?UserInterface $user): JsonResponse
+    {
+        $session = $request->getSession();
+        $data = $request->request->all()['data'] ?? [];
+        $source = $data['source'] ?? 'none';
+
+        if (strtolower($input) !== 'oui') {
+            return new JsonResponse([
+                'step' => 'ask_vehicle_name',
+                'message' => "Merci d’indiquer la marque et le modèle de votre véhicule.",
+                'type' => 'text'
+            ]);
+        }
+
+        if ($source === 'none') {
+            // 🚦 Aucun véhicule trouvé → demande email
+            return new JsonResponse([
+                'step' => 'ask_check_email',
+                'message' => "Avez-vous déjà un compte chez nous ? Merci d’indiquer votre email.",
+                'type' => 'text'
+            ]);
+        }
+
+        return new JsonResponse([
+            'step' => 'ask_problem',
+            'message' => "Pouvez-vous me décrire le problème rencontré ?",
+            'type' => 'text'
+        ]);
+    }
+
+
+
     public function handleVehicleChoice(mixed $input): JsonResponse
     {
         if (in_array('Autre véhicule', (array)$input, true)) {
