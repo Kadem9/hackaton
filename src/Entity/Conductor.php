@@ -31,7 +31,7 @@ class Conductor
     /**
      * @var Collection<int, Vehicle>
      */
-    #[ORM\OneToMany(targetEntity: Vehicle::class, mappedBy: 'conductor')]
+    #[ORM\OneToMany(targetEntity: Vehicle::class, mappedBy: 'conductor', cascade: ['remove'], orphanRemoval: true)]
     private Collection $vehicles;
 
     public function __construct()

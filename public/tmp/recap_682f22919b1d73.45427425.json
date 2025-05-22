@@ -1,0 +1,14 @@
+{
+    "firstname": "biden",
+    "lastname": "joe",
+    "vehicle": "PORSCHE 206 (RR555RR)",
+    "garage": "6EME AVENUE LYON 3 – 82 Boulevard Marius Vivier Merle (69003 Lyon)",
+    "slot": "25\/05\/2025 à 13h11",
+    "problem": "Freinage mou",
+    "operations": [
+        "Service plaquettes de frein arrière",
+        "Service plaquettes de frein avant",
+        "Service Plaquettes + Disques de frein Avant",
+        "Service Plaquettes + Disques de frein Arrière"
+    ]
+}

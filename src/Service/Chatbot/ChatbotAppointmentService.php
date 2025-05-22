@@ -8,6 +8,7 @@ use App\Service\Appointment\AppointmentRecapService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 
 readonly class ChatbotAppointmentService
@@ -16,7 +17,7 @@ public function __construct(
         private ChatbotAvailabilityService $availabilityService,
         private VehicleRepository $vehicleRepository,
         private EntityManagerInterface $em,
-        private AppointmentRecapService $recapService
+        private AppointmentRecapService $recapService,
     ) {}
 
     public function handleDateType(string $input, Request $request): JsonResponse
@@ -70,201 +71,206 @@ public function __construct(
         return new JsonResponse([
             'step' => 'confirm_slot',
             'message' => "Parfait, nous avons bien noté la date souhaitée : $input",
-            'type' => 'checkbox',
+            'type' => 'radio',
             'options' => [$input],
             // plus besoin de data ici
         ]);
     }
 
 
-    public function handleConfirmSlot(mixed $input, Request $request): JsonResponse
-    {
-        $session = $request->getSession();
-        $mode    = $session->get('chatbot_mode', 'auto');
+public function handleConfirmSlot(mixed $input, Request $request): JsonResponse
+{
+    $session = $request->getSession();
+    $mode    = $session->get('chatbot_mode', 'auto');
 
-        if (is_array($input)) {
-            $input = $input[0] ?? '';
-        }
-        $input = str_replace(['—','–'], '-', (string)$input);
-
-        if ($mode === 'manual') {
-            $raw = $session->get('chatbot_slot_input', $input);
-            $date = \DateTime::createFromFormat('d/m/Y', $raw);
-            if (!$date) {
-                return new JsonResponse([
-                    'step'    => 'choose_date',
-                    'message' => "La date indiquée est invalide. Format attendu : JJ/MM/AAAA",
-                    'type'    => 'text'
-                ]);
-            }
-
-            $session->set('chatbot_appointment_date', $date);
-            $session->set('chatbot_slot', $raw);
-
-        } else {
-            if (!preg_match('/^([A-Za-zéèûîàç]+)\s+(\d{2})\s+(\w+)\s*-\s*(\d+)\s+créneaux?$/u', $input, $m)) {
-                return new JsonResponse([
-                    'step'    => 'choose_date',
-                    'message' => "Le format du créneau est invalide.",
-                    'type'    => 'text'
-                ]);
-            }
-            [,$dayName,$day,$monthFr,$count] = $m;
-
-            $map = [
-                'janvier'=>'January','février'=>'February','mars'=>'March','avril'=>'April',
-                'mai'=>'May','juin'=>'June','juillet'=>'July','août'=>'August',
-                'septembre'=>'September','octobre'=>'October','novembre'=>'November','décembre'=>'December'
-            ];
-            $monthEn = $map[strtolower($monthFr)] ?? null;
-            if (!$monthEn) {
-                return new JsonResponse([
-                    'step'    => 'choose_date',
-                    'message' => "Mois invalide, veuillez réessayer.",
-                    'type'    => 'text'
-                ]);
-            }
-
-            $year = (new \DateTime())->format('Y');
-            $date = \DateTime::createFromFormat('d F Y', "$day $monthEn $year");
-            if (!$date) {
-                return new JsonResponse([
-                    'step'    => 'choose_date',
-                    'message' => "Impossible de traiter la date choisie.",
-                    'type'    => 'text'
-                ]);
-            }
-
-            $session->set('chatbot_appointment_date', $date);
-            $session->set('chatbot_slot', $input);
-        }
-
-        $vehicle = $session->get('chatbot_brand')
-            . ' ' . $session->get('chatbot_model')
-            . ' (' . $session->get('chatbot_immatriculation') . ')';
-        $garage  = $session->get('chatbot_selected_garage') ?? 'Non précisé';
-        $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
-        $slot    = $session->get('chatbot_slot');
-
-        $recap = "<b>🚗 Véhicule :</b> $vehicle<br/>"
-            . "<b>📍 Garage :</b> $garage<br/>"
-            . "<b>📅 Créneau :</b> $slot<br/>"
-            . "<b>🛠 Problème :</b> $problem<br/><br/>"
-            . "Souhaitez-vous confirmer ce rendez-vous ?";
-
-        return new JsonResponse([
-            'step'    => 'confirm_final',
-            'message' => $recap,
-            'type'    => 'confirm'
-        ]);
+    if (is_array($input)) {
+        $input = $input[0] ?? '';
     }
 
+    $input = str_replace(['—', '–'], '-', (string)$input);
 
-    public function handleFinalConfirmation(string $input, Request $request): JsonResponse
-    {
-        $session = $request->getSession();
-
-        if (strtolower($input) !== 'oui') {
+    // ⬇️ Store slot and date
+    if ($mode === 'manual') {
+        $raw = $session->get('chatbot_slot_input', $input);
+        $date = \DateTime::createFromFormat('d/m/Y', $raw);
+        if (!$date) {
             return new JsonResponse([
-                'step' => 'ask_reminder',
-                'message' => "Souhaitez-vous qu’on vous rappelle pour fixer le rendez-vous à un autre moment ?",
-                'type' => 'confirm'
+                'step'    => 'choose_date',
+                'message' => "La date indiquée est invalide. Format attendu : JJ/MM/AAAA",
+                'type'    => 'text'
             ]);
         }
 
-        $firstname = $session->get('chatbot_firstname');
-        $lastname = $session->get('chatbot_lastname');
-        $vehicle = strtoupper($session->get('chatbot_brand') . ' ' . $session->get('chatbot_model') . ' (' . $session->get('chatbot_immatriculation') . ')');
-        $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
-        $slot = $session->get('chatbot_slot');
-        $garage = $session->get('chatbot_selected_garage');
+        $session->set('chatbot_appointment_date', $date);
+        $session->set('chatbot_slot', $raw);
+    } else {
+        if (!preg_match('/^([A-Za-zéèûîàç]+)\s+(\d{2})\s+(\w+)\s*-\s*(\d+)\s+créneaux?$/u', $input, $m)) {
+            return new JsonResponse([
+                'step'    => 'choose_date',
+                'message' => "Le format du créneau est invalide.",
+                'type'    => 'text'
+            ]);
+        }
 
-        $message = <<<HTML
-                <b>🚗 Véhicule :</b> {$vehicle}<br/>
-                <b>📍 Garage :</b> {$garage}<br/>
-                <b>📅 Créneau :</b> {$slot}<br/>
-                <b>🛠 Problème :</b> {$problem}<br/><br/>
-                Souhaitez-vous confirmer ce rendez-vous ?
-                HTML;
+        [$full, $dayName, $day, $monthFr, $count] = $m;
 
+        $map = [
+            'janvier'=>'January','février'=>'February','mars'=>'March','avril'=>'April',
+            'mai'=>'May','juin'=>'June','juillet'=>'July','août'=>'August',
+            'septembre'=>'September','octobre'=>'October','novembre'=>'November','décembre'=>'December'
+        ];
+
+        $monthEn = $map[strtolower($monthFr)] ?? null;
+        if (!$monthEn) {
+            return new JsonResponse([
+                'step'    => 'choose_date',
+                'message' => "Mois invalide, veuillez réessayer.",
+                'type'    => 'text'
+            ]);
+        }
+
+        $year = (new \DateTime())->format('Y');
+        $date = \DateTime::createFromFormat('d F Y', "$day $monthEn $year");
+
+        if (!$date) {
+            return new JsonResponse([
+                'step'    => 'choose_date',
+                'message' => "Impossible de traiter la date choisie.",
+                'type'    => 'text'
+            ]);
+        }
+
+        $session->set('chatbot_appointment_date', $date);
+        $session->set('chatbot_slot', $input);
+    }
+
+    // ✅ Build recap once
+    $vehicle = $session->get('chatbot_brand')
+        . ' ' . $session->get('chatbot_model')
+        . ' (' . $session->get('chatbot_immatriculation') . ')';
+    $garage  = $session->get('chatbot_selected_garage') ?? 'Non précisé';
+    $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
+    $slot    = $session->get('chatbot_slot');
+
+    $recap = "<b>🚗 Véhicule :</b> $vehicle<br/>"
+        . "<b>📍 Garage :</b> $garage<br/>"
+        . "<b>📅 Créneau :</b> $slot<br/>"
+        . "<b>🛠 Problème :</b> $problem<br/><br/>"
+        . "Souhaitez-vous <strong>valider</strong> ce rendez-vous ?";
+
+    return new JsonResponse([
+        'step'    => 'confirm_appointment', // 👈 go straight to final
+        'message' => $recap,
+        'type'    => 'confirm'
+    ]);
+}
+
+
+
+public function handleFinalConfirmation(string $input, Request $request): JsonResponse
+{
+    $session = $request->getSession();
+
+    if (strtolower($input) !== 'oui') {
         return new JsonResponse([
-            'step' => 'confirm_appointment',
-            'message' => $message,
+            'step' => 'ask_reminder',
+            'message' => "Souhaitez-vous qu’on vous rappelle pour fixer le rendez-vous à un autre moment ?",
             'type' => 'confirm'
         ]);
     }
 
-    public function handleConfirmAppointment(string $input, Request $request): JsonResponse
-    {
-        $session = $request->getSession();
+    $vehicle = $session->get('chatbot_brand') . ' ' . $session->get('chatbot_model') . ' (' . $session->get('chatbot_immatriculation') . ')';
+    $garage  = $session->get('chatbot_selected_garage') ?? 'Non précisé';
+    $problem = $session->get('chatbot_problem') ?? 'Problème non précisé';
+    $slot    = $session->get('chatbot_slot');
 
-        if (strtolower(trim($input)) !== 'oui') {
-            return new JsonResponse([
-                'step'    => 'ask_reminder',
-                'message' => "Souhaitez-vous qu’un conseiller vous rappelle pour fixer le rendez-vous ?",
-                'type'    => 'confirm',
-            ]);
-        }
+    $recap = "<b>🚗 Véhicule :</b> $vehicle<br/>"
+        . "<b>📍 Garage :</b> $garage<br/>"
+        . "<b>📅 Créneau :</b> $slot<br/>"
+        . "<b>🛠 Problème :</b> $problem<br/><br/>"
+        . "Souhaitez-vous valider définitivement ce rendez-vous ?";
 
-        $vehicleId = $session->get('chatbot_vehicle_id');
-        /** @var \DateTimeInterface|null $date */
-        $date      = $session->get('chatbot_appointment_date');
+    return new JsonResponse([
+        'step'    => 'confirm_appointment',
+        'message' => $recap,
+        'type'    => 'confirm'
+    ]);
+}
 
-        if (!$date instanceof \DateTimeInterface) {
-            return new JsonResponse([
-                'step'    => 'error',
-                'message' => "Impossible de récupérer la date de rendez-vous.",
-                'type'    => 'text',
-            ]);
-        }
 
-        $vehicle = $this->vehicleRepository->find($vehicleId);
-        if (!$vehicle) {
-            return new JsonResponse([
-                'step'    => 'error',
-                'message' => "Véhicule introuvable. Impossible de valider le rendez-vous.",
-                'type'    => 'text',
-            ]);
-        }
+public function handleConfirmAppointment(string $input, Request $request, ?UserInterface $user): JsonResponse
+{
+    $session = $request->getSession();
 
-        $appointment = new Appointment();
-        $appointment->setVehicle($vehicle);
-        $appointment->setDate($date);
-
-        $this->em->persist($appointment);
-        $this->em->flush();
-
-        // Préparer les données de récap
-        $slot    = $date->format('d/m/Y à H\hi');
-        $data = [
-            'firstname' => $session->get('chatbot_firstname'),
-            'lastname'  => $session->get('chatbot_lastname'),
-            'vehicle'   => strtoupper($session->get('chatbot_brand')
-                . ' ' . $session->get('chatbot_model')
-                . ' (' . $session->get('chatbot_immatriculation') . ')'),
-            'garage'    => $session->get('chatbot_selected_garage'),
-            'slot'      => $slot,
-            'problem'   => $session->get('chatbot_problem') ?? 'Non précisé',
-        ];
-
-        $files = $this->recapService->generate($data);
-
-        $message = sprintf(
-            "🎉 Votre rendez-vous a bien été enregistré pour le <strong>%s</strong> !<br/><br/>" .
-            "📄 <a href=\"%s\" target=\"_blank\">Télécharger le PDF</a><br/>" .
-            "🗂️ <a href=\"%s\" target=\"_blank\">Télécharger les données JSON</a>",
-            $slot,
-            $files['pdf_url'],
-            $files['json_url']
-        );
-
+    if (strtolower(trim($input)) !== 'oui') {
         return new JsonResponse([
-            'step'    => 'end',
-            'message' => $message,
-            'type'    => 'text',
+            'step'    => 'ask_reminder',
+            'message' => "Souhaitez-vous qu’un conseiller vous rappelle pour fixer le rendez-vous ?",
+            'type'    => 'confirm',
         ]);
     }
 
+    $vehicleId = $session->get('chatbot_vehicle_id');
+    $date      = $session->get('chatbot_appointment_date');
+
+    if (!$date instanceof \DateTimeInterface) {
+        return new JsonResponse([
+            'step' => 'error',
+            'message' => "Impossible de récupérer la date de rendez-vous.",
+            'type' => 'text'
+        ]);
+    }
+
+    $vehicle = $this->vehicleRepository->find($vehicleId);
+    if (!$vehicle) {
+        return new JsonResponse([
+            'step' => 'error',
+            'message' => "Véhicule introuvable. Impossible de valider le rendez-vous.",
+            'type' => 'text'
+        ]);
+    }
+
+    // 💡 Use fallback from authenticated user if session data missing
+    $firstname = $session->get('chatbot_firstname') ?? $user?->getFirstname() ?? 'Inconnu';
+    $lastname  = $session->get('chatbot_lastname') ?? $user?->getLastname() ?? 'Inconnu';
+
+
+    $appointment = new Appointment();
+    $appointment->setVehicle($vehicle);
+    $appointment->setDate($date);
+
+    $this->em->persist($appointment);
+    $this->em->flush();
+
+    $slot = $date->format('d/m/Y à H\hi');
+
+    $data = [
+        'firstname' => $firstname,
+        'lastname'  => $lastname,
+        'vehicle'   => strtoupper($session->get('chatbot_brand') . ' ' . $session->get('chatbot_model') . ' (' . $session->get('chatbot_immatriculation') . ')'),
+        'garage'    => $session->get('chatbot_selected_garage'),
+        'slot'      => $slot,
+        'problem'   => $session->get('chatbot_problem') ?? 'Non précisé',
+        'operations' => $session->get('chatbot_selected_operations') ?? [],
+    ];
+
+    $files = $this->recapService->generate($data);
+
+    $message = sprintf(
+        "Votre rendez-vous a bien été enregistré pour le <strong>%s</strong> !<br/><br/>" .
+        "<a href=\"%s\" target=\"_blank\">Télécharger le PDF</a><br/>" .
+        "<a href=\"%s\" target=\"_blank\">Télécharger les données JSON</a>",
+        $slot,
+        $files['pdf_url'],
+        $files['json_url']
+    );
+
+    return new JsonResponse([
+        'step'    => 'end',
+        'message' => $message,
+        'type'    => 'text',
+    ]);
+}
 
     public function handleFinalizeAppointment(mixed $input, Request $request): JsonResponse
     {

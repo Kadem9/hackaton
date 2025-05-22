@@ -1,20 +1,28 @@
 {
   "admin.ts": {
-    "file": "admin.ts-BPbmmk72.js",
+    "file": "admin.ts-BDu5AHzH.js",
     "name": "admin.ts",
     "src": "admin.ts",
     "isEntry": true,
     "css": [
-      "admin-fRYs3NAi.css"
+      "admin-BoD6X8qX.css"
     ]
   },
   "front.ts": {
+<<<<<<< HEAD
     "file": "front.ts-93jm_dV5.js",
+=======
+    "file": "front.ts-DsrOBRSy.js",
+>>>>>>> f0027a30eae1a38e0720ae5b11b14b673574ff20
     "name": "front.ts",
     "src": "front.ts",
     "isEntry": true,
     "css": [
+<<<<<<< HEAD
       "front-DfDzxrPs.css"
+=======
+      "front-CDfzADEm.css"
+>>>>>>> f0027a30eae1a38e0720ae5b11b14b673574ff20
     ]
   }
 }

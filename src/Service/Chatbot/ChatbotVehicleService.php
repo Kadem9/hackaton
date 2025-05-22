@@ -94,19 +94,12 @@ readonly class ChatbotVehicleService
         if ($source === 'bdd') {
             $session->set('chatbot_vehicle_id', $payload['vehicle_id']);
 
-            // **Ajout du stockage en session :**
-            $veh = $this->vehicleRepository->find($payload['vehicle_id']);
-            $session->set('chatbot_brand',           $veh->getBrand());
-            $session->set('chatbot_model',           $veh->getModel());
-            $session->set('chatbot_immatriculation', $veh->getImmatriculation());
-
             return new JsonResponse([
                 'step'    => 'ask_problem',
                 'message' => "Pouvez-vous me décrire le problème rencontré ?",
                 'type'    => 'text',
             ]);
         }
-
 
         if ($source === 'json') {
             $matched = $payload['vehicle'];
@@ -127,10 +120,6 @@ readonly class ChatbotVehicleService
             $this->em->persist($vehicle);
             $this->em->flush();
 
-            $session->set('chatbot_vehicle_id', $vehicle->getId());
-            $session->set('chatbot_brand', $vehicle->getBrand());
-            $session->set('chatbot_model', $vehicle->getModel());
-            $session->set('chatbot_immatriculation', $vehicle->getImmatriculation());
             $session->set('chatbot_vehicle_id', $vehicle->getId());
 
             return new JsonResponse([
@@ -167,9 +156,6 @@ readonly class ChatbotVehicleService
         }
 
         $session->set('chatbot_vehicle_id', $vehicle->getId());
-        $session->set('chatbot_brand',           $vehicle->getBrand());
-        $session->set('chatbot_model',           $vehicle->getModel());
-        $session->set('chatbot_immatriculation', $vehicle->getImmatriculation());
 
         return new JsonResponse([
             'step'    => 'ask_problem',

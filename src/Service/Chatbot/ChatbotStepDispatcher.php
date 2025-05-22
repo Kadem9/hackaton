@@ -60,9 +60,7 @@ readonly class ChatbotStepDispatcher
             'ask_date_type'            => $this->appointmentService->handleDateType($input, $request),
             'choose_date'              => $this->appointmentService->handleChooseDate($input, $request),
             'confirm_slot'             => $this->appointmentService->handleConfirmSlot($input, $request),
-            'confirm_final'            => $this->appointmentService->handleFinalConfirmation($input, $request),
-            'confirm_appointment'      => $this->appointmentService->handleConfirmAppointment($input, $request),
-            'finalize_appointment'     => $this->appointmentService->handleFinalizeAppointment($input, $request),
+            'confirm_appointment'      => $this->appointmentService->handleConfirmAppointment($input, $request,$user),
 
 
             // CAS PAR DÉFAUT

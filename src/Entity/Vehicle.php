@@ -37,11 +37,11 @@ class Vehicle
     /**
      * @var Collection<int, Appointment>
      */
-    #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'vehicle')]
+    #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'vehicle', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $appointments;
 
     #[ORM\ManyToOne(inversedBy: 'vehicles')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: false, onDelete: 'CASCADE')]
     private ?Conductor $conductor = null;
 
     public function __construct()

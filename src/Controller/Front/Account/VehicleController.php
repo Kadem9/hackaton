@@ -51,13 +51,12 @@ class VehicleController extends AbstractController
             'vehiclesWithImages' => $vehiclesWithImages,
         ]);
     }
-    
-
 
     #[Route('/nouveau', name: 'new')]
     public function new(Request $request, EntityManagerInterface $em, VehicleNormalizer $normalizer, CurrentUserService $currentUserService): Response
     {
-        if ($currentUserService->getCurrentUser()?->getConductors() === null) {
+        $user = $currentUserService->getCurrentUser();
+        if (!$user || count($user->getConductors()) === 0) {
             $this->addFlash('error', 'Vous devez d\'abord créer un conducteur.');
             return $this->redirectToRoute('account_conductor_new');
         }
@@ -81,7 +80,6 @@ class VehicleController extends AbstractController
             'form' => $form,
         ]);
     }
-
 
     #[Route('/{id}/modifier', name: 'edit')]
     public function edit(Request $request, Vehicle $vehicle, EntityManagerInterface $em, VehicleNormalizer $normalizer, CurrentUserService $currentUserService): Response
