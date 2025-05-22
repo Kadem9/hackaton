@@ -16,6 +16,19 @@ class AppointmentRepository extends ServiceEntityRepository
         parent::__construct($registry, Appointment::class);
     }
 
+    public function findByUser($user): array
+    {
+        return $this->createQueryBuilder('a')
+            ->join('a.vehicle', 'v')
+            ->join('v.conductor', 'c')
+            ->where('c.user = :user')
+            ->setParameter('user', $user)
+            ->orderBy('a.date', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     //    /**
     //     * @return Appointment[] Returns an array of Appointment objects
     //     */

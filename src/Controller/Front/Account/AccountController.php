@@ -15,9 +15,4 @@ class AccountController extends AbstractController
         return $this->render('front/account/index.html.twig');
     }
 
-    #[Route('/mes-rendez-vous', name: 'appointments')]
-    public function appointments(): Response
-    {
-        return $this->render('front/account/appointments.html.twig');
-    }
 }
