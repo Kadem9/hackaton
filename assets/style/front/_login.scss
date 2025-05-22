@@ -1,97 +1,149 @@
 .login-page {
-  @apply relative w-full h-screen overflow-hidden;
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
 
-  .home__banner {
-    @apply w-full h-screen bg-cover bg-center bg-no-repeat relative;
+  .auth-left {
+    flex: 55px;
+    background: linear-gradient(to bottom, #1e1e1e, #111);
+    color: white;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .home__hero-image {
+      margin-top: 2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+  
+      img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 1rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+        object-fit: cover;
+        transition: transform 0.3s ease;
+  
+        &:hover {
+          transform: scale(1.02);
+        }
+      }
+    }
+
+    .headline {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .subtext {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      line-height: 1.5;
+    }
+
+    .commentaire {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      margin-top: 2rem;
+      padding-bottom: 1rem;
+      scroll-snap-type: x mandatory;
+
+      .commentaire-card {
+        min-width: 280px;
+        background-color: #2a2a2a;
+        padding: 1rem;
+        border-radius: 1rem;
+        scroll-snap-align: start;
+
+        .commentaire-content {
+          font-size: 0.95rem;
+          margin-bottom: 1rem;
+        }
+
+        .commentaire-author {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+          }
+
+          span {
+            font-size: 0.85rem;
+            opacity: 0.7;
+          }
+        }
+      }
+    }
   }
 
   .login-form-container {
-    @apply absolute top-8 right-8 z-10 flex items-start gap-8 flex-wrap;
-
-    .login-form-box {
-      @apply flex gap-8 items-start flex-wrap;
+    flex: 1;
+    background: #fff;
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .headline {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
     }
 
     .login-form {
-      @apply bg-black bg-opacity-85 p-8 rounded-[10px] w-[350px] text-white shadow-[0_0_15px_rgba(0,0,0,0.5)] min-h-[400px];
-
-      h1 {
-        @apply text-white text-center mb-8;
-      }
+      width: 100%;
+      max-width: 400px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
 
       label {
-        @apply mt-4 block font-medium text-[#ccc];
+        font-size: 0.9rem;
+        font-weight: 500;
       }
 
-      input[type="email"],
-      input[type="password"] {
-        @apply mt-1 w-full p-2.5 border-none rounded bg-[#222] text-white;
+      input {
+        padding: 0.75rem 1rem;
+        border-radius: 0.5rem;
+        border: 1px solid #ccc;
+        background-color: #f9f9f9;
+        transition: border 0.3s ease;
+
+        &:focus {
+          border-color: #3c62fb; // orange-400
+          outline: none;
+        }
       }
 
-      .btn {
-        @apply w-full mt-8;
+      .btn-white-secondary {
+        background-color: #3c62fb;
+        color: white;
+        padding: 0.75rem;
+        border: none;
+        border-radius: 0.5rem;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+
+        &:hover {
+          background-color: #3c62fb;
+        }
       }
 
       .alert {
-        @apply bg-[#ff4444] text-white p-3 rounded mb-4;
-      }
-    }
-
-    .login-side-text {
-      @apply max-w-[250px] text-[rgb(173,100,100)] pt-2;
-
-      h2 {
-        @apply font-bold text-[1.5rem] mb-2;
-      }
-
-      p {
-        @apply text-[0.95rem] text-[#010101];
-      }
-    }
-  }
-
-  @media (max-width: 768px) {
-    .login-form-container {
-      @apply top-4 right-4 flex-col items-center;
-
-      .login-form-box {
-        @apply flex-col items-center gap-4;
-      }
-
-      .login-form {
-        @apply w-[90vw] min-h-fit;
-      }
-
-      .login-side-text {
-        @apply max-w-[90vw] text-center;
-
-        h2 {
-          @apply text-[1.3rem];
-        }
-
-        p {
-          @apply text-[0.9rem];
-        }
-      }
-    }
-  }
-
-  @media (max-width: 480px) {
-    .login-form-container {
-      @apply top-2 right-2;
-
-      .login-form {
-        @apply p-6 w-[95vw];
-      }
-
-      .login-side-text {
-        h2 {
-          @apply text-[1.2rem];
-        }
-
-        p {
-          @apply text-[0.85rem];
-        }
+        background-color: #fee2e2;
+        border: 1px solid #fca5a5;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        color: #991b1b;
       }
     }
   }

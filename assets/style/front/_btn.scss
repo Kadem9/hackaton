@@ -17,7 +17,7 @@
 %buttonIcon {
   @apply transition-colors duration-300 ease-out;
 }
-//.btn-text-bg
+
 .btn-black-white {
   @extend .btn;
   @apply bg-white text-front-black border-white;
