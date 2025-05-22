@@ -16,6 +16,17 @@
     margin-bottom: 1rem;
 }
 
+.chatbot__images {
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+.chatbot__image {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
 .chatbot__message {
     background-color: #e2e6ea;
     padding: 0.75rem 1rem;

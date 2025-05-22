@@ -11,18 +11,27 @@
                     <a href="{{ path('account_vehicle_new') }}" class="btn-white-secondary">Ajouter un véhicule</a>
                 </div>
                 <div class="card-body">
-                    {% if vehicles is empty %}
+                    {% if vehiclesWithImages is empty %}
                         <p>Aucun véhicule enregistré.</p>
                     {% else %}
                         <ul>
-                            {% for vehicle in vehicles %}
+                            {% for item in vehiclesWithImages %}
+                                {% set vehicle = item.vehicle %}
                                 <li class="mb-3">
-                                    <div class="info mb-2">
-                                    <img src="{{ asset('assets/img/' ~ vehicle.brand|lower ~ '.svg') }}" alt="Logo {{ vehicle.brand }}" class="h-6 w-auto">
-                                        <span class="font-bold">{{ vehicle.brand }} {{ vehicle.model }}</span><br>
-                                        <span class="font-bold">Immatriculation :</span> {{ vehicle.immatriculation }}<br>
-                                        <span class="font-bold">Conducteur :</span> {{ vehicle.conductor.firstname }} <br>
+                                    <div class="info mb-2 flex items-start gap-4">
+                                        <img src="{{ asset('assets/img/' ~ vehicle.brand|lower ~ '.svg') }}" alt="Logo {{ vehicle.brand }}" class="h-6 w-auto mt-1">
+                                        
+                                        <div>
+                                            <span class="font-bold">{{ vehicle.brand }} {{ vehicle.model }}</span><br>
+                                            <span class="font-bold">Immatriculation :</span> {{ vehicle.immatriculation }}<br>
+                                            <span class="font-bold">Conducteur :</span> {{ vehicle.conductor.firstname }} <br>
+
+                                            {% if item.image %}
+                                                <img src="{{ item.image }}" alt="Image véhicule" class="mt-2 rounded-md shadow max-w-[300px]">
+                                            {% endif %}
+                                        </div>
                                     </div>
+
                                     <a href="{{ path('account_vehicle_edit', {id: vehicle.id}) }}">Modifier</a> |
                                     <form method="post" action="{{ path('account_vehicle_delete', {id: vehicle.id}) }}" style="display:inline-block;" onsubmit="return confirm('Supprimer ce véhicule ?');">
                                         <input type="hidden" name="_token" value="{{ csrf_token('delete_vehicle_' ~ vehicle.id) }}">

@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Service\Chatbot\PexelsService;
+
 
 #[Route('/api/chatbot', name: 'api_chatbot_')]
 class ChatBotController extends AbstractController
@@ -18,6 +20,7 @@ class ChatBotController extends AbstractController
         private readonly VehicleRepository $vehicleRepository,
         private readonly GeminiService $geminiService,
         private readonly ConcessionLocatorService $concessionLocator,
+        private readonly PexelsService $pexelsService, 
         private readonly string $fakeVehiclePath
     ) {}
     #[Route('/step', name: 'step', methods: ['POST'])]
@@ -46,12 +49,23 @@ class ChatBotController extends AbstractController
                         $vehicle->getModel(),
                         $vehicle->getDateOfCirculation()?->format('Y')
                     );
-
+            
+                    $allImages = $this->pexelsService->searchImages($vehicle->getBrand() . ' ' . $vehicle->getModel());
+                    $images = [];
+                    
+                    if (!empty($allImages)) {
+                        $images[] = $allImages[0];
+                    }                    
+            
                     return $this->json([
                         'step' => 'confirm_vehicle',
                         'message' => $message,
                         'type' => 'confirm',
-                        'data' => ['source' => 'bdd', 'vehicle_id' => $vehicle->getId()]
+                        'data' => [
+                            'source' => 'bdd',
+                            'vehicle_id' => $vehicle->getId(),
+                            'images' => $images
+                        ]
                     ]);
                 }
 
@@ -76,14 +90,27 @@ class ChatBotController extends AbstractController
                         strtoupper($matched['modele']),
                         (new \DateTime($matched['date_mise_en_circulation']))->format('Y')
                     );
-
+                
+                    $allImages = $this->pexelsService->searchImages($matched['marque'] . ' ' . $matched['modele']);
+                    $images = [];
+                
+                    if (!empty($allImages)) {
+                        $images[] = $allImages[0]; // On ne garde que la première image
+                    }
+                
                     return $this->json([
                         'step' => 'confirm_vehicle',
                         'message' => $message,
                         'type' => 'confirm',
-                        'data' => ['source' => 'json', 'vehicle' => $matched]
+                        'data' => [
+                            'source' => 'json',
+                            'vehicle' => $matched,
+                            'images' => $images
+                        ]
                     ]);
                 }
+                
+                
 
                 return $this->json([
                     'step' => 'confirm_vehicle',

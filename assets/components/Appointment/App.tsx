@@ -8,7 +8,9 @@ type Step = {
     message: string;
     type: 'text' | 'confirm' | 'checkbox';
     options?: string[];
+    data?: Record<string, any>;  // ajout facultatif, car `data` n’est pas toujours présent
 };
+
 
 export function App() {
     const [messages, setMessages] = useState<string[]>([]);
@@ -39,6 +41,7 @@ export function App() {
         const input = currentStep?.type === 'checkbox' ? selected : inputValue;
         fetchStep(currentStep!.step, input);
     };
+    console.log('Step:', currentStep);
 
     return (
         <div class="chatbot">
@@ -72,7 +75,13 @@ export function App() {
                     <button onClick={() => fetchStep(currentStep.step, 'non')}>Non</button>
                 </div>
             )}
-
+            {currentStep?.data?.images && (
+                <div class="chatbot__images">
+                    {currentStep.data.images.map((url: string, i: number) => (
+                        <img key={i} src={url} alt="voiture" class="chatbot__image" />
+                    ))}
+                </div>
+            )}
             {currentStep?.type === 'checkbox' && (
                 <form onSubmit={handleSubmit} class="chatbot__form chatbot__checkboxes">
                     {currentStep.options?.map((op, i) => (
