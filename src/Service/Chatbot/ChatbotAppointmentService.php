@@ -67,7 +67,6 @@ readonly class ChatbotAppointmentService
             'message' => "Parfait, nous avons bien noté la date souhaitée : $input",
             'type' => 'checkbox',
             'options' => [$input],
-            // plus besoin de data ici
         ]);
     }
 
@@ -193,7 +192,6 @@ readonly class ChatbotAppointmentService
     {
         $session = $request->getSession();
 
-        // Si l'utilisateur refuse
         if (strtolower(trim($input)) !== 'oui') {
             return new JsonResponse([
                 'step'    => 'ask_reminder',
@@ -202,7 +200,6 @@ readonly class ChatbotAppointmentService
             ]);
         }
 
-        // 🔁 Récupération des infos
         $vehicleId = $session->get('chatbot_vehicle_id');
         /** @var \DateTimeInterface|null $date */
         $date      = $session->get('chatbot_appointment_date');
@@ -215,7 +212,6 @@ readonly class ChatbotAppointmentService
             ]);
         }
 
-        // 🚗 Récupération du véhicule
         $vehicle = $this->vehicleRepository->find($vehicleId);
         if (!$vehicle) {
             return new JsonResponse([
@@ -225,7 +221,6 @@ readonly class ChatbotAppointmentService
             ]);
         }
 
-        // ✅ Insertion en base
         $appointment = new Appointment();
         $appointment->setVehicle($vehicle);
         $appointment->setDate($date);
@@ -233,7 +228,6 @@ readonly class ChatbotAppointmentService
         $this->em->persist($appointment);
         $this->em->flush();
 
-        // 📄 Message de confirmation
         return new JsonResponse([
             'step'    => 'end',
             'message' => sprintf(
