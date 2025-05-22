@@ -54,7 +54,7 @@ public function __construct(
         return new JsonResponse([
             'step' => 'confirm_slot',
             'message' => "Voici les créneaux disponibles :",
-            'type' => 'checkbox',
+            'type' => 'radio',
             'options' => $available
         ]);
     }

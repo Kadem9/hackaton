@@ -6,7 +6,7 @@ import LeafletMap from "./LeafletMap.tsx";
 type Step = {
     step: string;
     message: string;
-    type: 'text' | 'confirm' | 'checkbox';
+    type: 'text' | 'confirm' | 'checkbox' | 'radio';
     options?: string[];
     data?: any;
 };
@@ -20,8 +20,9 @@ export function App() {
     const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [currentStep, setCurrentStep] = useState<Step | null>(null);
     const [inputValue, setInputValue] = useState('');
-    const [selected, setSelected] = useState<string[]>([]);
-
+    const [selectedCheckboxes, setSelectedCheckboxes] = useState<string[]>([]);
+    const [selectedRadio, setSelectedRadio] = useState<string>('');
+    
     useEffect(() => {
         fetchStep('start');
     }, []);
@@ -48,14 +49,25 @@ export function App() {
         ]);
         setCurrentStep(json);
         setInputValue('');
-        setSelected([]);
+        setSelectedCheckboxes([]);
+        setSelectedRadio('');
     };
 
     const handleSubmit = (e: Event) => {
         e.preventDefault();
-        const input = currentStep?.type === 'checkbox' ? selected : inputValue;
+        let input;
+    
+        if (currentStep?.type === 'checkbox') {
+            input = selectedCheckboxes;
+        } else if (currentStep?.type === 'radio') {
+            input = selectedRadio;
+        } else {
+            input = inputValue;
+        }
+    
         fetchStep(currentStep!.step, input);
     };
+    
 
     return (
         <div class="chatbot">
@@ -129,7 +141,6 @@ export function App() {
                     ))}
                 </div>
             )}
-
             {currentStep?.type === 'checkbox' && (
                 <form onSubmit={handleSubmit} class="chatbot__form chatbot__checkboxes">
                     {currentStep.options?.map((op, i) => (
@@ -137,15 +148,34 @@ export function App() {
                             <input
                                 type="checkbox"
                                 value={op}
-                                checked={selected.includes(op)}
+                                checked={selectedCheckboxes.includes(op)}
                                 onChange={e => {
                                     const v = (e.target as HTMLInputElement).value;
-                                    setSelected(prev =>
+                                    setSelectedCheckboxes(prev =>
                                         prev.includes(v)
                                             ? prev.filter(x => x !== v)
                                             : [...prev, v]
                                     );
                                 }}
+                            />
+                            {op}
+                        </label>
+                    ))}
+                    <button type="submit" class="chatbot__button">
+                        Valider
+                    </button>
+                </form>
+            )}
+
+            {currentStep?.type === 'radio' && (
+                <form onSubmit={handleSubmit} class="chatbot__form chatbot__radios">
+                    {currentStep.options?.map((op, i) => (
+                        <label key={i} class="chatbot__checkbox-label">
+                            <input
+                                type="radio"
+                                value={op}
+                                checked={selectedRadio === op}
+                                onChange={e => setSelectedRadio((e.target as HTMLInputElement).value)}
                             />
                             {op}
                         </label>
