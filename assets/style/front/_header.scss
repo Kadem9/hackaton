@@ -11,4 +11,20 @@
 
 .header__nav_ul {
   @apply flex gap-4 pr-2 sm:pr-4 md:pr-5;
+
+  @media (max-width: 768px) {
+    @apply flex-col gap-2 p-4;
+  }
+}
+
+.mobile-menu-toggle {
+  @apply block sm:hidden;
+}
+
+#mobile-menu {
+  @apply hidden sm:flex;
+
+  &.open {
+    @apply block;
+  }
 }
