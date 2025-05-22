@@ -1,4 +1,5 @@
 <?php
+// src/Service/Chatbot/GeminiService.php
 
 namespace App\Service\Chatbot;
 
@@ -34,6 +35,37 @@ readonly class GeminiService
         ]);
 
         $result = $response->toArray();
+        $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
+
+        return array_filter(array_map('trim', explode("\n", $text)));
+    }
+
+    public function getMaintenanceRecommendations(array $vehicle): array
+    {
+        $prompt = <<<PROMPT
+Tu es un expert en entretien automobile.
+Donne une liste de recommandations d'entretien préventif pour un véhicule :
+
+- Marque : {$vehicle['brand']}
+- Modèle : {$vehicle['model']}
+- Kilométrage actuel : {$vehicle['mileage']} km
+- Année de mise en circulation : {$vehicle['circulation_year']}
+- Dernière visite : {$vehicle['last_visit']}
+
+Réponds sous forme de liste simple avec des opérations claires, sans paragraphes.
+PROMPT;
+
+        $response = $this->client->request('POST', 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent', [
+            'query' => ['key' => $this->geminiApiKey],
+            'json' => [
+                'contents' => [[
+                    'role' => 'user',
+                    'parts' => [['text' => $prompt]]
+                ]]
+            ]
+        ]);
+
+        $result = $response->toArray(false);
         $text = $result['candidates'][0]['content']['parts'][0]['text'] ?? '';
 
         return array_filter(array_map('trim', explode("\n", $text)));
