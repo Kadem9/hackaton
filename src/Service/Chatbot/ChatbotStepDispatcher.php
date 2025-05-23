@@ -60,7 +60,7 @@ readonly class ChatbotStepDispatcher
             'ask_model'               => $this->vehicleService->handleModel($input, $request),
             'ask_mileage'             => $this->vehicleService->handleMileage($input, $request),
             'ask_circulation_date'    => $this->vehicleService->handleCirculationDate($input, $request),
-            'ask_vin'                 => $this->vehicleService->handleVin($input, $request),
+            'ask_vin'                 => $this->vehicleService->handleVin($input, $request, $user),
             'ask_is_driver'           => $this->vehicleService->handleIsDriver($input, $request, $user),
             'choose_conductor'        => $this->vehicleService->handleChooseConductor($input, $request),
             'create_conductor'        => $this->vehicleService->handleCreateConductor($input, $request),
