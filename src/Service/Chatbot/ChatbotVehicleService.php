@@ -308,26 +308,35 @@ readonly class ChatbotVehicleService
     }
 
 
-    public function handleVin(mixed $input, Request $request): JsonResponse
+    public function handleVin(mixed $input, Request $request, ?UserInterface $user): JsonResponse
     {
         $vin = $this->sanitizer->extractVin((string)$input);
-
         if (!$vin) {
             return new JsonResponse([
-                'step' => 'ask_vin',
+                'step'    => 'ask_vin',
                 'message' => "Merci de saisir un numéro VIN valide.",
-                'type' => 'text'
+                'type'    => 'text'
             ]);
         }
 
-        $request->getSession()->set('chatbot_vin', $vin);
+        $session = $request->getSession();
+        $session->set('chatbot_vin', $vin);
+
+        if ($user === null) {
+            return new JsonResponse([
+                'step'    => 'ask_civility',
+                'message' => "Parfait. Vous êtes madame ou monsieur ?",
+                'type'    => 'text'
+            ]);
+        }
 
         return new JsonResponse([
-            'step' => 'ask_is_driver',
+            'step'    => 'ask_is_driver',
             'message' => "Êtes-vous le conducteur du véhicule ?",
-            'type' => 'confirm'
+            'type'    => 'confirm'
         ]);
     }
+
 
 
     public function handleIsDriver(string $input, Request $request, ?UserInterface $user): JsonResponse
