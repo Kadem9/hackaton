@@ -3,6 +3,7 @@
 namespace App\Service\Chatbot;
 
 use App\Entity\Conductor;
+use App\Entity\User;
 use App\Entity\Vehicle;
 use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
@@ -458,14 +459,11 @@ readonly class ChatbotVehicleService
             ]);
         }
 
-        // Récupération de l'utilisateur et de la session
         $user    = $this->currentUserService->getCurrentUser();
         $session = $request->getSession();
 
-        // Décomposition des infos
         [$first, $last, $phone] = $parts;
 
-        // 1) Création du conducteur
         $conductor = new Conductor();
         $conductor
             ->setFirstname($first)
