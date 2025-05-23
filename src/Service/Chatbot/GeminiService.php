@@ -22,7 +22,7 @@ readonly class GeminiService
         foreach ($operations as $op) {
             $prompt .= "- $op\n";
         }
-        $prompt .= "\nQuelles opérations recommandez-vous ? Répondez uniquement avec les noms exacts de la liste ci-dessus, ou 'diagnostic complet' si rien ne correspond.";
+        $prompt .= "\nQuelles opérations recommandez-vous ? Répondez uniquement avec les noms exacts de la liste ci-dessus, ou 'Passage au banc de diagnostic' si rien ne correspond. Peu importe la réponse je veux que 'Passage au banc de diagnostic' soit présent";
 
         $response = $this->client->request('POST', 'https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent', [
             'query' => ['key' => $this->geminiApiKey],

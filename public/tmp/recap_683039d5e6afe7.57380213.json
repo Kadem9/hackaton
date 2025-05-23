@@ -1,0 +1,11 @@
+{
+    "firstname": "test",
+    "lastname": "test",
+    "vehicle": "  ()",
+    "garage": "6EME AVENUE LYON 3 – 82 Boulevard Marius Vivier Merle (69003 Lyon)",
+    "slot": "27\/05\/2025 à 11h30",
+    "problem": "frien",
+    "operations": [
+        "Service recherche de panne diagnostic"
+    ]
+}

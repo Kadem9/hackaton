@@ -162,7 +162,7 @@ public function __construct(
             . "Souhaitez-vous confirmer ce rendez-vous ?";
 
         return new JsonResponse([
-            'step'    => 'confirm_final',
+            'step'    => 'confirm_appointment',
             'message' => $recap,
             'type'    => 'confirm',
         ]);
@@ -349,6 +349,35 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
             'type' => 'text'
         ]);
 
+    }
+
+    public function handleReminder(string $input, Request $request): JsonResponse
+    {
+        $session = $request->getSession();
+        $selected = $session->get('chatbot_selected_garage');
+
+        if(strtolower($input) === 'oui' && $selected)
+        {
+            return new JsonResponse([
+                'step'    => 'end',
+                'message' => "Merci ! Le garage que vous avez choisi ($selected) va vous rappeler.",
+                'type'    => 'text'
+            ]);
+        }
+
+        if (strtolower($input) === 'oui') {
+            return new JsonResponse([
+                'step'    => 'end',
+                'message' => "Merci ! Le garage le plus proche de chez vous va vous rappeler.",
+                'type'    => 'text'
+            ]);
+        }
+
+         return new JsonResponse([
+                'step'    => 'end',
+                'message' => "Très bien, merci d'avoir utilisé le chat. Au revoir.",
+                'type'    => 'text'
+            ]);
     }
 
 }

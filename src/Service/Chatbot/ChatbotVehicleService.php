@@ -102,8 +102,8 @@ readonly class ChatbotVehicleService
             $session->set('chatbot_model',           $vehicle->getModel());
 
             return new JsonResponse([
-                'step'    => 'ask_problem',
-                'message' => "Pouvez-vous me décrire le problème rencontré ?",
+                'step'    => 'ask_mileage2',
+                'message' => "Quelle est le kilométrage actuelle du vehicule ?",
                 'type'    => 'text',
             ]);
         }
@@ -171,9 +171,10 @@ readonly class ChatbotVehicleService
         $session->set('chatbot_brand',           $vehicle->getBrand());
         $session->set('chatbot_model',           $vehicle->getModel());
 
+
         return new JsonResponse([
-            'step'    => 'ask_problem',
-            'message' => "Parfait, quel est le problème avec votre véhicule ?",
+            'step'    => 'ask_mileage2',
+            'message' => "Quelle est le kilométrage actuelle du vehicule ?",
             'type'    => 'text',
         ]);
     }
@@ -285,7 +286,48 @@ readonly class ChatbotVehicleService
             'type' => 'text'
         ]);
     }
-
+    public function handleMileage2(mixed $input, Request $request): JsonResponse
+    {
+        $mileage = $this->sanitizer->extractMileage((string)$input);
+    
+        if (!$mileage) {
+            return new JsonResponse([
+                'step' => 'ask_mileage2',
+                'message' => "Merci d’indiquer un nombre de kilomètres valide.",
+                'type' => 'text'
+            ]);
+        }
+    
+        $session = $request->getSession(); // <-- Correction ici
+        $session->set('chatbot_mileage', $mileage);
+    
+        // Trouver le véhicule
+        $plate = $session->get('chatbot_immatriculation');
+        $vehicle = $this->vehicleRepository->findOneBy(['immatriculation' => $plate]);
+    
+        if (!$vehicle) {
+            return new JsonResponse([
+                'step' => 'ask_plate',
+                'message' => "Aucun véhicule trouvé avec cette plaque. Veuillez vérifier l’immatriculation.",
+                'type' => 'text'
+            ]);
+        }
+    
+        // Mettre à jour le mileage
+        $vehicle->setMileage($mileage);
+    
+        // Sauvegarder en base de données
+        $this->em->persist($vehicle); // <-- $this->em est le bon nom ici
+        $this->em->flush();
+    
+        return new JsonResponse([
+            'step' => 'ask_problem',
+            'message' => "Pouvez-vous me décrire le problème rencontré ?",
+            'type' => 'text'
+        ]);
+    }
+    
+    
     public function handleCirculationDate(mixed $input, Request $request): JsonResponse
     {
         $date = $this->sanitizer->extractDate((string)$input);
@@ -397,7 +439,7 @@ readonly class ChatbotVehicleService
         return new JsonResponse([
             'step'    => 'choose_conductor',
             'message' => "Qui est le conducteur ?",
-            'type'    => 'checkbox',
+            'type'    => 'radio',
             'options' => $options,
         ]);
     }

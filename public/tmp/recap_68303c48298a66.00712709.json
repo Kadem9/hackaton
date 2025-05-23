@@ -1,0 +1,11 @@
+{
+    "firstname": "test",
+    "lastname": "test",
+    "vehicle": "RENAULT TWINGO 2 (BB234BB)",
+    "garage": "CAR AVENUE NANCY – 34 rue Haroun Tazieff Parc d'activités Saint Jacques II (54320 Maxéville)",
+    "slot": "28\/05\/2025 à 11h30",
+    "problem": "frien",
+    "operations": [
+        "diagnostic complet"
+    ]
+}

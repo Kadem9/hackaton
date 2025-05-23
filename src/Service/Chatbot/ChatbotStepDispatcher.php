@@ -59,6 +59,7 @@ readonly class ChatbotStepDispatcher
             'ask_brand'               => $this->vehicleService->handleBrand($input, $request, $user),
             'ask_model'               => $this->vehicleService->handleModel($input, $request),
             'ask_mileage'             => $this->vehicleService->handleMileage($input, $request),
+            'ask_mileage2'             => $this->vehicleService->handleMileage2($input, $request),
             'ask_circulation_date'    => $this->vehicleService->handleCirculationDate($input, $request),
             'ask_vin'                 => $this->vehicleService->handleVin($input, $request, $user),
             'ask_is_driver'           => $this->vehicleService->handleIsDriver($input, $request, $user),
@@ -88,6 +89,7 @@ readonly class ChatbotStepDispatcher
             'confirm_slot'            => $this->appointmentService->handleConfirmSlot($input, $request),
 
             // 8. RÉCAPITULATIF & VALIDATION
+            'ask_reminder'            => $this->appointmentService->handleReminder($input, $request),
             'confirm_final'           => $this->appointmentService->handleFinalConfirmation($input, $request),
             'confirm_appointment'     => $this->appointmentService->handleConfirmAppointment($input, $request, $user),
             'finalize_appointment'    => $this->appointmentService->handleFinalizeAppointment($input, $request),
