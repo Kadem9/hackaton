@@ -3,7 +3,6 @@
 namespace App\Service\Chatbot;
 
 use App\Entity\Conductor;
-use App\Entity\User;
 use App\Entity\Vehicle;
 use App\Normalizer\VehicleNormalizer;
 use App\Repository\VehicleRepository;
@@ -96,7 +95,11 @@ readonly class ChatbotVehicleService
         }
 
         if ($source === 'bdd') {
-            $session->set('chatbot_vehicle_id', $payload['vehicle_id']);
+            $vehicle = $this->vehicleRepository->find($payload['vehicle_id']);
+            $session->set('chatbot_vehicle_id',       $vehicle->getId());
+            $session->set('chatbot_immatriculation', $vehicle->getImmatriculation());
+            $session->set('chatbot_brand',           $vehicle->getBrand());
+            $session->set('chatbot_model',           $vehicle->getModel());
 
             return new JsonResponse([
                 'step'    => 'ask_problem',
@@ -124,7 +127,10 @@ readonly class ChatbotVehicleService
             $this->em->persist($vehicle);
             $this->em->flush();
 
-            $session->set('chatbot_vehicle_id', $vehicle->getId());
+            $session->set('chatbot_vehicle_id',       $vehicle->getId());
+            $session->set('chatbot_immatriculation', $vehicle->getImmatriculation());
+            $session->set('chatbot_brand',           $vehicle->getBrand());
+            $session->set('chatbot_model',           $vehicle->getModel());
 
             return new JsonResponse([
                 'step'    => 'ask_problem',
@@ -157,9 +163,13 @@ readonly class ChatbotVehicleService
 
         $vehicle = $this->vehicleRepository->findOneBy(['immatriculation' => $plate]);
         if (!$vehicle) {
+
         }
 
-        $session->set('chatbot_vehicle_id', $vehicle->getId());
+        $session->set('chatbot_vehicle_id',       $vehicle->getId());
+        $session->set('chatbot_immatriculation', $vehicle->getImmatriculation());
+        $session->set('chatbot_brand',           $vehicle->getBrand());
+        $session->set('chatbot_model',           $vehicle->getModel());
 
         return new JsonResponse([
             'step'    => 'ask_problem',

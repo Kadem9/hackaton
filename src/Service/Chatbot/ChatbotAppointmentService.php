@@ -342,6 +342,7 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
             'message' => "✅ Votre rendez-vous est bien enregistré pour le {$date->format('d/m/Y')} !",
             'type' => 'text'
         ]);
+
     }
 
 }

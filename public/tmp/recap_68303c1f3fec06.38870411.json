@@ -1,0 +1,11 @@
+{
+    "firstname": "Garnier",
+    "lastname": "Kadem",
+    "vehicle": "PEUGEOT CLIO 4 (OEOIOEZIO3)",
+    "garage": "6EME AVENUE LYON 3 – 82 Boulevard Marius Vivier Merle (69003 Lyon)",
+    "slot": "22\/05\/2025 à 11h30",
+    "problem": "Freins",
+    "operations": [
+        "Service liquide de freins"
+    ]
+}

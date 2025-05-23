@@ -18,6 +18,32 @@ readonly class ChatbotStepDispatcher
 
     public function dispatch(string $step, mixed $input, Request $request, ?UserInterface $user): JsonResponse
     {
+        $session = $request->getSession();
+
+        // je supp les variables si etape start
+        if ($step === 'start') {
+            foreach ([
+                         'chatbot_immatriculation',
+                         'chatbot_brand',
+                         'chatbot_model',
+                         'chatbot_mileage',
+                         'chatbot_date',
+                         'chatbot_vin',
+                         'chatbot_is_driver',
+                         'chatbot_conductor_id',
+                         'chatbot_vehicle_id',
+                         'chatbot_selected_garage',
+                         'chatbot_problem',
+                         'chatbot_selected_operations',
+                         'chatbot_appointment_date',
+                         'chatbot_slot',
+                         'chatbot_mode',
+                         'chatbot_slot_input',
+                     ] as $key) {
+                $session->remove($key);
+            }
+        }
+
         return match ($step) {
             // 1. VÉHICULE EXISTANT
             'start'                   => $this->vehicleService->handleStart($user),
