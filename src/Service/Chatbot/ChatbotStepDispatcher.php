@@ -62,6 +62,7 @@ readonly class ChatbotStepDispatcher
             'confirm_slot'            => $this->appointmentService->handleConfirmSlot($input, $request),
 
             // 8. RÉCAPITULATIF & VALIDATION
+            'ask_reminder'            => $this->appointmentService->handleReminder($input, $request),
             'confirm_final'           => $this->appointmentService->handleFinalConfirmation($input, $request),
             'confirm_appointment'     => $this->appointmentService->handleConfirmAppointment($input, $request, $user),
             'finalize_appointment'    => $this->appointmentService->handleFinalizeAppointment($input, $request),
