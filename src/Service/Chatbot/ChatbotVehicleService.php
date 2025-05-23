@@ -397,7 +397,7 @@ readonly class ChatbotVehicleService
         return new JsonResponse([
             'step'    => 'choose_conductor',
             'message' => "Qui est le conducteur ?",
-            'type'    => 'checkbox',
+            'type'    => 'radio',
             'options' => $options,
         ]);
     }

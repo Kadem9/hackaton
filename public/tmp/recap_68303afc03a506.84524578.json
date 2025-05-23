@@ -1,0 +1,12 @@
+{
+    "firstname": "test",
+    "lastname": "test",
+    "vehicle": "RENAULT TWINGO 2 (BB234BB)",
+    "garage": "6EME AVENUE VENISSIEUX – 3 Rue Louis Blanc (69200 Vénissieux)",
+    "slot": "27\/05\/2025 à 14h00",
+    "problem": "moteur",
+    "operations": [
+        "Service bougies d'allumage",
+        "Passage au banc de diagnostic"
+    ]
+}

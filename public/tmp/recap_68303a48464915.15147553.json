@@ -1,0 +1,12 @@
+{
+    "firstname": "test",
+    "lastname": "test",
+    "vehicle": "RENAULT CLIO 4 2019 (AA235AA)",
+    "garage": "6EME AVENUE LYON 3 – 82 Boulevard Marius Vivier Merle (69003 Lyon)",
+    "slot": "28\/05\/2025 à 14h30",
+    "problem": "frein",
+    "operations": [
+        "Service liquide de freins",
+        "Service plaquettes de frein arrière"
+    ]
+}

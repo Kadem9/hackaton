@@ -1,0 +1,12 @@
+{
+    "firstname": "test",
+    "lastname": "test",
+    "vehicle": "RENAULT TWINGO 2 (BB234BB)",
+    "garage": "6EME AVENUE LYON 3 – 82 Boulevard Marius Vivier Merle (69003 Lyon)",
+    "slot": "26\/05\/2025 à 14h00",
+    "problem": "frein",
+    "operations": [
+        "Service plaquettes de frein avant",
+        "Service Plaquettes + Disques de frein Avant"
+    ]
+}
