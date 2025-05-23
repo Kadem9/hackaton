@@ -241,6 +241,9 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
     $appointment = new Appointment();
     $appointment->setVehicle($vehicle);
     $appointment->setDate($date);
+    $appointment->setReason($session->get('chatbot_problem'));
+    $appointment->setGarage($session->get('chatbot_selected_garage'));
+    $appointment->setRecommandations(implode(', ', $session->get('chatbot_selected_operations', [])));
 
     $this->em->persist($appointment);
     $this->em->flush();
@@ -333,6 +336,9 @@ public function handleConfirmAppointment(string $input, Request $request, ?UserI
         $appointment = new Appointment();
         $appointment->setVehicle($vehicle);
         $appointment->setDate($date);
+        $appointment->setReason($session->get('chatbot_problem'));
+        $appointment->setGarage($session->get('chatbot_selected_garage'));
+        $appointment->setRecommandations(implode(', ', $session->get('chatbot_selected_operations', [])));
 
         $this->em->persist($appointment);
         $this->em->flush();
