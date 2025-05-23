@@ -162,7 +162,7 @@ public function __construct(
             . "Souhaitez-vous confirmer ce rendez-vous ?";
 
         return new JsonResponse([
-            'step'    => 'confirm_final',
+            'step'    => 'confirm_appointment',
             'message' => $recap,
             'type'    => 'confirm',
         ]);
